@@ -1,0 +1,24 @@
+{
+  "id": "conv-1777971385726-qe22varir",
+  "providerId": "claude",
+  "title": "I appreciate the greeting! However, \"hello\" doe...",
+  "titleGenerationStatus": "success",
+  "createdAt": 1777971385730,
+  "updatedAt": 1777971772870,
+  "lastResponseAt": 1777971772870,
+  "sessionId": "7540c338-f6d8-4d2b-9185-eb7f9d8e0123",
+  "providerState": {
+    "providerSessionId": "7540c338-f6d8-4d2b-9185-eb7f9d8e0123"
+  },
+  "currentNote": "README.md",
+  "usage": {
+    "model": "sonnet",
+    "inputTokens": 1,
+    "cacheCreationInputTokens": 382,
+    "cacheReadInputTokens": 16039,
+    "contextWindow": 200000,
+    "contextTokens": 16422,
+    "percentage": 8,
+    "contextWindowIsAuthoritative": true
+  }
+}
