@@ -4,21 +4,20 @@
   "title": "I appreciate the greeting! However, \"hello\" doe...",
   "titleGenerationStatus": "success",
   "createdAt": 1777971385730,
-  "updatedAt": 1777971772870,
-  "lastResponseAt": 1777971772870,
+  "updatedAt": 1778315015125,
+  "lastResponseAt": 1778315015125,
   "sessionId": "7540c338-f6d8-4d2b-9185-eb7f9d8e0123",
   "providerState": {
     "providerSessionId": "7540c338-f6d8-4d2b-9185-eb7f9d8e0123"
   },
-  "currentNote": "README.md",
   "usage": {
     "model": "sonnet",
     "inputTokens": 1,
-    "cacheCreationInputTokens": 382,
-    "cacheReadInputTokens": 16039,
+    "cacheCreationInputTokens": 249,
+    "cacheReadInputTokens": 22928,
     "contextWindow": 200000,
-    "contextTokens": 16422,
-    "percentage": 8,
+    "contextTokens": 23178,
+    "percentage": 12,
     "contextWindowIsAuthoritative": true
   }
 }

@@ -46,7 +46,7 @@ wiki_page:              # e.g. "[[wiki/sources/{{citekey}}]]"
 ## 高亮颜色约定（个人 convention）
 
 > 🟡 **Yellow** = 关键论点 / takeaway
-> 🔴 **Red** = 我有异议 / 可疑结论
+> 🔴 **Red** = 我有异议 / 可疑结论 / 论文改进点
 > 🟢 **Green** = 可借鉴的方法 / 公式 / trick
 > 🔵 **Blue** = 后续要追溯的引用
 > 🟣 **Purple** = 与我 thesis 直接相关
