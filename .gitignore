@@ -1,2 +1,7 @@
 .obsidian/workspace.json
 .obsidian/workspace-mobile.json
+
+# Claudian plugin runtime state（每次会话都会变，纯噪声）
+.claudian/sessions/
+.claudian/claudian-settings.json
+.obsidian/plugins/claudian/data.json
