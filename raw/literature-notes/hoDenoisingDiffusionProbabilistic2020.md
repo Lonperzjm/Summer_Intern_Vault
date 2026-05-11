@@ -1,22 +1,25 @@
 ---
 type: literature-note
 citekey: hoDenoisingDiffusionProbabilistic2020
-title: "Denoising Diffusion Probabilistic Models"
-aliases: ["@hoDenoisingDiffusionProbabilistic2020"]
-authors: "Jonathan Ho, Ajay Jain, Pieter Abbeel"
-firstAuthor: "Ho"
+title: Denoising Diffusion Probabilistic Models
+aliases:
+  - "@hoDenoisingDiffusionProbabilistic2020"
+authors: Jonathan Ho, Ajay Jain, Pieter Abbeel
+firstAuthor: Ho
 year: 2020
 itemType: preprint
-doi: "10.48550/arXiv.2006.11239"
-url: "http://arxiv.org/abs/2006.11239"
-zotero: "zotero://select/library/items/QWX957DH"
-tags: [literature, todo]
-status: unread          # unread | reading | read | skimmed | archived
-priority: P2            # P0 must-read | P1 important | P2 normal | P3 maybe
-my-rating:              # 1-5，读完再填
+doi: 10.48550/arXiv.2006.11239
+url: http://arxiv.org/abs/2006.11239
+zotero: zotero://select/library/items/QWX957DH
+tags:
+  - literature
+  - todo
+status: unread
+priority: P2
+my-rating:
 created: 2026-05-10
-updated: 2026-05-10
-ingested_to_wiki: true  # 由 Claude Code 在 ingest 后改为 true，并写入 wiki_page 链接
+updated: 2026-05-11
+ingested_to_wiki: true
 wiki_page: "[[wiki/sources/hoDenoisingDiffusionProbabilistic2020]]"
 ---
 
@@ -33,9 +36,11 @@ wiki_page: "[[wiki/sources/hoDenoisingDiffusionProbabilistic2020]]"
 ## 为什么要读 / 期望
 
 <!-- 在读之前写：你想从这篇里得到什么？哪个 idea 让你点开它？哪个 [[wiki/concepts/...]] 或 [[wiki/methods/...]] 与之相关？ -->
+
+%% begin why-read %%
 - 了解diffusion是为什么流行的，初步来看，是因为他即是全局的，也是渐进的。
 - 了解基础
-
+%% end why-read %%
 
 ## 高亮颜色约定（个人 convention）
 
@@ -73,12 +78,21 @@ wiki_page: "[[wiki/sources/hoDenoisingDiffusionProbabilistic2020]]"
 - 🔴 **p.5** — However, we found it beneficial to sample quality (and simpler to implement) to train on the following variant of the variational bound [⤴](zotero://open-pdf/library/items/ZDDVEK6X?page=5&annotation=W8RDAPEB)
 
 - 🟡 **p.5** — Lsimple(θ) := Et,x0,  [∥ ∥ − θ(√α ̄tx0 + √1 − α ̄t , t)∥  ∥  2  ] [⤴](zotero://open-pdf/library/items/ZDDVEK6X?page=5&annotation=YL8J6AGS)
+### Imported 2026-05-11 16:31
+
+- 🟡 **p.6** — 4.3 Progressive coding [⤴](zotero://open-pdf/library/items/ZDDVEK6X?page=6&annotation=3L5SF487)
+
+### Imported 2026-05-11 17:08
+
+- 🟡 **p.6** — 4.3 Progressive coding [⤴](zotero://open-pdf/library/items/ZDDVEK6X?page=6&annotation=3L5SF487)
 
 %% end annotations %%
 
 ## 我的总结（读完后填）
 
 <!-- 三到五条要点。这一段 Claude Code 会在 ingest 时直接拿来开场讨论。 -->
+
+%% begin my-summary %%
 1. 文章做了什么
 	1. 证明 diffusion model 可以生成高质量图像
 	2. 提出/强调一种有效的参数化方式：预测噪声
@@ -92,32 +106,50 @@ wiki_page: "[[wiki/sources/hoDenoisingDiffusionProbabilistic2020]]"
 	2. Reverse process：  
 		学习反向去噪过程，从纯噪声逐步生成图像。  
 	3. 训练时：  
-		输入带噪图像 xt 和时间步 t，预测噪声 epsilon（主要改进）。  
+		1. 从数据集中取真实图像 x0
+		2. 随机采样时间步 t
+		3. 采样高斯噪声 ε
+		4. 构造 xt = sqrt(alpha_bar_t)x0 + sqrt(1-alpha_bar_t)ε
+		5. 把 xt 和 t 输入 U-Net
+		6. 模型输出 εθ(xt,t)
+		7. 用 MSE 让 εθ 接近真实噪声 ε  
 	4. 采样时：  
-		从高斯噪声 xT 开始，逐步去噪得到 x0。
+		1. 从随机噪声 xT 开始
+		2. 模型预测当前噪声图里的噪声
+		3. 根据预测噪声去掉一部分噪声
+		4. 再加入适当随机性
+		5. 重复 1000 步左右
+		6. 得到清晰图像 x0。
 4. 具体算法 ![[hoDenoisingDiffusionProbabilistic2020-1778421475909.webp]]
 5. 学会了用渐进与全局的思想生成图像，感受到resnet叔叔强大的适配性。
+%% end my-summary %%
 
 ## 与已有 wiki 的关系
 
 <!-- 用 wikilink 把这篇与已有页面挂上钩；空着也行，ingest 时让 Claude Code 补全。 -->
 
+%% begin wiki-links %%
 - 概念：[[wiki/concepts/]]
 - 方法：[[wiki/methods/]]
 - 实体（作者 / 模型 / 机构）：[[wiki/entities/]]
 - 基线 / 对比：
+%% end wiki-links %%
 
 ## 对我的 thesis 的启示
 
 <!-- 是否会让 [[wiki/overview]] 的 working thesis 移动？为什么？ -->
 
-- 
+%% begin thesis-implication %%
+-
+%% end thesis-implication %%
 
 ## Open questions / 后续要查的引用
 
 <!-- 从蓝色高亮里捞出来的"待追"清单。 -->
 
+%% begin open-questions %%
 - [ ]
+%% end open-questions %%
 
 ---
 
@@ -127,4 +159,4 @@ wiki_page: "[[wiki/sources/hoDenoisingDiffusionProbabilistic2020]]"
 > 它会读取我的高亮 + 总结 + 关系，生成 `wiki/sources/hoDenoisingDiffusionProbabilistic2020.md`，并把本文件 frontmatter 的 `ingested_to_wiki` 改为 `true`、`wiki_page` 填好。
 
 
-%% Import Date: 2026-05-10T21:55:11.342+08:00 %%
+%% Import Date: 2026-05-11T17:08:39.454+08:00 %%

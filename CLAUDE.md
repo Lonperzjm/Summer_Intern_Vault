@@ -89,6 +89,12 @@ sources: ["[[sources/instructpix2pix]]"]   # 仅 wiki 页用，列出该页所�
 - **annotation 颜色按约定解读**：🟡 关键论点 / 🔴 异议 / 🟢 可借鉴方法 / 🔵 待追引用 / 🟣 与 thesis 直接相关 / ⚫ 背景。生成 wiki 页时，🟣 的内容必须流入"对我的 thesis 的启示"，🔵 必须流入"待调研方向"
 - **`raw/papers/` 中的 PDF 是只读交叉验证源**：当用户的 takeaway 与某条 annotation 看似冲突，或缺少必要细节（公式、数字）时，再去读对应 PDF
 - **ingest 完成后回填 frontmatter**：把 `raw/literature-notes/<citekey>.md` 的 `ingested_to_wiki: false` 改为 `true`，并把 `wiki_page` 填上 `"[[wiki/sources/<citekey>]]"`，`updated` 刷新为今天 —— 这是允许 LLM 修改 raw 区的**唯一例外**，因为这两个字段是工作流元数据，不是内容
+- **re-import 之后的回填**：Zotero Integration 的 `{% persist %}` 机制保留**正文 5 段**（`why-read` / `my-summary` / `wiki-links` / `thesis-implication` / `open-questions`）和 annotations，但**不保留 frontmatter**。所以 re-import 会把 `status` / `priority` / `my-rating` / `ingested_to_wiki` / `wiki_page` / `created` 重置为模板默认值（其中 `created` 会被刷成当天 importDate，语义上错误）。**当用户在 re-import 之后再次触发 ingest 时**（或用户显式要求修复 frontmatter 时）：Claude 必须自动回填以下三字段：
+  - `ingested_to_wiki: true`
+  - `wiki_page: "[[wiki/sources/<citekey>]]"`
+  - `created`：从 `wiki/sources/<citekey>.md` 的 `created` 读回（那才是真实首次 ingest 日期）
+
+  其余 `status` / `priority` / `my-rating` 三字段不动，由用户自己重设。`updated` 字段刷新为今天。
 
 ## 6. Query 工作流（用户："query: <问题>"）
 

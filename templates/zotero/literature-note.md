@@ -41,7 +41,9 @@ wiki_page:              # e.g. "[[wiki/sources/{{citekey}}]]"
 
 <!-- 在读之前写：你想从这篇里得到什么？哪个 idea 让你点开它？哪个 [[wiki/concepts/...]] 或 [[wiki/methods/...]] 与之相关？ -->
 
+{% persist "why-read" %}
 -
+{% endpersist %}
 
 ## 高亮颜色约定（个人 convention）
 
@@ -84,30 +86,38 @@ wiki_page:              # e.g. "[[wiki/sources/{{citekey}}]]"
 
 <!-- 三到五条要点。这一段 Claude Code 会在 ingest 时直接拿来开场讨论。 -->
 
+{% persist "my-summary" %}
 1.
 2.
 3.
+{% endpersist %}
 
 ## 与已有 wiki 的关系
 
 <!-- 用 wikilink 把这篇与已有页面挂上钩；空着也行，ingest 时让 Claude Code 补全。 -->
 
+{% persist "wiki-links" %}
 - 概念：[[wiki/concepts/]]
 - 方法：[[wiki/methods/]]
 - 实体（作者 / 模型 / 机构）：[[wiki/entities/]]
 - 基线 / 对比：
+{% endpersist %}
 
 ## 对我的 thesis 的启示
 
 <!-- 是否会让 [[wiki/overview]] 的 working thesis 移动？为什么？ -->
 
+{% persist "thesis-implication" %}
 -
+{% endpersist %}
 
 ## Open questions / 后续要查的引用
 
 <!-- 从蓝色高亮里捞出来的"待追"清单。 -->
 
+{% persist "open-questions" %}
 - [ ]
+{% endpersist %}
 
 ---
 
