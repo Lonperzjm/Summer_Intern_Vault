@@ -96,6 +96,30 @@ sources: ["[[sources/instructpix2pix]]"]   # 仅 wiki 页用，列出该页所�
 
   其余 `status` / `priority` / `my-rating` 三字段不动，由用户自己重设。`updated` 字段刷新为今天。
 
+### 5.2 Refill 工作流（用户："refill <citekey>" 或仅 "refill"）
+
+re-import 已 ingest 过的文献后的快速修复命令。**不是新 ingest**，只回填 frontmatter。
+
+**触发**：
+- `refill <citekey>` —— 显式
+- `refill` —— 若 `<current_note>` 是 `raw/literature-notes/*.md`，用其 citekey；否则要求用户指明
+- `refill <path>` —— 也接受完整路径
+
+**执行步骤**：
+1. 校验 `wiki/sources/<citekey>.md` 存在。**不存在则报错**："这篇还没 ingest 过，请改用 `ingest raw/literature-notes/<citekey>.md`"，停止。
+2. 读 `raw/literature-notes/<citekey>.md` 当前 frontmatter；读 `wiki/sources/<citekey>.md` 的 `created` 字段
+3. 修改 raw 笔记的 4 个字段：
+   - `ingested_to_wiki: true`
+   - `wiki_page: "[[wiki/sources/<citekey>]]"`
+   - `created: <从 wiki source 读回的日期>`
+   - `updated: <今天>`
+4. **不动** `status` / `priority` / `my-rating`
+5. 报告改了什么（简短 diff 形式）
+
+**不写 `log.md`**：refill 是 re-import 后的常规维护，不是知识层事件。
+
+**实现上**：refill 修改 raw 区，是 §5.1 中"raw 只读"规则的同一例外（同四个字段：`ingested_to_wiki` / `wiki_page` / `updated` / `created`）。
+
 ## 6. Query 工作流（用户："query: <问题>"）
 
 1. 先读 `index.md` 定位相关页
