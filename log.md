@@ -2,6 +2,16 @@
 
 > Append-only 时间线。每条 entry 以 `## [YYYY-MM-DD] <op> | <subject>` 起始，便于 `grep "^## \[" log.md | tail`。
 
+## [2026-05-14] lint | wiki 全量 lint：修正 DDIM 年份矛盾、填充 overview 待调研方向、补 4 个 stub 页
+- created: `wiki/methods/ncsn.md`、`wiki/methods/diffusion-2015.md`、`wiki/concepts/classifier-free-guidance.md`、`wiki/concepts/score-sde.md` —— Missing 项：被多页频繁提及但无独立页面的术语，建为 stub 待 ingest 原文扩充
+- updated: `wiki/sources/hoDenoisingDiffusionProbabilistic2020.md` —— C1：DDIM 年份 "Song 2021" → "Song et al., arXiv 2020 / ICLR 2021"；上下游引用改为 wikilink
+- updated: `wiki/overview.md` —— S1：「待调研方向」从占位符填充为 6 条（score-based 上游 / Score SDE / CFG / DDIM 加速线 / 训练目标调参级修改 / 编辑方法族本体）；S2：`status` draft → active；NCSN / CFG 改 wikilink
+- updated: `wiki/concepts/diffusion-process.md`、`wiki/concepts/score-matching.md`、`wiki/concepts/langevin-dynamics.md`、`wiki/methods/ddpm.md`、`wiki/entities/jonathan-ho.md` —— 反链：把 NCSN / Sohl-Dickstein 2015 / Score SDE / CFG 的纯文字引用改为指向新 stub 页的 wikilink
+- updated: `index.md` —— 刷新 updated（新页由 Dataview 自动收录）
+- updated: `wiki/sources/hoDenoisingDiffusionProbabilistic2020.md` —— G2：删除无意义的空 `sources: []` 字段
+- updated: `CLAUDE.md` §4 —— G2：新增 `source` 类型页例外说明（用 `raw:` 不用 `sources:`）
+- 未处理（留给用户）：G1 空文件 `raw/notes/NoT Transformer in Noiser.md`（用户决定忽略）；G3 raw 文献笔记的空 wiki-links 占位段（用户手填）
+
 ## [2026-05-11] refactor | index.md 新增"📚 阅读清单"
 - updated: `index.md` —— 在 Overview 之后插入 literature-notes 阅读看板，包含 4 个 Dataview 子块：🔥 优先阅读（P0/P1 未读完）/ 📖 在读 / ⭐ 高分已读 / 📋 全部 literature notes；附 status/priority/my-rating 字段速查
 

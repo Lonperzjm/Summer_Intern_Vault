@@ -5,7 +5,7 @@ aliases: [forward process, reverse process, 加噪链, 去噪链]
 tags: [diffusion, foundational]
 status: active
 created: 2026-05-10
-updated: 2026-05-10
+updated: 2026-05-14
 sources: ["[[wiki/sources/hoDenoisingDiffusionProbabilistic2020]]"]
 ---
 
@@ -52,10 +52,10 @@ $$p_\theta(x_{t-1}\mid x_t) = \mathcal{N}(x_{t-1};\,\mu_\theta(x_t,t),\,\Sigma_\
 
 ## 局限 / Open questions
 
-- "$\beta_t$ 小 ⇒ reverse 也是 Gaussian"在离散链上是渐近论；连续时间极限（SDE 视角）由 Score SDE 严格化，但离散链 $T=1000$ 是否"足够小"是经验判断
-- 待补：连续时间 SDE 极限小节，引用 Song et al. 2021
+- "$\beta_t$ 小 ⇒ reverse 也是 Gaussian"在离散链上是渐近论；连续时间极限（SDE 视角）由 [[wiki/concepts/score-sde|Score SDE]] 严格化，但离散链 $T=1000$ 是否"足够小"是经验判断
+- 待补：连续时间 SDE 极限小节，引用 [[wiki/concepts/score-sde|Song et al. 2021]]
 
 ## 出处与引用
 
 - [[wiki/sources/hoDenoisingDiffusionProbabilistic2020]]（forward/reverse 闭式、$\tilde\mu_t,\tilde\beta_t$）
-- 上游：Sohl-Dickstein et al. 2015
+- 上游：[[wiki/methods/diffusion-2015|Sohl-Dickstein et al. 2015]]

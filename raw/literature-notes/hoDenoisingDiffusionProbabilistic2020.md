@@ -14,9 +14,9 @@ zotero: zotero://select/library/items/QWX957DH
 tags:
   - literature
   - todo
-status: unread
-priority: P2
-my-rating:
+status: read
+priority: P1
+my-rating: "5"
 created: 2026-05-10
 updated: 2026-05-11
 ingested_to_wiki: true
@@ -129,10 +129,12 @@ wiki_page: "[[wiki/sources/hoDenoisingDiffusionProbabilistic2020]]"
 <!-- 用 wikilink 把这篇与已有页面挂上钩；空着也行，ingest 时让 Claude Code 补全。 -->
 
 %% begin wiki-links %%
-- 概念：[[wiki/concepts/]]
-- 方法：[[wiki/methods/]]
-- 实体（作者 / 模型 / 机构）：[[wiki/entities/]]
-- 基线 / 对比：
+- 概念：[[wiki/concepts/diffusion-process]]、[[wiki/concepts/epsilon-parameterization]]、
+  [[wiki/concepts/variational-bound-elbo]]、[[wiki/concepts/score-matching]]、
+  [[wiki/concepts/langevin-dynamics]]、[[wiki/concepts/reparameterization-trick]]
+- 方法：[[wiki/methods/ddpm]]
+- 实体：[[wiki/entities/jonathan-ho]]、[[wiki/entities/pieter-abbeel]]、[[wiki/entities/uc-berkeley]]
+- 基线 / 对比：[[wiki/methods/ncsn]]、[[wiki/methods/diffusion-2015]]（上游对照）
 %% end wiki-links %%
 
 ## 对我的 thesis 的启示

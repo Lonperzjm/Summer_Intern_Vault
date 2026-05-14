@@ -5,13 +5,12 @@ aliases: [DDPM, "Ho et al. 2020", hoDenoisingDiffusionProbabilistic2020]
 tags: [diffusion, generative-model, foundational]
 status: stable
 created: 2026-05-10
-updated: 2026-05-10
+updated: 2026-05-14
 raw: "[[raw/literature-notes/hoDenoisingDiffusionProbabilistic2020]]"
 authors: [Jonathan Ho, Ajay Jain, Pieter Abbeel]
 venue: NeurIPS
 year: 2020
 arxiv: "2006.11239"
-sources: []
 ---
 
 # Denoising Diffusion Probabilistic Models (DDPM)
@@ -105,8 +104,8 @@ $$
   - [[wiki/concepts/score-matching]]、[[wiki/concepts/langevin-dynamics]] —— 与 NCSN 框架的等价
   - [[wiki/concepts/reparameterization-trick]] —— forward 闭式采样
 - 基准：[[wiki/benchmarks/cifar10]]、[[wiki/benchmarks/lsun]]
-- 上游：Sohl-Dickstein et al. 2015（diffusion 原型）；Song & Ermon 2019（NCSN, score-based）
-- 下游：DDIM (Song 2021)、IDDPM (Nichol & Dhariwal 2021)、Score SDE (Song 2021)、Classifier-Free Guidance (Ho & Salimans 2022)、Stable Diffusion / Latent Diffusion 等几乎所有现代 diffusion 工作
+- 上游：[[wiki/methods/diffusion-2015|Sohl-Dickstein et al. 2015]]（diffusion 原型）；[[wiki/methods/ncsn|Song & Ermon 2019]]（NCSN, score-based）
+- 下游：DDIM (Song et al., arXiv 2020 / ICLR 2021)、IDDPM (Nichol & Dhariwal 2021)、[[wiki/concepts/score-sde|Score SDE]] (Song et al. 2021)、[[wiki/concepts/classifier-free-guidance|Classifier-Free Guidance]] (Ho & Salimans 2022)、Stable Diffusion / Latent Diffusion 等几乎所有现代 diffusion 工作
 
 ## 对我的 thesis 的启示
 
@@ -115,7 +114,7 @@ $$
 
 ## Open questions / 待追
 
-- [ ] $\beta_t$ 小 ⇒ 反向高斯近似的严格 SDE 推导（你 🔴 的疑虑）—— 应在 [[wiki/concepts/diffusion-process]] 中补"连续时间极限"小节，参考 Song et al. 2021 (Score SDE)
+- [ ] $\beta_t$ 小 ⇒ 反向高斯近似的严格 SDE 推导（你 🔴 的疑虑）—— 应在 [[wiki/concepts/diffusion-process]] 中补"连续时间极限"小节，参考 [[wiki/concepts/score-sde]] (Song et al. 2021)
 - [ ] $L_\mathrm{simple}$ 为什么经验上比加权 ELBO 更好？理论解释 / 是否与 noise schedule 选择耦合
-- [ ] Sohl-Dickstein 2015 的精确推导链（你 🔵 标注 §2 Background 的"待追"）
+- [ ] [[wiki/methods/diffusion-2015|Sohl-Dickstein 2015]] 的精确推导链（你 🔵 标注 §2 Background 的"待追"）
 - [ ] $\Sigma_\theta$ 学习与不学习的 trade-off（IDDPM 在这条线上做了正面攻击）

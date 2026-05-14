@@ -5,7 +5,7 @@ aliases: [DDPM]
 tags: [diffusion, foundational]
 status: stable
 created: 2026-05-10
-updated: 2026-05-10
+updated: 2026-05-14
 sources: ["[[wiki/sources/hoDenoisingDiffusionProbabilistic2020]]"]
 family: other
 ---
@@ -60,17 +60,17 @@ return x_0
 **限制**：
 - 采样慢：需 $T$ 步前向（DDPM 默认 1000 步）→ 后续 DDIM/扩散蒸馏/Consistency Models 攻击此点
 - NLL 略差于纯 ELBO 训练（IDDPM 通过学习 $\Sigma_\theta$ 缓解）
-- 条件控制原生不支持，需 classifier guidance / classifier-free guidance 等扩展
+- 条件控制原生不支持，需 classifier guidance / [[wiki/concepts/classifier-free-guidance|classifier-free guidance]] 等扩展
 
 ## Failure modes
 
 - 高 SNR 段（$t$ 小）的 $L_\mathrm{simple}$ 项数值条件差 → v-prediction 部分缓解
-- 反向高斯近似的合法性依赖小 $\beta_t$；Score SDE 视角下需仔细处理离散误差
+- 反向高斯近似的合法性依赖小 $\beta_t$；[[wiki/concepts/score-sde|Score SDE]] 视角下需仔细处理离散误差
 
 ## 关联
 
 - 概念：[[wiki/concepts/diffusion-process]]、[[wiki/concepts/variational-bound-elbo]]、[[wiki/concepts/epsilon-parameterization]]、[[wiki/concepts/score-matching]]、[[wiki/concepts/langevin-dynamics]]、[[wiki/concepts/reparameterization-trick]]
-- 上游：Sohl-Dickstein 2015；Song & Ermon 2019 (NCSN)
-- 下游（直接继承 DDPM 训练形式）：DDIM、IDDPM、Score SDE、ADM (Dhariwal & Nichol)、CFG、Imagen、Stable Diffusion / LDM、几乎所有 text-guided editing 方法
+- 上游：[[wiki/methods/diffusion-2015|Sohl-Dickstein 2015]]；[[wiki/methods/ncsn|Song & Ermon 2019]] (NCSN)
+- 下游（直接继承 DDPM 训练形式）：DDIM、IDDPM、[[wiki/concepts/score-sde|Score SDE]]、ADM (Dhariwal & Nichol)、[[wiki/concepts/classifier-free-guidance|CFG]]、Imagen、Stable Diffusion / LDM、几乎所有 text-guided editing 方法
 - 出处：[[wiki/sources/hoDenoisingDiffusionProbabilistic2020]]
 - 评测：[[wiki/benchmarks/cifar10]]、[[wiki/benchmarks/lsun]]

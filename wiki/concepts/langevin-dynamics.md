@@ -5,7 +5,7 @@ aliases: [Langevin sampling, annealed Langevin]
 tags: [sampling, score-based]
 status: active
 created: 2026-05-10
-updated: 2026-05-10
+updated: 2026-05-14
 sources: ["[[wiki/sources/hoDenoisingDiffusionProbabilistic2020]]"]
 ---
 
@@ -19,7 +19,7 @@ sources: ["[[wiki/sources/hoDenoisingDiffusionProbabilistic2020]]"]
 
 $$x_{k+1} = x_k + \frac{\eta}{2}\nabla_x \log p(x_k) + \sqrt{\eta}\,z_k,\quad z_k\sim\mathcal{N}(0,I)$$
 
-直接用在数据分布上有低密度区域 mixing 慢的问题。**Annealed Langevin**（Song & Ermon 2019）改为在一族多噪声尺度 $\{\sigma_i\}$ 上从大到小依次采样，每尺度跑若干步 Langevin，类似 simulated annealing。
+直接用在数据分布上有低密度区域 mixing 慢的问题。**Annealed Langevin**（[[wiki/methods/ncsn|Song & Ermon 2019]]）改为在一族多噪声尺度 $\{\sigma_i\}$ 上从大到小依次采样，每尺度跑若干步 Langevin，类似 simulated annealing。
 
 DDPM 的 reverse step 与 annealed Langevin 在 ε-prediction 框架下结构同构（差一个尺度因子，见 [[wiki/concepts/score-matching]]）。
 
@@ -35,5 +35,5 @@ DDPM 的 reverse step 与 annealed Langevin 在 ε-prediction 框架下结构同
 
 ## 出处与引用
 
-- Welling & Teh 2011（SGLD）；Song & Ermon 2019（annealed Langevin / NCSN）
+- Welling & Teh 2011（SGLD）；[[wiki/methods/ncsn|Song & Ermon 2019]]（annealed Langevin / NCSN）
 - [[wiki/sources/hoDenoisingDiffusionProbabilistic2020]] §4.2

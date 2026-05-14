@@ -66,6 +66,7 @@ sources: ["[[sources/instructpix2pix]]"]   # 仅 wiki 页用，列出该页所�
 
 - `status` 含义：`draft` 初稿；`active` 正在阅读相关文献中持续更新；`stable` 暂时稳定；`stale` 已被新源推翻或过时
 - 链接一律用 Obsidian wikilink：`[[concepts/score-matching]]`，便于 Graph view 与反链
+- **`source` 类型页例外**：source 页本身即「源」，**不用 `sources:` 字段**；改用 `raw:` 指向原始资料（`[[raw/...]]`），并附书目字段 `authors / venue / year / arxiv`。`sources:` 仅用于 `concept / method / entity / benchmark / comparison / synthesis` 等非 source 页，列出其所依赖的 source 页
 
 ## 5. Ingest 工作流（用户："ingest <path>"）
 

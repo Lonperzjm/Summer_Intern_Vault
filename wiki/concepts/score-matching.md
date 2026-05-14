@@ -5,7 +5,7 @@ aliases: [denoising score matching, DSM, score-based]
 tags: [diffusion, score-based]
 status: active
 created: 2026-05-10
-updated: 2026-05-10
+updated: 2026-05-14
 sources: ["[[wiki/sources/hoDenoisingDiffusionProbabilistic2020]]"]
 ---
 
@@ -43,13 +43,13 @@ DDPM 的 $L_\mathrm{simple}$ 即一种带特定权重的 multi-noise-level DSM�
 
 - 采样：score 给出 [[wiki/concepts/langevin-dynamics]] 步进的方向
 - 与 [[wiki/concepts/variational-bound-elbo]] 在 diffusion 框架下殊途同归
-- 在 SDE 视角下统一为 score-based generative modeling（Song et al. 2021）
+- 在 SDE 视角下统一为 score-based generative modeling（[[wiki/concepts/score-sde|Song et al. 2021]]）
 
 ## 在 text-guided editing 中的作用
 
-- 提供"editing = 在 score 场中沿条件方向行走"的几何直觉；Classifier-Free Guidance 可视作把 score 替换为 $s_\theta(x_t,t,c) + w(s_\theta(x_t,t,c)-s_\theta(x_t,t,\emptyset))$
+- 提供"editing = 在 score 场中沿条件方向行走"的几何直觉；[[wiki/concepts/classifier-free-guidance|Classifier-Free Guidance]] 可视作把 score 替换为 $s_\theta(x_t,t,c) + w(s_\theta(x_t,t,c)-s_\theta(x_t,t,\emptyset))$
 
 ## 出处与引用
 
-- Vincent 2011（DSM）；Hyvärinen 2005（ISM）；Song & Ermon 2019（NCSN，多噪声尺度 DSM）
+- Vincent 2011（DSM）；Hyvärinen 2005（ISM）；[[wiki/methods/ncsn|Song & Ermon 2019]]（NCSN，多噪声尺度 DSM）
 - [[wiki/sources/hoDenoisingDiffusionProbabilistic2020]] §3.2 与 §4.2 建立桥
