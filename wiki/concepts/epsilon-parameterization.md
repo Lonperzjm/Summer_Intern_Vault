@@ -5,7 +5,7 @@ aliases: [epsilon prediction, noise prediction, ε-pred]
 tags: [diffusion, training-objective, parameterization]
 status: stable
 created: 2026-05-10
-updated: 2026-05-10
+updated: 2026-05-14
 sources: ["[[wiki/sources/hoDenoisingDiffusionProbabilistic2020]]"]
 ---
 
@@ -35,7 +35,7 @@ $$L_{t-1} - C = \mathbb{E}_{x_0,\varepsilon}\!\left[\frac{\beta_t^2}{2\sigma_t^2
 |---|---|---|
 | $\mu_\theta(x_t,t)$ | 直接预测 reverse 均值 | DDPM 之前的默认；训练数值不稳 |
 | $\varepsilon_\theta(x_t,t)$ | 预测注入噪声 | **DDPM 的选择**；与 score matching 等价 |
-| $x_0$（"data prediction"） | 预测原图 | DDIM、v-prediction 系常见 |
+| $x_0$（"data prediction"） | 预测原图 | v-prediction / 部分蒸馏工作常见；[[wiki/methods/ddim|DDIM]] 本身仍训练 / 复用 ε 网络，只是把更新式经由"预测的 $x_0$"$f_\theta^{(t)}(x_t)$ 表达 |
 | $v_\theta = \sqrt{\bar\alpha_t}\varepsilon - \sqrt{1-\bar\alpha_t}x_0$ | "v-prediction" | Salimans & Ho 2022；高 SNR 段更稳 |
 
 三者通过 $x_t,\bar\alpha_t$ 互推。**选择哪一个**会影响不同噪声尺度上的 loss 权重和数值条件数，进而影响最终质量。
@@ -49,7 +49,7 @@ $$L_{t-1} - C = \mathbb{E}_{x_0,\varepsilon}\!\left[\frac{\beta_t^2}{2\sigma_t^2
 ## 在 text-guided editing 中的作用
 
 - **事实标准**：从 Imagen / Stable Diffusion 到 InstructPix2Pix，几乎所有现代 text-guided diffusion 都训练 ε-pred；编辑算法的差异主要在条件注入、inversion、guidance，而非底层目标
-- 因此 thesis 可以默认 ε-pred 为基础设施层
+- 在 [[wiki/overview]] 的可变性光谱中，ε-pred 属"可演化但非主战场"一档：训练目标确实在变（ε → v → 速度场），但不是 thesis 的研究杠杆
 
 ## 出处与引用
 

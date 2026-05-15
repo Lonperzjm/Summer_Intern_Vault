@@ -43,7 +43,7 @@ DDPM 的 $L_\mathrm{simple}$ 即一种带特定权重的 multi-noise-level DSM�
 
 - 采样：score 给出 [[wiki/concepts/langevin-dynamics]] 步进的方向
 - 与 [[wiki/concepts/variational-bound-elbo]] 在 diffusion 框架下殊途同归
-- 在 SDE 视角下统一为 score-based generative modeling（[[wiki/concepts/score-sde|Song et al. 2021]]）
+- 在 SDE 视角下统一为 score-based generative modeling（[[wiki/concepts/score-sde|Yang Song et al. 2021]]）
 
 ## 在 text-guided editing 中的作用
 

@@ -2,6 +2,31 @@
 
 > Append-only 时间线。每条 entry 以 `## [YYYY-MM-DD] <op> | <subject>` 起始，便于 `grep "^## \[" log.md | tail`。
 
+## [2026-05-14] lint | DDIM ingest 后整改：修作者实体错挂、补 entity 页、消歧 "Song et al. 2021"、回填 benchmark
+- created: `wiki/entities/jiaming-song.md`、`wiki/entities/stefano-ermon.md`、`wiki/entities/stanford.md` —— M1：DDIM 作者实体页（此前实体覆盖与 DDPM 不对称）
+- updated: `wiki/sources/songDenoisingDiffusionImplicit2022.md` —— C1：实体节错挂 [[wiki/entities/jonathan-ho]]（非 DDIM 作者）→ 改挂正确作者；C2：补注 Zotero year 2022 vs 正式 ICLR 2021；M2：关系节补「基准」链接；S1：alias "Song et al. 2021" → "Song, Meng & Ermon 2021"
+- updated: `wiki/concepts/score-sde.md` —— S1：消歧 "Song" = Yang Song（≠ DDIM 的 Jiaming Song），alias 与正文同步
+- updated: `wiki/concepts/score-matching.md` —— S1：Score SDE 引用改 "Yang Song et al. 2021"
+- updated: `wiki/concepts/langevin-dynamics.md` —— B1：纯文本 "DDIM" → wikilink；补 sources 字段
+- updated: `wiki/concepts/epsilon-parameterization.md` —— B2：参数化表中 "DDIM" 改 wikilink 并修正措辞（DDIM 仍用 ε 网络，只是更新式经由预测 $x_0$ 表达）
+- updated: `wiki/benchmarks/cifar10.md`、`wiki/benchmarks/lsun.md` —— M2：回填 DDIM 分步数 FID 行 / 定性结果与 sources、出处字段
+- updated: `wiki/overview.md` —— S2：「待调研方向」新增 DDIM inversion 条目
+
+## [2026-05-14] ingest | Denoising Diffusion Implicit Models (Song et al. 2021)
+- created: `wiki/sources/songDenoisingDiffusionImplicit2022.md`
+- created: `wiki/methods/ddim.md`
+- created: `wiki/concepts/non-markovian-diffusion.md`
+- updated: `wiki/concepts/score-sde.md` —— 接上 DDIM ODE 视角 = probability-flow ODE 离散化；补 sources 字段
+- updated: `wiki/concepts/diffusion-process.md` —— 新增「Forward 不必是马尔可夫链」小节，链向 non-markovian-diffusion；补 sources
+- updated: `wiki/methods/ddpm.md`、`wiki/sources/hoDenoisingDiffusionProbabilistic2020.md` —— 下游 DDIM 引用改 wikilink（已 ingest）
+- updated: `wiki/overview.md` —— working thesis v0.1 → v0.2：推论 3「采样速度是开放赛道」被 DDIM 正向验证（加速 = 纯采样期、非马尔可夫族、inversion 入口），并强化推论 1 可变性光谱；「待调研方向」采样加速线刷新
+- updated: `index.md` —— 刷新 updated（新页由 Dataview 自动收录）
+- updated: `raw/literature-notes/songDenoisingDiffusionImplicit2022.md` —— 回填 `ingested_to_wiki: true`、`wiki_page`
+
+## [2026-05-14] thesis-update | overview 推论 1 重构：废弃"基础设施层/编辑层"两层划分
+- updated: `wiki/overview.md` —— 推论 1 从"两层划分"改为"范式 + 可变性光谱"：唯一不变量是范式（迭代生成 + 预测噪声/速度场 + 沿生成链注入条件），组件按可变性排在光谱上；修正三处硬伤（U-Net 非固化、"一字不改"与 Flow Matching 矛盾、条件注入本身就要改 backbone）
+- updated: `wiki/concepts/epsilon-parameterization.md`、`wiki/sources/hoDenoisingDiffusionProbabilistic2020.md` —— 同步：把旧"基础设施层"措辞改为"可变性光谱中'可演化但非主战场'一档"
+
 ## [2026-05-14] lint | wiki 全量 lint：修正 DDIM 年份矛盾、填充 overview 待调研方向、补 4 个 stub 页
 - created: `wiki/methods/ncsn.md`、`wiki/methods/diffusion-2015.md`、`wiki/concepts/classifier-free-guidance.md`、`wiki/concepts/score-sde.md` —— Missing 项：被多页频繁提及但无独立页面的术语，建为 stub 待 ingest 原文扩充
 - updated: `wiki/sources/hoDenoisingDiffusionProbabilistic2020.md` —— C1：DDIM 年份 "Song 2021" → "Song et al., arXiv 2020 / ICLR 2021"；上下游引用改为 wikilink

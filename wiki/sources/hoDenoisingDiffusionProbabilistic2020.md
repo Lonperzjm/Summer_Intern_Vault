@@ -105,11 +105,11 @@ $$
   - [[wiki/concepts/reparameterization-trick]] —— forward 闭式采样
 - 基准：[[wiki/benchmarks/cifar10]]、[[wiki/benchmarks/lsun]]
 - 上游：[[wiki/methods/diffusion-2015|Sohl-Dickstein et al. 2015]]（diffusion 原型）；[[wiki/methods/ncsn|Song & Ermon 2019]]（NCSN, score-based）
-- 下游：DDIM (Song et al., arXiv 2020 / ICLR 2021)、IDDPM (Nichol & Dhariwal 2021)、[[wiki/concepts/score-sde|Score SDE]] (Song et al. 2021)、[[wiki/concepts/classifier-free-guidance|Classifier-Free Guidance]] (Ho & Salimans 2022)、Stable Diffusion / Latent Diffusion 等几乎所有现代 diffusion 工作
+- 下游：[[wiki/sources/songDenoisingDiffusionImplicit2022|DDIM]] (Song et al., ICLR 2021)、IDDPM (Nichol & Dhariwal 2021)、[[wiki/concepts/score-sde|Score SDE]] (Song et al. 2021)、[[wiki/concepts/classifier-free-guidance|Classifier-Free Guidance]] (Ho & Salimans 2022)、Stable Diffusion / Latent Diffusion 等几乎所有现代 diffusion 工作
 
 ## 对我的 thesis 的启示
 
-- DDPM 把"**全局生成 + 渐进精化**"这条思路第一次工程化到 SOTA 水平，后续 text-guided editing 几乎全部建立在 ε-prediction 的训练形式上。这意味着 thesis 的"基础设施层"应当显式承认 ε-pred 是默认共识，再讨论编辑层在它之上做了什么改造。
+- DDPM 把"**全局生成 + 渐进精化**"这条思路第一次工程化到 SOTA 水平，后续 text-guided editing 几乎全部建立在 ε-prediction 的训练形式上。在 [[wiki/overview]] 的可变性光谱里，ε-pred 是"可演化但非主战场"的一档——thesis 应承认它是默认共识，但研究杠杆在 inversion / guidance / 条件注入 / 介入时间步。
 - 对 [[wiki/overview]] 的 working thesis 已写入第一版（diffusion = 全局 + 渐进；ε-pred 是事实标准；编辑层差异主要在 inversion / guidance / 条件注入而非底层目标），可继续演化。
 
 ## Open questions / 待追

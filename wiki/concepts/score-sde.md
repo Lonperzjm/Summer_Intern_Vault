@@ -1,17 +1,18 @@
 ---
 type: concept
 title: Score SDE（连续时间 score-based 生成框架）
-aliases: [Score SDE, "Song et al. 2021", score-based SDE, 连续时间极限]
+aliases: [Score SDE, "Yang Song et al. 2021", score-based SDE, 连续时间极限]
 tags: [diffusion, score-based, sde]
 status: draft
 created: 2026-05-14
 updated: 2026-05-14
-sources: []
+sources: ["[[wiki/sources/songDenoisingDiffusionImplicit2022]]"]
 ---
 
 # Score SDE（连续时间 score-based 生成框架）
 
-> Stub 页。Song et al., *Score-Based Generative Modeling through Stochastic Differential Equations*, ICLR 2021。等 ingest 原始文献后扩充。
+> Stub 页。Yang Song et al., *Score-Based Generative Modeling through Stochastic Differential Equations*, ICLR 2021。等 ingest 原始文献后扩充。
+> 注：此处 "Song" 指 **Yang Song**；与 [[wiki/sources/songDenoisingDiffusionImplicit2022|DDIM]] 的 "Song"（**Jiaming Song**）不是同一人，二者均为 ICLR 2021。
 
 ## 一句话定义
 
@@ -22,7 +23,7 @@ sources: []
 - 前向 SDE：$\mathrm{d}x = f(x,t)\,\mathrm{d}t + g(t)\,\mathrm{d}w$
 - 反向 SDE：$\mathrm{d}x = [f(x,t) - g(t)^2\nabla_x\log p_t(x)]\,\mathrm{d}t + g(t)\,\mathrm{d}\bar w$
 - [[wiki/methods/ddpm]] 是 VP-SDE 的离散化，[[wiki/methods/ncsn]] 是 VE-SDE 的离散化——二者在此框架下被统一
-- probability-flow ODE 给了确定性采样与精确似然计算的入口（也是 DDIM 确定性采样的连续视角）
+- probability-flow ODE 给了确定性采样与精确似然计算的入口——[[wiki/methods/ddim|DDIM]] 的确定性采样（$\sigma=0$）正是它的一个离散化，DDIM 论文给出的 ODE $\mathrm d\bar x=\varepsilon_\theta(\cdot)\,\mathrm d\sigma$ 与此同源
 
 ## 与其他概念的关系
 
@@ -36,10 +37,11 @@ sources: []
 
 ## 待补
 
-- [ ] ingest Song et al. 2021 原文：VP/VE/sub-VP 三类 SDE、predictor-corrector 采样、精确似然
+- [ ] ingest Yang Song et al. 2021 原文：VP/VE/sub-VP 三类 SDE、predictor-corrector 采样、精确似然
 - [ ] 与 probability-flow ODE → DDIM / Flow Matching 的脉络梳理
 
 ## 出处与引用
 
-- Song et al. 2021（Score SDE 原文，待 ingest）
+- Yang Song et al. 2021（Score SDE 原文，待 ingest）
+- [[wiki/sources/songDenoisingDiffusionImplicit2022]] —— DDIM 的 ODE 视角是 probability-flow ODE 的离散化，二者脉络已对接（精确对应仍待 ingest Yang Song 2021）
 - 暂引自 [[wiki/sources/hoDenoisingDiffusionProbabilistic2020]] 的 open questions 交叉引用

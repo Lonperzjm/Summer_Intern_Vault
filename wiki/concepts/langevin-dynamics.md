@@ -6,7 +6,7 @@ tags: [sampling, score-based]
 status: active
 created: 2026-05-10
 updated: 2026-05-14
-sources: ["[[wiki/sources/hoDenoisingDiffusionProbabilistic2020]]"]
+sources: ["[[wiki/sources/hoDenoisingDiffusionProbabilistic2020]]", "[[wiki/sources/songDenoisingDiffusionImplicit2022]]"]
 ---
 
 # Langevin Dynamics
@@ -27,7 +27,7 @@ DDPM 的 reverse step 与 annealed Langevin 在 ε-prediction 框架下结构同
 
 - 步进方向由 [[wiki/concepts/score-matching]] 给出
 - 是 [[wiki/concepts/diffusion-process]] reverse 过程的连续/离散对应物
-- DDIM 把它替换为确定性常微分方程采样
+- [[wiki/methods/ddim|DDIM]] 把它替换为确定性常微分方程采样
 
 ## 在 text-guided editing 中的作用
 

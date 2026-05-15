@@ -6,7 +6,7 @@ tags: [diffusion, foundational]
 status: active
 created: 2026-05-10
 updated: 2026-05-14
-sources: ["[[wiki/sources/hoDenoisingDiffusionProbabilistic2020]]"]
+sources: ["[[wiki/sources/hoDenoisingDiffusionProbabilistic2020]]", "[[wiki/sources/songDenoisingDiffusionImplicit2022]]"]
 ---
 
 # Diffusion Process
@@ -39,8 +39,13 @@ $$p_\theta(x_{t-1}\mid x_t) = \mathcal{N}(x_{t-1};\,\mu_\theta(x_t,t),\,\Sigma_\
 
 当 $\beta_t$ 足够小时，反向真过程也（近似）是 Gaussian——所以选 Gaussian 形式不会损失表达力（**仅在小步长极限下严格**，见下方"局限"）。
 
+### Forward 不必是马尔可夫链
+
+DDPM 把 forward 写成逐步的马尔可夫链，但训练目标 $L_\text{simple}$ **只依赖边缘** $q(x_t\mid x_0)$。[[wiki/sources/songDenoisingDiffusionImplicit2022|DDIM]] 据此构造一族**非马尔可夫**前向过程（[[wiki/concepts/non-markovian-diffusion]]），保留同一边缘、丢掉马尔可夫路径——于是同一个 ε 网络对应一整族生成过程，且反向链可在任意时间步子序列上跳步。"forward 是马尔可夫链"因此只是 DDPM 的一个**便利选择**，而非必需。
+
 ## 与其他概念的关系
 
+- 前向马尔可夫假设的松绑见 [[wiki/concepts/non-markovian-diffusion]]
 - 训练目标见 [[wiki/concepts/variational-bound-elbo]]
 - 核心参数化（预测 ε 而非 μ）见 [[wiki/concepts/epsilon-parameterization]]
 - 与 score-based 视角的等价见 [[wiki/concepts/score-matching]] / [[wiki/concepts/langevin-dynamics]]
@@ -53,7 +58,7 @@ $$p_\theta(x_{t-1}\mid x_t) = \mathcal{N}(x_{t-1};\,\mu_\theta(x_t,t),\,\Sigma_\
 ## 局限 / Open questions
 
 - "$\beta_t$ 小 ⇒ reverse 也是 Gaussian"在离散链上是渐近论；连续时间极限（SDE 视角）由 [[wiki/concepts/score-sde|Score SDE]] 严格化，但离散链 $T=1000$ 是否"足够小"是经验判断
-- 待补：连续时间 SDE 极限小节，引用 [[wiki/concepts/score-sde|Song et al. 2021]]
+- 待补：连续时间 SDE 极限小节，引用 [[wiki/concepts/score-sde|Yang Song et al. 2021]]
 
 ## 出处与引用
 
