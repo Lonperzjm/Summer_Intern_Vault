@@ -1,98 +1,15 @@
-# Summer_Intern_Vault
+1. 阅读须知（简要版，详见由ai编写的[[GUIDANCE]]）：
+	1. 体系结构：
+		* `./raw` 是由人类手写的笔记，或者是外界找到的文件，如论文pdf等
+		* `./research` 是人类的研究进展（thesis、实验、outline），目前置空
+		* `./wiki` 是ai根据上面内容总结整理的知识库，可以但是不建议人类直接阅读。
+	2. `./wiki`使用方法：
+		* 对ai使用 `query` 语句，如：`query 请总结图像生成的几条主要技术路径，比较特点与优劣`，ai会查询`./wiki` 并回答
+		* 注意：若并非使用的 **claude code** 工具，可以将[[CLAUDE]]的名称改为其他ai工具规定的约束格式。
+		* 注意：如果不是使用 **obsidian** markdown阅读器，可能会有格式问题。但是大部分阅读器应该可以正常阅读。
 
-> 暑研知识库：Diffusion / Flow Matching · Text-Guided Image Editing
-> 基于 [Karpathy 的 LLM-Wiki 方法](Karpathy's_Wiki_Method/llm-wiki.md) 构建。
-
-## 这是什么
-
-一个由 **Claude Code 维护、Obsidian 浏览** 的个人知识库。Karpathy 的核心思想：你负责**找资料、提问、做判断**；LLM 负责**总结、归档、维护交叉引用**。Obsidian 是 IDE，LLM 是程序员，wiki 是被持续编译的代码库。
-
-三层结构：
-- `raw/`：你丢进去的原始资料（论文、博客、笔记），**不可变**
-- `wiki/`：Claude Code 写的总结、概念页、方法页、对比 —— 你只读
-- `research/`：你自己的论文进展（thesis、实验、outline），LLM 协助但不擅自改
-
-工作流契约写在 [CLAUDE.md](CLAUDE.md)，每次会话 Claude Code 会自动加载。
-
----
-
-## 快速上手（5 步）
-
-1. **加资料**：把 PDF / Web Clipper 抓的 md 放进 `raw/papers/` 或 `raw/articles/`
-2. **Ingest**：在本目录开 Claude Code，说 `ingest raw/papers/<filename>`
-3. **浏览**：在 Obsidian 中打开 `wiki/sources/<slug>.md`，跟着 wikilink 跳转，开 Graph view 看连接
-4. **提问**：直接问 Claude Code，比如 `query: rectified flow 与 score-based diffusion 在编辑任务上的本质区别？`；有价值的回答让它归档到 `wiki/comparisons/`
-5. **每周一次 Lint**：说 `lint wiki`，让 Claude Code 找矛盾、孤立页、stale 内容并修
-
-常用 prompt：
-```
-ingest raw/papers/2211-09800-instructpix2pix.pdf
-ingest 最近 3 篇 raw/articles/
-query: 现有 text-guided editing 方法在保真度-可控性 trade-off 上的对比？归档为 comparison
-update working thesis based on 最近一周 ingest 的源
-lint wiki
-```
-
----
-
-## Obsidian 推荐配置
-
-### 核心插件（Settings → Core plugins）
-开启：Backlinks、Outgoing links、Tag pane、Templates、Graph view、Outline、Page preview。
-
-### 社区插件（Settings → Community plugins → Browse）
-| 插件 | 用途 | 必装？ |
-|---|---|---|
-| **Dataview** | 让 `index.md` 按 frontmatter 动态生成列表 | ✅ |
-| **Templater** | 与 `templates/` 配合，新建页一键套模板 | 推荐 |
-| **Marp** | 把 wiki 内容直接导出组会 slide | 可选 |
-| **Image converter / Local images** | 处理 Web Clipper 下来的本地图片 | 可选 |
-
-> **Web Clipper** 是浏览器扩展（不是 Obsidian 插件），从 Chrome/Firefox Web Store 装即可。配置 output folder 指向本 Vault 的 `raw/articles/` 或 `raw/papers/`。
-
-### 设置
-- `Settings → Files and links → Default location for new attachments`：选 **In the folder specified below**，路径填 `raw/assets/`
-- `Settings → Files and links → New link format`：选 **Relative path to file** 或 **Shortest path**（保持你习惯）
-- `Settings → Hotkeys`：搜索 `Download attachments for current file`，绑定到 `Ctrl+Shift+D`。Web Clipper 抓完后按一下，把所有图片本地化到 `raw/assets/`
-- `Settings → Appearance → Graph view`：在 Graph 设置里按 `frontmatter: type` 着色，能一眼看出 entity / concept / method / source 的分布与孤立节点
-
-### Dataview 示例（已写入 `index.md`）
-```dataview
-TABLE status, updated FROM "wiki/concepts" SORT updated DESC
-```
-
----
-
-## 给 Claude Code 的 prompt 范式
-
-| 意图 | 示例 |
-|---|---|
-| Ingest 单源 | `ingest raw/papers/xxx.pdf` |
-| 批量 ingest | `ingest 全部未处理的 raw/papers/*` |
-| 查询 + 归档 | `query: <问题>，答完归档为 comparison` |
-| 更新 thesis | `根据 wiki/synthesis 的最新内容更新 wiki/overview.md 的 working thesis，diff 给我看` |
-| 健康检查 | `lint wiki` |
-| 调整 schema | `我们以后把每个 method 页都加一个"failure modes"小节，更新 CLAUDE.md` |
-
----
-
-## 版本控制（可选但强烈推荐）
-
-```bash
-git init
-echo ".obsidian/workspace.json" >> .gitignore
-echo ".obsidian/workspace-mobile.json" >> .gitignore
-git add . && git commit -m "init: scaffold vault per Karpathy wiki method"
-```
-
-`raw/` 和 `wiki/` 都进 git，整个知识演化过程都有时间机器。
-
----
-
-## 文件入口
-
-- [CLAUDE.md](CLAUDE.md) —— 工作流契约（必读）
-- [index.md](index.md) —— 内容索引
-- [log.md](log.md) —— 时间线
-- [wiki/overview.md](wiki/overview.md) —— 领域总览与 working thesis
-- [Karpathy's_Wiki_Method/llm-wiki.md](Karpathy's_Wiki_Method/llm-wiki.md) —— 方法论原文
+2. 工作记录(简要版，详见由ai编写的[[log]])：
+	* 5.1-5.7 构建zotero与obsidian环境，整理论文，构建Summer_Intern_Vault。学习U-Net、VAE、crossattn等基本知识
+	* 5.8-5.11 DDPM + DDIM bg+NON-MARKOVIAN FORWARD PROCESSES 。形成 [[raw/literature-notes/hoDenoisingDiffusionProbabilistic2020|hoDenoisingDiffusionProbabilistic2020]] 阅读笔记，半完成 [[raw/literature-notes/songDenoisingDiffusionImplicit2022|songDenoisingDiffusionImplicit2022]] 阅读笔记，`ingest ddpm` 
+	* 5.11-5.17 完成DDIM, 完成[[raw/literature-notes/songDenoisingDiffusionImplicit2022|songDenoisingDiffusionImplicit2022]] 阅读笔记，读 score-based SDEs abstract+intro+conclusion, 半完成[[songScoreBasedGenerativeModeling2021]] 笔记。`ingest ddim`
+	* 5.18-5.24 （计划）完成score-based SDEs，Flow Matching，Rectified Flow。完成对应笔记，`ingest`对应内容。总结图像生成的几条主要技术路径，比较特点与优劣。
