@@ -5,7 +5,7 @@ aliases: [Sohl-Dickstein 2015, "diffusion probabilistic model 原型", nonequili
 tags: [diffusion, foundational]
 status: draft
 created: 2026-05-14
-updated: 2026-05-14
+updated: 2026-05-20
 sources: []
 family: other
 ---
@@ -30,6 +30,7 @@ family: other
 
 ## 关联
 
+- 人物：[[wiki/entities/jascha-sohl-dickstein|Jascha Sohl-Dickstein]]（diffusion 鼻祖，本工作第一作者）
 - 概念：[[wiki/concepts/diffusion-process]]、[[wiki/concepts/variational-bound-elbo]]
 - 下游：[[wiki/methods/ddpm]]、[[wiki/methods/ncsn]]
 - 出处：待 ingest（暂引自 [[wiki/sources/hoDenoisingDiffusionProbabilistic2020]] 中的交叉引用）

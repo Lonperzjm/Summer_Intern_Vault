@@ -2,6 +2,12 @@
 
 > Append-only 时间线。每条 entry 以 `## [YYYY-MM-DD] <op> | <subject>` 起始，便于 `grep "^## \[" log.md | tail`。
 
+## [2026-05-20] refactor | 补 Sohl-Dickstein entity（lint Missing 的漏网项）
+- created: `wiki/entities/jascha-sohl-dickstein.md` —— diffusion 鼻祖，wiki 中 13 次提及却无 entity 页；入链自 diffusion-2015（method 页点名却无反链）与 Score SDE source
+- updated: `wiki/methods/diffusion-2015.md` —— 关联区加人物链接
+- updated: `wiki/sources/songScoreBasedGenerativeModeling2021.md` —— 作者人物链补 Sohl-Dickstein
+- 评估结论：methods/ 无缺口（Score SDE 是框架→入 concepts/，VP/VE 离散化已标注于 ddpm/ncsn）；Kingma(2 次)/Google Brain(2 次) 频率偏低暂不建
+
 ## [2026-05-20] lint | Score SDE ingest 后整改：消 stale、统一记号与 frontmatter
 - 扫描结果：无孤立页（每页 ≥3 入链）、无真失效 wikilink
 - updated: `wiki/sources/songDenoisingDiffusionImplicit2022.md` —— S1：关闭"待 ingest Yang Song 2021"open question（PF-ODE 对应已建立）

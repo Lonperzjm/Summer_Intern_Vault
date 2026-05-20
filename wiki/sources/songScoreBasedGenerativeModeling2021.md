@@ -88,7 +88,7 @@ $$\mathrm dx = \Big\{f(x,t) - g(t)^2\big[\underbrace{\nabla_x\log p_t(x)}_{\text
 - 训练侧把 [[wiki/concepts/score-matching|denoising score matching]] 推广到连续时间；采样侧 corrector 用 [[wiki/concepts/langevin-dynamics|Langevin]]。
 - [[wiki/concepts/probability-flow-ode|Probability-flow ODE]] 是 [[wiki/methods/ddim|DDIM]] 确定性采样（$\sigma=0$）的连续母体——DDIM 的 ODE $\mathrm d\bar x=\varepsilon_\theta\,\mathrm d\sigma$ 与之同源。
 - 条件反向 SDE 是 [[wiki/concepts/classifier-free-guidance|CFG]]/classifier guidance 的连续理论底座。
-- 人物：[[wiki/entities/yang-song]]（一作）、[[wiki/entities/stefano-ermon]]（资深作者）；机构 [[wiki/entities/stanford]] + Google Brain。
+- 人物：[[wiki/entities/yang-song]]（一作）、[[wiki/entities/jascha-sohl-dickstein]]（diffusion 鼻祖，合作者）、[[wiki/entities/stefano-ermon]]（资深作者）；机构 [[wiki/entities/stanford]] + Google Brain。
 
 ## 对我的 thesis 的启示
 
