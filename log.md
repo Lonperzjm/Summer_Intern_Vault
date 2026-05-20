@@ -2,6 +2,46 @@
 
 > Append-only 时间线。每条 entry 以 `## [YYYY-MM-DD] <op> | <subject>` 起始，便于 `grep "^## \[" log.md | tail`。
 
+## [2026-05-20] lint | Score SDE ingest 后整改：消 stale、统一记号与 frontmatter
+- 扫描结果：无孤立页（每页 ≥3 入链）、无真失效 wikilink
+- updated: `wiki/sources/songDenoisingDiffusionImplicit2022.md` —— S1：关闭"待 ingest Yang Song 2021"open question（PF-ODE 对应已建立）
+- updated: `wiki/entities/uc-berkeley.md` —— S2：删除把 Score SDE 误挂到 Berkeley 的待补项（作者属 Stanford + Google Brain）
+- updated: `wiki/concepts/langevin-dynamics.md` —— C1：补 Langevin 步长记号桥接注（$\varepsilon=\eta/2$）
+- updated: `wiki/sources/songScoreBasedGenerativeModeling2021.md` —— F1：`raw:` 字段列表→字符串，与另两篇 source 统一
+- updated: `wiki/methods/ncsn.md` —— F2：`sources: []` 回填 Score SDE（正文已引用）
+- created: `wiki/concepts/classifier-guidance.md` —— M1（用户选"建独立页"）：贝叶斯链来自 Score SDE，含与 CFG 对比表；入链自 CFG / score-sde / overview
+- created: `wiki/benchmarks/metrics.md` —— M2（用户选"建汇总页"）：IS / FID / bits-per-dim 定义+方向+缺陷；入链自 cifar10 / lsun
+- updated: `wiki/concepts/classifier-free-guidance.md`、`wiki/concepts/score-sde.md`、`wiki/overview.md` —— 挂入 classifier-guidance 链接
+- updated: `wiki/benchmarks/cifar10.md` —— 补 Score SDE 结果行（IS 9.89 / FID 2.20 / 2.99 bits/dim）+ 链接 metrics 页；`wiki/benchmarks/lsun.md` 链接 metrics 页
+- 仍开放（Suggestion，待用户定）：ingest NCSN 原文 / Flow Matching / Consistency Models
+
+## [2026-05-20] ingest | Score-Based Generative Modeling through Stochastic Differential Equations (Song et al. 2021)
+- created: `wiki/sources/songScoreBasedGenerativeModeling2021.md`
+- created: `wiki/concepts/fokker-planck-equation.md`
+- created: `wiki/concepts/probability-flow-ode.md`
+- created: `wiki/concepts/predictor-corrector-sampling.md`
+- created: `wiki/entities/yang-song.md`
+- updated: `wiki/concepts/score-sde.md` —— 由 stub 升级为完整主条目（VP/VE/sub-VP、训练目标、PC/ODE 采样、条件生成）
+- updated: `wiki/concepts/score-matching.md` —— 增「条件 score 监督 ⇒ 边缘 score」恒等式与 loss 展开、连续时间 DSM
+- updated: `wiki/concepts/langevin-dynamics.md` —— 增 Langevin 作 PC corrector
+- updated: `wiki/concepts/classifier-free-guidance.md` —— 增条件反向 SDE（贝叶斯/classifier guidance）连续底座
+- updated: `wiki/concepts/diffusion-process.md` —— 连续时间 SDE 极限 open question 标记完成
+- updated: `wiki/methods/ncsn.md` —— 标注 NCSN = VE-SDE 离散化
+- updated: `wiki/methods/ddpm.md` —— 标注 DDPM = VP-SDE 离散化
+- updated: `wiki/methods/ddim.md` —— DDIM 确定性采样 = probability-flow ODE 离散化，链接新页
+- updated: `wiki/entities/stefano-ermon.md`、`wiki/entities/stanford.md` —— 回填 Score SDE 工作与 Yang Song 链接
+- updated: `index.md` —— 刷新 updated
+- updated: `raw/literature-notes/songScoreBasedGenerativeModeling2021.md` —— 回填 `ingested_to_wiki: true`、`wiki_page`（re-import 重置后二次回填，§5.1 例外）
+
+## [2026-05-20] thesis-update | overview working thesis v0.2 → v0.3（吸收 Score SDE）
+- updated: `wiki/overview.md` —— 用户批准「大胆改」：
+  - 标题 v0.2 → v0.3（DDPM + DDIM + Score SDE）；frontmatter 加 source
+  - thesis 正文增「Score SDE 把统一从类比抬升为严格连续时间理论 + 同一 score 网络可换三种采样器」
+  - 推论 1 增「一网络三采样器」干净样本，光谱细化为 训练目标 > backbone > 采样器/guidance/介入时间步
+  - 推论 2 增「条件反向 SDE 逐 $t$ 引导项」作为 fidelity↔controllability 旋钮的形式化抓手
+  - 推论 3 增 probability-flow ODE 连续化总纲
+  - 待调研方向：Score SDE 标 ✅ 已 ingest，采样加速线补 PF-ODE/PC
+
 ## [2026-05-14] lint | DDIM ingest 后整改：修作者实体错挂、补 entity 页、消歧 "Song et al. 2021"、回填 benchmark
 - created: `wiki/entities/jiaming-song.md`、`wiki/entities/stefano-ermon.md`、`wiki/entities/stanford.md` —— M1：DDIM 作者实体页（此前实体覆盖与 DDPM 不对称）
 - updated: `wiki/sources/songDenoisingDiffusionImplicit2022.md` —— C1：实体节错挂 [[wiki/entities/jonathan-ho]]（非 DDIM 作者）→ 改挂正确作者；C2：补注 Zotero year 2022 vs 正式 ICLR 2021；M2：关系节补「基准」链接；S1：alias "Song et al. 2021" → "Song, Meng & Ermon 2021"

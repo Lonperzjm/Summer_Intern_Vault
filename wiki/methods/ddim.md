@@ -48,7 +48,7 @@ return x_0
 
 ### Inversion（ODE 反向，x_0 → x_T）
 
-把上面的 ODE $\mathrm d\bar x = \varepsilon_\theta(\cdot)\,\mathrm d\sigma$ 从 $t=0$ 反向积分，可把真实图像编码回 latent $x_T$——DDIM inversion 的雏形，下游编辑方法据此实现"先 invert 再带条件 denoise"。
+把上面的 ODE $\mathrm d\bar x = \varepsilon_\theta(\cdot)\,\mathrm d\sigma$ 从 $t=0$ 反向积分，可把真实图像编码回 latent $x_T$——DDIM inversion 的雏形，下游编辑方法据此实现"先 invert 再带条件 denoise"。这条 ODE 正是 [[wiki/concepts/probability-flow-ode|probability-flow ODE]] 的离散化（VP-SDE 情形），[[wiki/sources/songScoreBasedGenerativeModeling2021|Song et al. 2021]] 给出其连续时间母体——可逆性、精确似然由此而来。一句话：**DDIM = diffusion 的训练 + flow 的采样**。
 
 ## 适用场景与限制
 
@@ -66,7 +66,7 @@ return x_0
 
 ## 关联
 
-- 概念：[[wiki/concepts/non-markovian-diffusion]]、[[wiki/concepts/epsilon-parameterization]]、[[wiki/concepts/diffusion-process]]、[[wiki/concepts/score-sde]]、[[wiki/concepts/variational-bound-elbo]]
-- 上游：[[wiki/methods/ddpm]]（共享 ε 网络与训练目标）
-- 下游：DDIM inversion → inversion-based text-guided editing；[[wiki/concepts/score-sde|probability-flow ODE]]；扩散蒸馏 / Consistency Models
+- 概念：[[wiki/concepts/non-markovian-diffusion]]、[[wiki/concepts/epsilon-parameterization]]、[[wiki/concepts/diffusion-process]]、[[wiki/concepts/score-sde]]、[[wiki/concepts/probability-flow-ode]]、[[wiki/concepts/variational-bound-elbo]]
+- 上游：[[wiki/methods/ddpm]]（共享 ε 网络与训练目标）；[[wiki/concepts/probability-flow-ode|probability-flow ODE]]（确定性采样的连续母体，[[wiki/sources/songScoreBasedGenerativeModeling2021|Song et al. 2021]]）
+- 下游：DDIM inversion → inversion-based text-guided editing；扩散蒸馏 / Consistency Models
 - 出处：[[wiki/sources/songDenoisingDiffusionImplicit2022]]

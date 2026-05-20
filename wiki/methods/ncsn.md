@@ -5,8 +5,8 @@ aliases: [NCSN, "Song & Ermon 2019", score-based generative model, annealed-lang
 tags: [diffusion, score-based, foundational]
 status: draft
 created: 2026-05-14
-updated: 2026-05-14
-sources: []
+updated: 2026-05-20
+sources: ["[[wiki/sources/songScoreBasedGenerativeModeling2021]]"]
 family: other
 ---
 
@@ -22,7 +22,7 @@ family: other
 
 - **多噪声尺度 denoising score matching**：在一族 $\{\sigma_1>\dots>\sigma_L\}$ 上同时训练（见 [[wiki/concepts/score-matching]]）
 - **Annealed Langevin sampling**：从大 $\sigma$ 到小 $\sigma$ 依次跑 Langevin，解决低密度区 mixing 慢的问题
-- 与 DDPM 的关系：DDPM 的 ε-prediction 与 NCSN 的 score estimation 在尺度因子下等价（[[wiki/concepts/epsilon-parameterization]]）；二者后由 Score SDE 统一（[[wiki/concepts/score-sde]]）
+- 与 DDPM 的关系：DDPM 的 ε-prediction 与 NCSN 的 score estimation 在尺度因子下等价（[[wiki/concepts/epsilon-parameterization]]）；二者后由 Score SDE 统一（[[wiki/concepts/score-sde]]）—— NCSN 被识别为 **VE-SDE（Variance Exploding）** 的离散化（[[wiki/sources/songScoreBasedGenerativeModeling2021|Song et al. 2021]]），DDPM 对应 VP-SDE
 
 ## 待补
 
@@ -34,4 +34,4 @@ family: other
 - 概念：[[wiki/concepts/score-matching]]、[[wiki/concepts/langevin-dynamics]]、[[wiki/concepts/score-sde]]
 - 并行/对照：[[wiki/methods/ddpm]]
 - 上游：[[wiki/methods/diffusion-2015]]
-- 出处：待 ingest（暂引自 [[wiki/sources/hoDenoisingDiffusionProbabilistic2020]] 中的交叉引用）
+- 出处：待 ingest 原文（暂引自 [[wiki/sources/hoDenoisingDiffusionProbabilistic2020]] 与 [[wiki/sources/songScoreBasedGenerativeModeling2021]] 中的交叉引用——后者把 NCSN 形式化为 VE-SDE）

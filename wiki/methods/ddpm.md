@@ -65,7 +65,7 @@ return x_0
 ## Failure modes
 
 - 高 SNR 段（$t$ 小）的 $L_\mathrm{simple}$ 项数值条件差 → v-prediction 部分缓解
-- 反向高斯近似的合法性依赖小 $\beta_t$；[[wiki/concepts/score-sde|Score SDE]] 视角下需仔细处理离散误差
+- 反向高斯近似的合法性依赖小 $\beta_t$；[[wiki/concepts/score-sde|Score SDE]] 视角下 DDPM 即 **VP-SDE（Variance Preserving）** 的离散化，连续极限使「反向高斯」严格成立，离散误差需仔细处理（[[wiki/sources/songScoreBasedGenerativeModeling2021|Song et al. 2021]]）
 
 ## 关联
 

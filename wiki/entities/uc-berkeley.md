@@ -5,7 +5,7 @@ aliases: [Berkeley, BAIR]
 tags: [institution]
 status: draft
 created: 2026-05-10
-updated: 2026-05-10
+updated: 2026-05-20
 sources: ["[[wiki/sources/hoDenoisingDiffusionProbabilistic2020]]"]
 kind: org
 ---
@@ -19,7 +19,7 @@ kind: org
 ## 关键贡献 / 关键工作
 
 - DDPM（[[wiki/sources/hoDenoisingDiffusionProbabilistic2020]]）
-- 待补：InstructPix2Pix、Score SDE 等其他相关工作（出现时回填）
+- 待补：InstructPix2Pix 等其他相关工作（出现时回填）
 
 ## 关系网
 

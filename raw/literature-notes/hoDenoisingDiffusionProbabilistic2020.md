@@ -16,7 +16,7 @@ tags:
   - todo
 status: read
 priority: P1
-my-rating: "5"
+my-rating: "4"
 created: 2026-05-10
 updated: 2026-05-11
 ingested_to_wiki: true

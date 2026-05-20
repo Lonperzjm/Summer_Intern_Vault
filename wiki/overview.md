@@ -4,17 +4,19 @@ title: 领域总览 · Diffusion / Flow Matching for Text-Guided Image Editing
 tags: [overview, thesis]
 status: active
 created: 2026-05-05
-updated: 2026-05-14
-sources: ["[[wiki/sources/hoDenoisingDiffusionProbabilistic2020]]", "[[wiki/sources/songDenoisingDiffusionImplicit2022]]"]
+updated: 2026-05-20
+sources: ["[[wiki/sources/hoDenoisingDiffusionProbabilistic2020]]", "[[wiki/sources/songDenoisingDiffusionImplicit2022]]", "[[wiki/sources/songScoreBasedGenerativeModeling2021]]"]
 ---
 
 # Overview
 
 本页是整个 wiki 的"枢纽"，由 Claude Code 在 ingest 新源后持续更新。
 
-## Working Thesis（v0.2，基于 DDPM + DDIM）
+## Working Thesis（v0.3，基于 DDPM + DDIM + Score SDE）
 
 > Diffusion 模型把图像生成建模为**全局 + 渐进**的去噪过程：每一步对整张图作用（全局），但分 T 步逐级精化（渐进）。其工程化的关键在于 [[wiki/concepts/epsilon-parameterization]]——把训练目标从"预测 reverse 均值"改写为"预测注入噪声 ε"，并配合极简 L2 损失 $L_\mathrm{simple}$。这一参数化与 [[wiki/concepts/score-matching]] 在尺度因子下等价，从而把 [[wiki/sources/hoDenoisingDiffusionProbabilistic2020|DDPM]] 与 [[wiki/methods/ncsn|NCSN 系（Song & Ermon 2019）]]统一在 score-based 框架下。
+>
+> [[wiki/sources/songScoreBasedGenerativeModeling2021|Score SDE（Song et al. 2021）]] 把这个"统一"从类比抬升为**严格的连续时间理论**：前向加噪是一条 SDE，DDPM = VP-SDE、NCSN = VE-SDE 只是它的两种离散化（[[wiki/concepts/score-sde]]）；反向生成只依赖 score，且**同一个 score 网络**可被三种采样器复用——随机的反向 SDE、带校正的 [[wiki/concepts/predictor-corrector-sampling|predictor-corrector]]、确定性的 [[wiki/concepts/probability-flow-ode|probability-flow ODE]]。这给下面的"可变性光谱"提供了迄今最干净的支撑：**训练目标固定，采样链却可以整段替换**。
 >
 > 推论（待后续源验证 / 演化）：
 >
@@ -38,14 +40,17 @@ sources: ["[[wiki/sources/hoDenoisingDiffusionProbabilistic2020]]", "[[wiki/sour
 >    **支持光谱"中间一档"的证据**（下次 ingest 时继续验证）：
 >    - Flow Matching / Rectified Flow 系（FLUX、SD3）**确实换了训练目标**（预测速度场而非 ε），但其上的编辑方法（RF-Inversion 等）依然继承"在 reverse/ODE 链上注入条件"的范式——这正说明"训练目标可演化、范式不变"。
 >    - v-prediction、EDM preconditioning、Min-SNR weighting 等是对 $L_\mathrm{simple}$ 的"调参级"修改，能做小幅 ablation 但远未触及"重新设计目标"的级别。
+>    - **✅ [[wiki/sources/songScoreBasedGenerativeModeling2021|Score SDE]] 给出最干净的样本**：训练好一个 score 网络后，可在**不重训**的前提下换三种采样器（反向 SDE / [[wiki/concepts/predictor-corrector-sampling|PC]] / [[wiki/concepts/probability-flow-ode|probability-flow ODE]]）。这说明"采样链的形状"整段坐落在光谱的"研究杠杆 / 介入方式"一档——可演化、代价低、不碰训练目标。光谱因此可细化为：**训练目标（最贵）> backbone > 采样器 / guidance / 介入时间步（最便宜）**。
 >
 > 2. **全局-渐进权衡**：编辑保真度 vs 可控性 trade-off 很可能与"在 reverse 链哪一段（哪一时间步）介入"强相关——高 $t$ 改变结构，低 $t$ 改变细节，这是后续要在编辑论文中重点验证的假设。
 >
-> 3. **采样速度是开放赛道** —— ✅ **DDIM 已部分验证**。[[wiki/sources/songDenoisingDiffusionImplicit2022|DDIM]] 证明加速可以是**纯采样期**的事：不重训、不动 backbone，只把前向从马尔可夫松绑为非马尔可夫族（[[wiki/concepts/non-markovian-diffusion]]），就能在子序列上跳步、10–50× 加速。这把"采样加速"从训练问题降级为推断问题——对本就要反复采样的编辑场景尤其关键。进一步地，DDIM 的确定性采样（$\sigma=0$）与 ODE 反向积分给出了 **inversion** 的理论入口，直接服务于 overview「主要派系」中的 inversion-based 一类。仍待 ingest：蒸馏 / Consistency Models 对编辑质量的影响。
+>    **Score SDE 给了这个假设一个形式化抓手**：其条件反向 SDE 由贝叶斯拆分 $\nabla_x\log p_t(x\mid y)=\nabla_x\log p_t(x)+\nabla_x\log p_t(y\mid x)$ 得到，引导项 $\nabla\log p_t(y\mid x)$ 是**逐时间步 $t$** 显式加上去的（[[wiki/concepts/score-sde]] / [[wiki/concepts/classifier-free-guidance]]）。于是"在哪个 $t$ 注入、注入多强"从经验调参变成连续可写的量——正是 fidelity↔controllability 旋钮的数学形态（结论方向仍待 text-guided editing 论文验证）。
+>
+> 3. **采样速度是开放赛道** —— ✅ **DDIM 已部分验证**。[[wiki/sources/songDenoisingDiffusionImplicit2022|DDIM]] 证明加速可以是**纯采样期**的事：不重训、不动 backbone，只把前向从马尔可夫松绑为非马尔可夫族（[[wiki/concepts/non-markovian-diffusion]]），就能在子序列上跳步、10–50× 加速。这把"采样加速"从训练问题降级为推断问题——对本就要反复采样的编辑场景尤其关键。进一步地，DDIM 的确定性采样（$\sigma=0$）与 ODE 反向积分给出了 **inversion** 的理论入口，直接服务于 overview「主要派系」中的 inversion-based 一类。**Score SDE 把这一切收进连续化总纲**：DDIM 的确定性采样正是 [[wiki/concepts/probability-flow-ode|probability-flow ODE]] 的离散特例，而 PF-ODE 在同一框架里统一了"确定性快采样 + 精确似然 + 可逆 inversion"（[[wiki/sources/songScoreBasedGenerativeModeling2021|Song et al. 2021]]）。仍待 ingest：蒸馏 / Consistency Models 对编辑质量的影响。
 >
 > 推论 3 同时**强化了推论 1 的可变性光谱**：DDIM 动的是"采样链的形状（步数、$\sigma$）"，属于光谱中"研究杠杆 / 介入方式"一档，且代价极低——是"范式不变、组件可调"的又一个干净样本。
 
-> _下次 ingest 后请重新审视上述三条推论是否仍然成立。推论 1、3 已被 DDIM 正向支持；推论 2（介入时间步与 fidelity/controllability trade-off）仍待 text-guided editing 论文验证。_
+> _下次 ingest 后请重新审视上述三条推论是否仍然成立。推论 1、3 已被 DDIM + [[wiki/sources/songScoreBasedGenerativeModeling2021|Score SDE]] 正向支持（后者把"采样器可整段替换"做到极致）；推论 2 已从 Score SDE 拿到形式化抓手（逐 $t$ 的条件 score 引导项），但 fidelity/controllability trade-off 的结论方向仍待 text-guided editing 论文验证。_
 
 ## 当前关注的子问题
 
@@ -76,9 +81,9 @@ LIMIT 20
 > 由 [2026-05-14] lint 填充。来源：现有 wiki 页中反复出现但尚无独立条目 / 标注"待补"的术语。
 
 - **score-based 主线的两个上游**：[[wiki/methods/diffusion-2015|Sohl-Dickstein 2015]]（diffusion 原型）与 [[wiki/methods/ncsn|NCSN (Song & Ermon 2019)]] —— 已建 stub，待 ingest 原文厘清与 DDPM 的精确差异
-- **连续时间统一框架**：[[wiki/concepts/score-sde|Score SDE (Song et al. 2021)]] —— 严格化"small-$\beta$ ⇒ 反向高斯"的离散近似，并打通 probability-flow ODE → DDIM / Flow Matching 的脉络
-- **guidance 旋钮**：[[wiki/concepts/classifier-free-guidance|Classifier-Free Guidance]] 及其前身 classifier guidance（Dhariwal & Nichol 2021）—— 编辑层四旋钮之一，待 ingest 原文
-- **采样加速线**：[[wiki/sources/songDenoisingDiffusionImplicit2022|DDIM]] 已 ingest（验证推论 3）；下一步是扩散蒸馏 / Consistency Models / Rectified Flow few-step 采样——这些对**编辑质量**的影响仍是空白
+- ✅ **连续时间统一框架（已 ingest 2026-05-20）**：[[wiki/sources/songScoreBasedGenerativeModeling2021|Score SDE (Song et al. 2021)]] —— 已严格化"small-$\beta$ ⇒ 反向高斯"的离散近似，打通 probability-flow ODE → DDIM 脉络；新增 [[wiki/concepts/fokker-planck-equation]] / [[wiki/concepts/probability-flow-ode]] / [[wiki/concepts/predictor-corrector-sampling]] 三页，并把 [[wiki/concepts/score-sde]] 升级为完整主条目。**仍开放**：VP/VE/sub-VP 在编辑任务上的优劣、与 Flow Matching 的精确关系（待 ingest FM 原文）
+- **guidance 旋钮**：[[wiki/concepts/classifier-free-guidance|Classifier-Free Guidance]] 及其前身 [[wiki/concepts/classifier-guidance|classifier guidance]]（Dhariwal & Nichol 2021）—— 编辑层四旋钮之一；classifier guidance 已借 Score SDE 的贝叶斯链成页，两者原文（Dhariwal & Nichol 2021 / Ho & Salimans 2022）仍待 ingest
+- **采样加速线**：[[wiki/sources/songDenoisingDiffusionImplicit2022|DDIM]] 与 [[wiki/sources/songScoreBasedGenerativeModeling2021|Score SDE]] 已 ingest（验证推论 3——前者给离散跳步，后者给 [[wiki/concepts/probability-flow-ode|PF-ODE]] 连续总纲 + PC 校正）；下一步是扩散蒸馏 / Consistency Models（注：Consistency Models 即 Yang Song 后续工作）/ Rectified Flow few-step 采样——这些对**编辑质量**的影响仍是空白
 - **训练目标的"调参级"修改**：v-prediction（Salimans & Ho 2022）、IDDPM 的 $\Sigma_\theta$ 学习、Min-SNR / EDM preconditioning —— 可作小幅 ablation，暂未值得单独成页
 - **编辑方法族本体**：overview「主要派系」四类（inversion-based / instruction-tuned / attention-injection / flow-matching-based）目前全是空链接，待 ingest 第一篇 text-guided editing 论文后填充
 - **DDIM inversion**：DDIM 的 ODE 可反向积分把 $x_0$ 编码回 $x_T$，已在 [[wiki/sources/songDenoisingDiffusionImplicit2022|DDIM]]、[[wiki/methods/ddim]]、[[wiki/concepts/non-markovian-diffusion]] 多处被提及，是 inversion-based 编辑的技术底座——暂不单独成页，待第一篇用它的编辑论文 ingest 时再建 `concepts/` 或 `methods/` 条目

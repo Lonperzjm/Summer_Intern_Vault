@@ -5,8 +5,8 @@ aliases: [Stanford, Stanford AI Lab, SAIL]
 tags: [institution]
 status: draft
 created: 2026-05-14
-updated: 2026-05-14
-sources: ["[[wiki/sources/songDenoisingDiffusionImplicit2022]]"]
+updated: 2026-05-20
+sources: ["[[wiki/sources/songDenoisingDiffusionImplicit2022]]", "[[wiki/sources/songScoreBasedGenerativeModeling2021]]"]
 kind: org
 ---
 
@@ -19,11 +19,12 @@ kind: org
 ## 关键贡献 / 关键工作
 
 - DDIM（[[wiki/sources/songDenoisingDiffusionImplicit2022]]）
-- 待补：NCSN、Score SDE 等其他相关工作（ingest 时回填）
+- [[wiki/concepts/score-sde|Score SDE]]（[[wiki/sources/songScoreBasedGenerativeModeling2021]]）
+- 待补：NCSN 等其他相关工作（ingest 时回填）
 
 ## 关系网
 
-- 人物：[[wiki/entities/jiaming-song]]、[[wiki/entities/stefano-ermon]]
+- 人物：[[wiki/entities/jiaming-song]]、[[wiki/entities/yang-song]]、[[wiki/entities/stefano-ermon]]
 
 ## 备注
 

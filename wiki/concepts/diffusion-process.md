@@ -5,8 +5,8 @@ aliases: [forward process, reverse process, 加噪链, 去噪链]
 tags: [diffusion, foundational]
 status: active
 created: 2026-05-10
-updated: 2026-05-14
-sources: ["[[wiki/sources/hoDenoisingDiffusionProbabilistic2020]]", "[[wiki/sources/songDenoisingDiffusionImplicit2022]]"]
+updated: 2026-05-20
+sources: ["[[wiki/sources/hoDenoisingDiffusionProbabilistic2020]]", "[[wiki/sources/songDenoisingDiffusionImplicit2022]]", "[[wiki/sources/songScoreBasedGenerativeModeling2021]]"]
 ---
 
 # Diffusion Process
@@ -57,10 +57,11 @@ DDPM 把 forward 写成逐步的马尔可夫链，但训练目标 $L_\text{simpl
 
 ## 局限 / Open questions
 
-- "$\beta_t$ 小 ⇒ reverse 也是 Gaussian"在离散链上是渐近论；连续时间极限（SDE 视角）由 [[wiki/concepts/score-sde|Score SDE]] 严格化，但离散链 $T=1000$ 是否"足够小"是经验判断
-- 待补：连续时间 SDE 极限小节，引用 [[wiki/concepts/score-sde|Yang Song et al. 2021]]
+- "$\beta_t$ 小 ⇒ reverse 也是 Gaussian"在离散链上是渐近论；连续时间极限（SDE 视角）由 [[wiki/concepts/score-sde|Score SDE]] 严格化（VP-SDE 即 DDPM 的连续极限），但离散链 $T=1000$ 是否"足够小"是经验判断
+- ✅ 连续时间 SDE 极限已由 [[wiki/sources/songScoreBasedGenerativeModeling2021|Song et al. 2021]] 给出：前向链 → 前向 SDE，反向链 → 反向 SDE（只依赖 score），并经 [[wiki/concepts/fokker-planck-equation|Fokker-Planck]] 串起 probability-flow ODE 与 PC 采样
 
 ## 出处与引用
 
 - [[wiki/sources/hoDenoisingDiffusionProbabilistic2020]]（forward/reverse 闭式、$\tilde\mu_t,\tilde\beta_t$）
+- [[wiki/sources/songScoreBasedGenerativeModeling2021]]（连续时间 SDE 极限）
 - 上游：[[wiki/methods/diffusion-2015|Sohl-Dickstein et al. 2015]]

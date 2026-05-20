@@ -5,8 +5,8 @@ aliases: [CIFAR10]
 tags: [benchmark, image-generation]
 status: draft
 created: 2026-05-10
-updated: 2026-05-14
-sources: ["[[wiki/sources/hoDenoisingDiffusionProbabilistic2020]]", "[[wiki/sources/songDenoisingDiffusionImplicit2022]]"]
+updated: 2026-05-20
+sources: ["[[wiki/sources/hoDenoisingDiffusionProbabilistic2020]]", "[[wiki/sources/songDenoisingDiffusionImplicit2022]]", "[[wiki/sources/songScoreBasedGenerativeModeling2021]]"]
 ---
 
 # CIFAR-10
@@ -21,6 +21,8 @@ sources: ["[[wiki/sources/hoDenoisingDiffusionProbabilistic2020]]", "[[wiki/sour
 - **FID (Fréchet Inception Distance)**：越低越好
 - NLL (bits/dim)：似然评估
 
+> 各指标的定义、方向与缺陷见 [[wiki/benchmarks/metrics]]。
+
 ## 标志性结果（diffusion 线索）
 
 | 方法 | IS ↑ | FID ↓ | 来源 |
@@ -29,6 +31,7 @@ sources: ["[[wiki/sources/hoDenoisingDiffusionProbabilistic2020]]", "[[wiki/sour
 | DDIM（$\eta=0$, S=10） | — | 13.36 | [[wiki/sources/songDenoisingDiffusionImplicit2022]] |
 | DDIM（$\eta=0$, S=50） | — | 4.67 | [[wiki/sources/songDenoisingDiffusionImplicit2022]] |
 | DDIM（$\eta=0$, S=100） | — | 4.16 | [[wiki/sources/songDenoisingDiffusionImplicit2022]] |
+| Score SDE（VP, PC + 架构改进） | **9.89** | **2.20** | [[wiki/sources/songScoreBasedGenerativeModeling2021]]（另 2.99 bits/dim） |
 
 > DDIM 的意义不在刷新 SOTA FID，而在 **step–quality trade-off**：用同一个 DDPM 训好的网络，10 步即可出图、50–100 步逼近千步质量。完整分步数表见 [[wiki/sources/songDenoisingDiffusionImplicit2022|原文]] Table 1。
 >

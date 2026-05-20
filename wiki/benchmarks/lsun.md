@@ -5,7 +5,7 @@ aliases: [LSUN-Bedroom, LSUN-Church, LSUN-Cat]
 tags: [benchmark, image-generation]
 status: draft
 created: 2026-05-10
-updated: 2026-05-14
+updated: 2026-05-20
 sources: ["[[wiki/sources/hoDenoisingDiffusionProbabilistic2020]]", "[[wiki/sources/songDenoisingDiffusionImplicit2022]]"]
 ---
 
@@ -17,7 +17,7 @@ Large-scale Scene Understanding Dataset（Yu et al. 2015）。常用 256×256 �
 
 ## 常用指标
 
-- **FID** 主导；偶用 Precision / Recall。
+- **FID** 主导；偶用 Precision / Recall。定义见 [[wiki/benchmarks/metrics]]。
 
 ## 标志性结果（diffusion 线索）
 

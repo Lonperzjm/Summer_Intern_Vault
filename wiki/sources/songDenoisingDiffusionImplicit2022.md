@@ -5,7 +5,7 @@ aliases: [DDIM, "Song, Meng & Ermon 2021", songDenoisingDiffusionImplicit2022]
 tags: [diffusion, sampling-acceleration, deterministic-sampling, foundational]
 status: stable
 created: 2026-05-14
-updated: 2026-05-14
+updated: 2026-05-20
 raw: "[[raw/literature-notes/songDenoisingDiffusionImplicit2022]]"
 authors: [Jiaming Song, Chenlin Meng, Stefano Ermon]
 venue: ICLR
@@ -110,4 +110,4 @@ DDIM 即该 ODE 的一种离散化。两个推论：(i) 步数越多离散误差
 - [ ] ODE 反向积分（$t=0\to T$ 编码）的离散误差有多大？需要多少步才能保证 inversion 可用——这直接决定下游编辑保真度（笔记 🔴 p.6）。
 - [ ] $\sigma$ 在 $0$ 与 $\sigma_\text{DDPM}$ 之间的连续取值（论文 $\eta$ 插值）对编辑任务的随机性 / 多样性有何影响。
 - [ ] 我的 idea：子序列 $\tau$ 的选择目前是启发式（均匀 / 二次），是否存在数据自适应或可学习的 $\tau$，在固定预算下进一步逼近 1000 步质量。
-- [ ] DDIM 与 [[wiki/concepts/score-sde|Score SDE]] probability-flow ODE 的精确对应关系——待 ingest Yang Song et al. 2021 后对照。
+- [x] DDIM 与 [[wiki/concepts/score-sde|Score SDE]] probability-flow ODE 的精确对应关系——✅ 已对照（[[wiki/sources/songScoreBasedGenerativeModeling2021|Yang Song et al. 2021]] 已 ingest）：DDIM 的确定性采样（$\sigma=0$）即 [[wiki/concepts/probability-flow-ode|PF-ODE]] 的离散特例，二者同源。

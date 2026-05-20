@@ -6,7 +6,7 @@ tags: [diffusion, score-based]
 status: active
 created: 2026-05-10
 updated: 2026-05-14
-sources: ["[[wiki/sources/hoDenoisingDiffusionProbabilistic2020]]"]
+sources: ["[[wiki/sources/hoDenoisingDiffusionProbabilistic2020]]", "[[wiki/sources/songScoreBasedGenerativeModeling2021]]"]
 ---
 
 # Score Matching
@@ -39,6 +39,29 @@ $$s_\theta(x_t,t) = -\frac{\varepsilon_\theta(x_t,t)}{\sqrt{1-\bar\alpha_t}}$$
 
 DDPM 的 $L_\mathrm{simple}$ 即一种带特定权重的 multi-noise-level DSM。
 
+### 为什么"用条件 score 当监督"却能学到边缘 score
+
+DSM 的训练目标 $\nabla_{\tilde x}\log q_\sigma(\tilde x\mid x)$ 是**条件** score（依赖具体的干净样本 $x$），但最优网络收敛到的是**边缘** score $\nabla_{\tilde x}\log p_\sigma(\tilde x)$。根因是贝叶斯恒等式（[[wiki/sources/songScoreBasedGenerativeModeling2021|Song et al. 2021]] 用它统一连续时间 DSM）：
+
+$$\nabla_{\tilde x}\log p_\sigma(\tilde x) = \mathbb E_{p(x\mid\tilde x)}\big[\nabla_{\tilde x}\log p_\sigma(\tilde x\mid x)\big].$$
+
+把 L2 目标按 $\tilde x$ 展开即可看出最优解是条件期望（即边缘 score）：
+
+$$
+\begin{aligned}
+&\mathbb E_{x,\tilde x}\big\|s_\theta(\tilde x)-\nabla_{\tilde x}\log p_\sigma(\tilde x\mid x)\big\|^2\\
+={}&\mathbb E_{\tilde x}\,\mathbb E_{x\mid\tilde x}\Big(s_\theta(\tilde x)^2 - 2\,\nabla_{\tilde x}\log p_\sigma(\tilde x\mid x)\,s_\theta(\tilde x) + (\nabla_{\tilde x}\log p_\sigma(\tilde x\mid x))^2\Big)\\
+={}&\mathbb E_{\tilde x}\Big(s_\theta(\tilde x)^2 - 2\,\mathbb E_{x\mid\tilde x}[\nabla_{\tilde x}\log p_\sigma(\tilde x\mid x)]\,s_\theta(\tilde x) + \text{const}(\theta)\Big),
+\end{aligned}
+$$
+
+交叉项里的 $\mathbb E_{x\mid\tilde x}[\cdot]$ 正是边缘 score，故 $s_\theta^*(\tilde x)=\nabla_{\tilde x}\log p_\sigma(\tilde x)$。
+
+### 连续时间推广
+
+[[wiki/concepts/score-sde|Score SDE]] 把上式从有限个噪声尺度推到连续 $t$：用前向 SDE 的高斯转移核 $p_{0t}(x(t)\mid x(0))$ 写条件 score，目标变为
+$$\theta^*=\arg\min_\theta\mathbb E_t\Big[\lambda(t)\,\mathbb E_{x(0)}\mathbb E_{x(t)\mid x(0)}\big\|s_\theta(x(t),t)-\nabla_{x(t)}\log p_{0t}(x(t)\mid x(0))\big\|^2\Big].$$
+
 ## 与其他概念的关系
 
 - 采样：score 给出 [[wiki/concepts/langevin-dynamics]] 步进的方向
@@ -53,3 +76,4 @@ DDPM 的 $L_\mathrm{simple}$ 即一种带特定权重的 multi-noise-level DSM�
 
 - Vincent 2011（DSM）；Hyvärinen 2005（ISM）；[[wiki/methods/ncsn|Song & Ermon 2019]]（NCSN，多噪声尺度 DSM）
 - [[wiki/sources/hoDenoisingDiffusionProbabilistic2020]] §3.2 与 §4.2 建立桥
+- [[wiki/sources/songScoreBasedGenerativeModeling2021]]（连续时间 DSM、边缘/条件 score 恒等式）
