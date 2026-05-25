@@ -263,14 +263,10 @@ wiki_page: "[[wiki/sources/songScoreBasedGenerativeModeling2021]]"
 <!-- 用 wikilink 把这篇与已有页面挂上钩；空着也行，ingest 时让 Claude Code 补全。 -->
 
 %% begin wiki-links %%
-- 概念：[[wiki/concepts/]]
-- 方法：[[wiki/methods/]]
-- 实体（作者 / 模型 / 机构）：[[wiki/entities/]]
-- 基线 / 对比：
-- 概念：[[wiki/concepts/]]
-- 方法：[[wiki/methods/]]
-- 实体（作者 / 模型 / 机构）：[[wiki/entities/]]
-- 基线 / 对比：
+- 概念：[[wiki/concepts/score-sde]]、[[wiki/concepts/fokker-planck-equation]]、[[wiki/concepts/probability-flow-ode]]、[[wiki/concepts/predictor-corrector-sampling]]、[[wiki/concepts/score-matching]]、[[wiki/concepts/langevin-dynamics]]、[[wiki/concepts/classifier-guidance]]
+- 方法：[[wiki/methods/ncsn]]（=VE-SDE）、[[wiki/methods/ddpm]]（=VP-SDE）、[[wiki/methods/ddim]]（确定性采样=PF-ODE 离散）
+- 实体：[[wiki/entities/yang-song]]、[[wiki/entities/jascha-sohl-dickstein]]、[[wiki/entities/stefano-ermon]]
+- 基线/对比：PC vs 纯 predictor（P2000）；DDPM++/NCSN++ 架构改进
 %% end wiki-links %%
 
 ## 对我的 thesis 的启示
@@ -278,11 +274,10 @@ wiki_page: "[[wiki/sources/songScoreBasedGenerativeModeling2021]]"
 <!-- 是否会让 [[wiki/overview]] 的 working thesis 移动？为什么？ -->
 
 %% begin thesis-implication %%
--
--
--
--
--
+- 强化推论1：同一 score 网络可换三种采样器（反向 SDE / PC / PF-ODE），采样链整段可替换、不动训练 → 可变性光谱"最便宜一档"
+- 强化推论3：PF-ODE 是 DDIM 之上的连续化总纲，统一"确定性快采样 + 精确似然"
+- 给推论2一个抓手：条件反向 SDE 把引导项 ∇log p_t(y|x) 逐时间步显式加上，"何时注入、注入多强"成为连续旋钮
+- inversion 底座：PF-ODE 的可逆性是 DDIM inversion 的连续根
 %% end thesis-implication %%
 
 ## Open questions / 后续要查的引用
@@ -290,9 +285,6 @@ wiki_page: "[[wiki/sources/songScoreBasedGenerativeModeling2021]]"
 <!-- 从蓝色高亮里捞出来的"待追"清单。 -->
 
 %% begin open-questions %%
-- [ ]
-- [ ]
-- [ ]
 - [ ]
 - [ ]
 %% end open-questions %%

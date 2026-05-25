@@ -5,15 +5,15 @@ aliases: [CIFAR10]
 tags: [benchmark, image-generation]
 status: draft
 created: 2026-05-10
-updated: 2026-05-20
-sources: ["[[wiki/sources/hoDenoisingDiffusionProbabilistic2020]]", "[[wiki/sources/songDenoisingDiffusionImplicit2022]]", "[[wiki/sources/songScoreBasedGenerativeModeling2021]]"]
+updated: 2026-05-24
+sources: ["[[wiki/sources/hoDenoisingDiffusionProbabilistic2020]]", "[[wiki/sources/songDenoisingDiffusionImplicit2022]]", "[[wiki/sources/songScoreBasedGenerativeModeling2021]]", "[[wiki/sources/lipmanFlowMatchingGenerative2023]]"]
 ---
 
 # CIFAR-10
 
 ## 简介
 
-60k 张 32×32 彩色图像，10 类，每类 6k；训练 50k / 测试 10k。低分辨率图像生成的事实标准 benchmark。
+60k 张 32×32 彩色图像，10 类，每类 6k；训练 50k / 测试 10k。低分辨率图像生成的事实标准 benchmark。高分辨率 / 可扩展性对照见姊妹基准 [[wiki/benchmarks/imagenet]]。
 
 ## 常用指标
 
@@ -36,6 +36,20 @@ sources: ["[[wiki/sources/hoDenoisingDiffusionProbabilistic2020]]", "[[wiki/sour
 > DDIM 的意义不在刷新 SOTA FID，而在 **step–quality trade-off**：用同一个 DDPM 训好的网络，10 步即可出图、50–100 步逼近千步质量。完整分步数表见 [[wiki/sources/songDenoisingDiffusionImplicit2022|原文]] Table 1。
 >
 > 该表会随后续 ingest 持续追加（IDDPM、ADM、Score SDE、EDM 等）。
+
+## Flow Matching 同架构消融（NLL / FID / NFE）
+
+> ⚠️ 下表是 [[wiki/sources/lipmanFlowMatchingGenerative2023|Lipman et al. 2023]] 的 **apples-to-apples 消融**：所有方法共用同一 ImageNet U-Net（Dhariwal & Nichol 2021）、未为 CIFAR-10 调优，故 FID 整体高于上表 SOTA 数（原文自承）。**应横向比同表内方法、勿与上表直接对比。**
+
+| 方法（同架构） | NLL ↓ (bits/dim) | FID ↓ | NFE ↓ |
+|---|---|---|---|
+| [[wiki/methods/ddpm\|DDPM]] | 3.12 | 7.48 | 274 |
+| Score Matching | 3.16 | 19.94 | 242 |
+| ScoreFlow | 3.09 | 20.78 | 428 |
+| FM w/ Diffusion | 3.10 | 8.06 | 183 |
+| **FM w/ [[wiki/concepts/optimal-transport-path\|OT]]** | **2.99** | **6.35** | **142** |
+
+> 看点：换上 [[wiki/concepts/flow-matching|FM]] 的 OT 路径后，NLL、FID、NFE **三项一致最优**——同架构下既更准、更稳又更省采样。
 
 ## 出处与引用
 

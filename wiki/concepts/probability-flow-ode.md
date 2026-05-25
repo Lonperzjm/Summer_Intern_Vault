@@ -5,7 +5,7 @@ aliases: [probability flow ODE, PF-ODE, 概率流 ODE, 确定性采样 ODE]
 tags: [diffusion, sde, sampling, ode, score-based]
 status: active
 created: 2026-05-20
-updated: 2026-05-20
+updated: 2026-05-24
 sources: ["[[wiki/sources/songScoreBasedGenerativeModeling2021]]"]
 ---
 
@@ -33,7 +33,7 @@ $$\tilde f(x,t) = f(x,t) - \tfrac12 g(t)^2\nabla_x\log p_t(x).$$
 
 ## 与 DDIM 的关系（重要）
 
-[[wiki/methods/ddim|DDIM]] 的确定性采样（$\sigma=0$）正是 probability-flow ODE 的一个**离散化特例**：DDIM 论文给出的 $\mathrm d\bar x=\varepsilon_\theta(\cdot)\,\mathrm d\sigma$ 与 VP-SDE 的 PF-ODE 同源。可以说 **DDIM = diffusion 的训练 + flow 的采样**；这条 ODE 也是通往 [[wiki/concepts/score-sde|Flow Matching / Rectified Flow]]（连训练也 flow 化）的桥。
+[[wiki/methods/ddim|DDIM]] 的确定性采样（$\sigma=0$）正是 probability-flow ODE 的一个**离散化特例**：DDIM 论文给出的 $\mathrm d\bar x=\varepsilon_\theta(\cdot)\,\mathrm d\sigma$ 与 VP-SDE 的 PF-ODE 同源。可以说 **DDIM = diffusion 的训练 + flow 的采样**；这条 ODE 也是通往 [[wiki/concepts/flow-matching|Flow Matching]] / Rectified Flow（连训练也 flow 化）的桥——FM 直接训练速度场，PF-ODE 则事后从 score 导出（[[wiki/sources/lipmanFlowMatchingGenerative2023|Lipman et al. 2023]]）。
 
 ## 与其他概念的关系
 

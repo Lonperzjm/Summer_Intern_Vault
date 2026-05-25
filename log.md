@@ -2,6 +2,39 @@
 
 > Append-only 时间线。每条 entry 以 `## [YYYY-MM-DD] <op> | <subject>` 起始，便于 `grep "^## \[" log.md | tail`。
 
+## [2026-05-24] lint | FM ingest 后整改：消 stale、retarget pf-ode 链、建 Rectified Flow stub
+- 扫描：562 条 wikilink —— broken **0** / orphan **0**（最弱 imagenet 仅 1 入链，已 polish 补强）；frontmatter 无缺字段
+- created: `wiki/methods/rectified-flow.md` —— Missing 项 stub（RF 在 6+ 页被提及却无独立页），作为 FM 并行/下游线与多条「待 ingest」的落点
+- updated: `wiki/sources/songScoreBasedGenerativeModeling2021.md` —— Stale：Open question「与 FM 精确关系 待 ingest」标 ✅ 已由本次 ingest 解决，改链 flow-matching / RF stub；刷新 updated
+- updated: `wiki/concepts/non-markovian-diffusion.md` —— Mis-link：「probability-flow ODE」从 `score-sde` 改指专页 `probability-flow-ode`；刷新 updated
+- updated: `wiki/overview.md` —— 当前子问题 + 待调研方向里纯文字 "Flow Matching / Rectified Flow" 挂链（RF 指向新 stub）
+- updated: `wiki/concepts/optimal-transport-path.md`、`wiki/concepts/flow-matching.md`、`wiki/sources/lipmanFlowMatchingGenerative2023.md` —— "Rectified Flow" 纯文字 → 链到 RF stub
+- updated: `wiki/benchmarks/cifar10.md`、`wiki/benchmarks/metrics.md` —— polish：补 imagenet 姊妹/数据集互链（消除 imagenet 弱连通）
+- updated: `wiki/methods/ddim.md` —— polish：下游补 [[wiki/concepts/flow-matching]] / [[wiki/methods/rectified-flow]] 反链；刷新 updated
+- 矛盾：**无**（FM 时间反向约定在各新页内部一致）
+- 仍开放（Suggestion，待用户定）：ingest Rectified Flow → SD3 / FLUX（填 overview「主要派系→flow-matching-based」）；Consistency Models、Neural ODE / Chen 2018 列为将来 Missing 候选
+
+## [2026-05-24] thesis-update | overview working thesis v0.3 → v0.4（吸收 Flow Matching）
+- updated: `wiki/overview.md` —— 用户批准「全部应用」：
+  - 标题 v0.3 → v0.4（+ Flow Matching）；frontmatter 加 FM source
+  - 推论 1：FM 证据从"待验证"升级为 ✅「最强样本」——真换训练目标（CFM 回归速度场）却不离范式，同架构 FM-OT 三项超 DDPM
+  - 推论 2：新增跨范式 caveat——FM 的 $t$（噪声→数据插值系数）与 diffusion 方向相反，比较"介入时间步"须先对齐坐标
+  - 推论 3：加 FM 一证——OT 路径把 NFE 降到约 60%、训练期采样成本恒定，加速可来自"路径设计"
+  - thesis 末「重审注」同步；待调研方向两处「待 ingest FM 原文」标 ✅ 并改指新建 FM 概念页
+
+## [2026-05-24] ingest | Flow Matching for Generative Modeling (Lipman et al. 2023)
+- created: `wiki/sources/lipmanFlowMatchingGenerative2023.md`
+- created: `wiki/concepts/flow-matching.md`、`wiki/concepts/conditional-flow-matching.md`、`wiki/concepts/continuous-normalizing-flow.md`、`wiki/concepts/optimal-transport-path.md`
+- created: `wiki/entities/yaron-lipman.md`、`wiki/entities/ricky-chen.md`、`wiki/entities/meta-ai-fair.md`
+- created: `wiki/benchmarks/imagenet.md`
+- updated: `wiki/benchmarks/cifar10.md` —— 新增 FM 同架构消融表（NLL/FID/NFE，附"未为 CIFAR 调优"caveat）+ 回填源
+- updated: `wiki/concepts/score-sde.md`、`wiki/concepts/probability-flow-ode.md` —— 区分 FM（直接训速度场）vs PF-ODE（事后从 score 导出）；纯文字 "Flow Matching" 改 wikilink
+- updated: `wiki/concepts/score-matching.md` —— 增 CFM≡DSM 的 vector-field 类比（Theorem 2）
+- updated: `wiki/methods/ddpm.md` —— 关联补「diffusion 高斯路径是 FM Gaussian 路径族特例」
+- updated: `index.md` —— 刷新 updated（新页由 Dataview 自动收录）
+- updated: `raw/literature-notes/lipmanFlowMatchingGenerative2023.md` —— 回填 `ingested_to_wiki: true`、`wiki_page`（§5.1 例外）
+- thesis：`wiki/overview.md` working thesis v0.3 → v0.4 已经用户批准应用，单列于上方 thesis-update 条目
+
 ## [2026-05-20] refactor | 补 Sohl-Dickstein entity（lint Missing 的漏网项）
 - created: `wiki/entities/jascha-sohl-dickstein.md` —— diffusion 鼻祖，wiki 中 13 次提及却无 entity 页；入链自 diffusion-2015（method 页点名却无反链）与 Score SDE source
 - updated: `wiki/methods/diffusion-2015.md` —— 关联区加人物链接

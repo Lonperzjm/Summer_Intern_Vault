@@ -5,7 +5,7 @@ aliases: [Score SDE, "Yang Song et al. 2021", score-based SDE, 连续时间极�
 tags: [diffusion, score-based, sde]
 status: active
 created: 2026-05-14
-updated: 2026-05-20
+updated: 2026-05-24
 sources: ["[[wiki/sources/songScoreBasedGenerativeModeling2021]]", "[[wiki/sources/songDenoisingDiffusionImplicit2022]]"]
 ---
 
@@ -60,7 +60,7 @@ $$\mathrm dx=\big\{f-g^2[\nabla\log p_t(x)+\nabla\log p_t(y\mid x)]\big\}\mathrm
 - 严格化 [[wiki/concepts/diffusion-process]] 中「small-$\beta$ ⇒ 反向高斯」的离散近似（连续极限下精确）——回应 DDPM 笔记里 🔴 的 SDE 理论疑虑
 - 统一 [[wiki/concepts/score-matching]] 的离散多尺度版本与连续版本
 - 与 [[wiki/concepts/langevin-dynamics]]：corrector / 反向过程是 annealed Langevin 的连续时间对应物
-- [[wiki/concepts/probability-flow-ode]] 是 [[wiki/methods/ddim|DDIM]] 确定性采样的连续母体，并通往 Flow Matching / Rectified Flow
+- [[wiki/concepts/probability-flow-ode]] 是 [[wiki/methods/ddim|DDIM]] 确定性采样的连续母体，并通往 [[wiki/concepts/flow-matching|Flow Matching]] / Rectified Flow——区别在于 FM **直接把训练目标换成回归速度场**（ODE 是训出来的本体），PF-ODE 则由训练好的 score **事后导出**（[[wiki/sources/lipmanFlowMatchingGenerative2023|Lipman et al. 2023]]）
 
 ## 在 text-guided editing 中的作用
 

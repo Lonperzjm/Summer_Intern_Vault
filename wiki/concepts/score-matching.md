@@ -5,7 +5,7 @@ aliases: [denoising score matching, DSM, score-based]
 tags: [diffusion, score-based]
 status: active
 created: 2026-05-10
-updated: 2026-05-14
+updated: 2026-05-24
 sources: ["[[wiki/sources/hoDenoisingDiffusionProbabilistic2020]]", "[[wiki/sources/songScoreBasedGenerativeModeling2021]]"]
 ---
 
@@ -67,6 +67,7 @@ $$\theta^*=\arg\min_\theta\mathbb E_t\Big[\lambda(t)\,\mathbb E_{x(0)}\mathbb E_
 - 采样：score 给出 [[wiki/concepts/langevin-dynamics]] 步进的方向
 - 与 [[wiki/concepts/variational-bound-elbo]] 在 diffusion 框架下殊途同归
 - 在 SDE 视角下统一为 score-based generative modeling（[[wiki/concepts/score-sde|Yang Song et al. 2021]]）
+- **vector-field 类比**：[[wiki/concepts/conditional-flow-matching|CFM]] 把"用条件目标当监督、最优解却是边缘量"的同一套路从 score 搬到速度场（[[wiki/sources/lipmanFlowMatchingGenerative2023|Lipman et al. 2023]], Theorem 2）
 
 ## 在 text-guided editing 中的作用
 

@@ -5,7 +5,7 @@ aliases: [non-Markovian diffusion, 非马尔可夫扩散, "DDIM 前向族"]
 tags: [diffusion, sampling-acceleration]
 status: active
 created: 2026-05-14
-updated: 2026-05-14
+updated: 2026-05-24
 sources: ["[[wiki/sources/songDenoisingDiffusionImplicit2022]]"]
 ---
 
@@ -36,7 +36,7 @@ $$
 - 是对 [[wiki/concepts/diffusion-process]] 中"前向为固定马尔可夫链"假设的松绑——保留边缘、丢掉路径。
 - 之所以能复用网络，根因在 [[wiki/concepts/epsilon-parameterization]]：ε 目标只看边缘。
 - $J_\sigma$ 是 [[wiki/concepts/variational-bound-elbo]] 的非马尔可夫推广。
-- 取连续时间极限即 [[wiki/concepts/score-sde|probability-flow ODE]]。
+- 取连续时间极限即 [[wiki/concepts/probability-flow-ode|probability-flow ODE]]。
 
 ## 在 text-guided editing 中的作用
 

@@ -5,7 +5,7 @@ aliases: [Inception Score, FID, bits-per-dim, IS, NLL, 评测指标]
 tags: [evaluation, metrics]
 status: active
 created: 2026-05-20
-updated: 2026-05-20
+updated: 2026-05-24
 sources: ["[[wiki/sources/hoDenoisingDiffusionProbabilistic2020]]", "[[wiki/sources/songDenoisingDiffusionImplicit2022]]", "[[wiki/sources/songScoreBasedGenerativeModeling2021]]"]
 ---
 
@@ -42,6 +42,6 @@ sources: ["[[wiki/sources/hoDenoisingDiffusionProbabilistic2020]]", "[[wiki/sour
 
 ## 关联
 
-- 数据集：[[wiki/benchmarks/cifar10]]、[[wiki/benchmarks/lsun]]
+- 数据集：[[wiki/benchmarks/cifar10]]、[[wiki/benchmarks/lsun]]、[[wiki/benchmarks/imagenet]]
 - 精确似然机制：[[wiki/concepts/probability-flow-ode]]
 - **待补（编辑专用指标）**：CLIP-T、DINO 结构相似度、编辑保真度 / 背景保持——overview 子问题"CLIP-based 指标的局限与替代"待第一篇 text-guided editing 论文 ingest 时建页

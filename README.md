@@ -13,7 +13,7 @@
 	* 5.1-5.7 构建zotero与obsidian环境，整理论文，构建Summer_Intern_Vault。学习U-Net、VAE、crossattn等基本知识
 	* 5.8-5.11 DDPM + DDIM bg+NON-MARKOVIAN FORWARD PROCESSES 。形成 [[raw/literature-notes/hoDenoisingDiffusionProbabilistic2020|hoDenoisingDiffusionProbabilistic2020]] 阅读笔记，半完成 [[raw/literature-notes/songDenoisingDiffusionImplicit2022|songDenoisingDiffusionImplicit2022]] 阅读笔记，`ingest ddpm` 
 	* 5.11-5.17 完成DDIM, 完成[[raw/literature-notes/songDenoisingDiffusionImplicit2022|songDenoisingDiffusionImplicit2022]] 阅读笔记，读 score-based SDEs abstract+intro+conclusion, 半完成[[songScoreBasedGenerativeModeling2021]] 笔记。`ingest ddim`
-	* 5.18-5.24 （计划）完成score-based SDEs，Flow Matching，Rectified Flow。完成对应笔记，`ingest`对应内容。总结图像生成的几条主要技术路径，比较特点与优劣。
+	* 5.18-5.24 完成score-based SDEs，Flow Matching，Rectified Flow。完成对应笔记，`ingest`对应内容。总结图像生成的几条主要技术路径，比较特点与优劣。
 
 3. `./wiki`重要内容(简要版，详见由ai编写的[[index]])
 	* **研究者 / 机构 / 具名模型**（`entities/`）：领域内关键人物、所属机构与代表性模型的档案
