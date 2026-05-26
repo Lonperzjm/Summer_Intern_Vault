@@ -5,8 +5,8 @@ aliases: [Flow Matching, FM, 流匹配]
 tags: [flow-matching, cnf, generative-model, ode]
 status: active
 created: 2026-05-24
-updated: 2026-05-24
-sources: ["[[wiki/sources/lipmanFlowMatchingGenerative2023]]"]
+updated: 2026-05-26
+sources: ["[[wiki/sources/lipmanFlowMatchingGenerative2023]]", "[[wiki/sources/liuFlowStraightFast2022a]]"]
 ---
 
 # Flow Matching（FM）
@@ -62,4 +62,4 @@ $$\frac{\partial p_t}{\partial t}+\nabla\!\cdot(p_t v_t)=0,$$
 ## 出处与引用
 
 - [[wiki/sources/lipmanFlowMatchingGenerative2023]]（FM 原文）
-- 并行工作：Liu et al. 2022（[[wiki/methods/rectified-flow|Rectified Flow]]）、Albergo & Vanden-Eijnden 2022（Stochastic Interpolants）
+- 并行工作：[[wiki/sources/liuFlowStraightFast2022a|Liu et al. 2022 (Rectified Flow)]]（已 ingest 2026-05-26；公式上 RF = FM-OT 路径取 $\sigma_{\min}=0$ + 任意 coupling 接口 + [[wiki/concepts/reflow|reflow]]）、Albergo & Vanden-Eijnden 2022（Stochastic Interpolants，待 ingest）

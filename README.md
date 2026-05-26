@@ -14,7 +14,7 @@
 	* 5.8-5.11 DDPM + DDIM bg+NON-MARKOVIAN FORWARD PROCESSES 。形成 [[raw/literature-notes/hoDenoisingDiffusionProbabilistic2020|hoDenoisingDiffusionProbabilistic2020]] 阅读笔记，半完成 [[raw/literature-notes/songDenoisingDiffusionImplicit2022|songDenoisingDiffusionImplicit2022]] 阅读笔记，`ingest ddpm` 
 	* 5.11-5.17 完成DDIM, 完成[[raw/literature-notes/songDenoisingDiffusionImplicit2022|songDenoisingDiffusionImplicit2022]] 阅读笔记，读 score-based SDEs abstract+intro+conclusion, 半完成[[songScoreBasedGenerativeModeling2021]] 笔记。`ingest ddim`
 	* 5.18-5.24 完成score-based SDEs，Flow Matching。完成[[raw/literature-notes/songScoreBasedGenerativeModeling2021|songScoreBasedGenerativeModeling2021]]、[[raw/literature-notes/lipmanFlowMatchingGenerative2023|lipmanFlowMatchingGenerative2023]] 阅读笔记，`ingest score-basedmodel & flowmatching`。建立基本的概率-采样概念理解。
-	* 5.25-5.31 （计划）完成**Flow Straight and Fast: Learning to Generate and Transfer Data with Rectified Flow** **High-Resolution Image Synthesis with Latent Diffusion Models** 完成对应笔记，`ingest`对应内容。给control做准备。
+	* 5.25-5.31 （计划）完成**Rectified Flow**, **Latent Diffusion Models**, **ControlNet**,**SDEdit**,**Denoising Diffusion Bridge Models**,**Diffusion Bridge Implicit Models**完成对应笔记，`ingest`对应内容。
 
 3. `./wiki`重要内容(简要版，详见由ai编写的[[index]])
 	* **研究者 / 机构 / 具名模型**（`entities/`）：领域内关键人物、所属机构与代表性模型的档案

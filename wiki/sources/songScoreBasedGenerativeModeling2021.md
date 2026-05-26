@@ -5,7 +5,7 @@ aliases: [Score SDE 原文, "Yang Song et al. 2021", SDE 统一框架]
 tags: [diffusion, score-based, sde, foundational]
 status: stable
 created: 2026-05-20
-updated: 2026-05-24
+updated: 2026-05-26
 raw: "[[raw/literature-notes/songScoreBasedGenerativeModeling2021]]"
 authors: [Yang Song, Jascha Sohl-Dickstein, Diederik P. Kingma, Abhishek Kumar, Stefano Ermon, Ben Poole]
 venue: ICLR 2021 (Oral / Outstanding Paper)
@@ -104,4 +104,4 @@ $$\mathrm dx = \Big\{f(x,t) - g(t)^2\big[\underbrace{\nabla_x\log p_t(x)}_{\text
 - VE vs VP vs sub-VP 在**编辑任务**上的优劣差异（本文只比生成质量/似然）。
 - PC 的 corrector 步数 $m$、Langevin 步长 $\varepsilon_i$ 的调参与编辑保真度的关系。
 - probability-flow ODE 反向积分的离散误差如何影响 inversion 往返闭合——与 [[wiki/methods/ddim]] failure mode 对照。
-- ✅ 与 [[wiki/concepts/flow-matching|Flow Matching]] 的精确关系（ODE 训练 vs 事后导出）已由 2026-05-24 ingest 的 [[wiki/sources/lipmanFlowMatchingGenerative2023|FM 原文]] 厘清；仍开放：与 [[wiki/methods/rectified-flow|Rectified Flow]] 的 reflow / few-step 关系（待 ingest RF 原文）。
+- ✅ 与 [[wiki/concepts/flow-matching|Flow Matching]] 的精确关系（ODE 训练 vs 事后导出）已由 2026-05-24 ingest 的 [[wiki/sources/lipmanFlowMatchingGenerative2023|FM 原文]] 厘清；✅ 与 [[wiki/methods/rectified-flow|Rectified Flow]] 的 reflow / few-step 关系也已由 2026-05-26 ingest 的 [[wiki/sources/liuFlowStraightFast2022a|RF 原文]] 厘清——PF-ODE 是从 score 网络**事后导出**的确定性 ODE，RF 是在训练阶段被 [[wiki/concepts/reflow|reflow]] **主动拉直**的确定性 ODE；两者同属"确定性 ODE 家谱"的不同侧。

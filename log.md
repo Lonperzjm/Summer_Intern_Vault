@@ -2,6 +2,28 @@
 
 > Append-only 时间线。每条 entry 以 `## [YYYY-MM-DD] <op> | <subject>` 起始，便于 `grep "^## \[" log.md | tail`。
 
+## [2026-05-26] lint | RF ingest 后整改：4 处 Stale 关闭
+- 扫描：47 wiki 页 · 562+ wikilink · broken **0** / orphan **0** / weak **0** / frontmatter **0**
+- updated: `wiki/sources/lipmanFlowMatchingGenerative2023.md` —— S1（line 113）"Liu et al. 2022 ...为并行工作（待 ingest 原文）"→ ✅ 已 ingest，改链至 [[wiki/sources/liuFlowStraightFast2022a]] 并指 method 页异同表；S2（line 127）open question 中 Liu 2022 部分关闭，仅 SD3/FLUX 待 ingest
+- updated: `wiki/sources/songScoreBasedGenerativeModeling2021.md` —— S3（line 107）open question "与 RF 关系（待 ingest）"→ ✅，加 PF-ODE vs RF 的"事后导出 vs 主动拉直"刻画
+- updated: `wiki/sources/songDenoisingDiffusionImplicit2022.md` —— S4（line 98 下游节）补 RF 反链，串起"DDIM → PF-ODE → RF/reflow"确定性 ODE 家谱
+- 三页 `updated` 刷新至 2026-05-26
+- Missing 候选（高频但未建页）已识别但本次不动：P0 = SD3 / RF-Inversion（直接对接 thesis）；P1 = FLUX / Consistency Models；P2 = Stochastic Interpolants / InstaFlow（已记在 overview「待调研方向」与各 source 的 open questions）
+- 仍开放（Suggestion，待用户定）：是否 ingest SD3 原文以填 overview「主要派系→flow-matching-based」首条；是否 ingest RF-Inversion 第一篇编辑论文
+
+## [2026-05-26] ingest | Flow Straight and Fast: Rectified Flow (Liu, Gong & Liu 2022)
+- created: `wiki/sources/liuFlowStraightFast2022a.md`
+- created: `wiki/concepts/reflow.md`、`wiki/concepts/transport-coupling.md`
+- created: `wiki/entities/xingchao-liu.md`、`wiki/entities/qiang-liu.md`
+- updated: `wiki/methods/rectified-flow.md` —— stub → 完整方法页（核心算法、与 FM/OT 路径精确异同表、关系网；status draft → active；sources 加 Liu 2022）
+- updated: `wiki/concepts/flow-matching.md` —— 并行工作处把 Liu 2022 从"待 ingest"标 ✅，注明"RF = FM-OT 取 $\sigma_{\min}=0$ + 任意 coupling + reflow"
+- updated: `wiki/concepts/optimal-transport-path.md` —— 下游 RF 改 wikilink，精确刻画与 OT 路径的边界关系；sources 加 Liu 2022
+- updated: `wiki/concepts/probability-flow-ode.md` —— "PF-ODE / FM / RF" 三家谱厘清：PF-ODE 事后导出 vs RF 主动拉直；sources 加 Liu 2022
+- updated: `wiki/overview.md` —— 轻量更新（不升版本）：推论 3 加 RF/reflow 把加速来源完整化为四层（采样器→路径→训练阶段轨迹→蒸馏）；推论末「重审注」吸收 RF；待调研方向「DDIM↔FM↔RF」三角厘清，RF 标 ✅，新增 SD3/FLUX/RF-Inversion 待 ingest
+- updated: `index.md` —— 刷新 updated
+- updated: `raw/literature-notes/liuFlowStraightFast2022a.md` —— 回填 `ingested_to_wiki: true`、`wiki_page`、`updated`（§5.1 例外）
+- thesis：working thesis v0.4 不变（按用户选择"轻量更新不升版本"）；RF 作为 FM 推论 3 的强化验证而非范式断点
+
 ## [2026-05-24] lint | FM ingest 后整改：消 stale、retarget pf-ode 链、建 Rectified Flow stub
 - 扫描：562 条 wikilink —— broken **0** / orphan **0**（最弱 imagenet 仅 1 入链，已 polish 补强）；frontmatter 无缺字段
 - created: `wiki/methods/rectified-flow.md` —— Missing 项 stub（RF 在 6+ 页被提及却无独立页），作为 FM 并行/下游线与多条「待 ingest」的落点

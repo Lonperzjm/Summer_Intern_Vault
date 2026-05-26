@@ -5,8 +5,8 @@ aliases: [OT path, OT 路径, optimal transport path, OT 条件路径, 最优传
 tags: [flow-matching, optimal-transport, ode]
 status: active
 created: 2026-05-24
-updated: 2026-05-24
-sources: ["[[wiki/sources/lipmanFlowMatchingGenerative2023]]"]
+updated: 2026-05-26
+sources: ["[[wiki/sources/lipmanFlowMatchingGenerative2023]]", "[[wiki/sources/liuFlowStraightFast2022a]]"]
 ---
 
 # Optimal Transport (OT) Conditional Path
@@ -46,7 +46,7 @@ $$\frac{d}{dt}\psi_t(x_0)=x_1-(1-\sigma_{\min})x_0.$$
 
 - 框架：[[wiki/concepts/flow-matching]] / [[wiki/concepts/conditional-flow-matching]]
 - 对立面：diffusion 路径（[[wiki/methods/ddpm]] VP / [[wiki/methods/ncsn]] VE）
-- 下游：[[wiki/methods/rectified-flow|Rectified Flow]]（Liu et al. 2022）把"直线化"推到极致，是 SD3 / FLUX 训练目标的来源（待 ingest）
+- 下游：[[wiki/methods/rectified-flow|Rectified Flow]]（[[wiki/sources/liuFlowStraightFast2022a|Liu et al. 2022]]，已 ingest 2026-05-26）把"直线化"推到极致——精确关系：RF 的线性插值 = OT 路径在 $\sigma_{\min}=0$ 下的边界形式；RF 额外引入 [[wiki/concepts/reflow|reflow]] 把 ODE 在训练阶段迭代拉直，是 SD3 / FLUX 训练目标的来源
 
 ## 在 text-guided editing 中的作用
 

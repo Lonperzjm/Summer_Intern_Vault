@@ -1,38 +1,74 @@
 ---
 type: method
 title: Rectified Flow
-aliases: [Rectified Flow, rectified flow, reflow, "Liu et al. 2022"]
+aliases: [Rectified Flow, rectified flow, RF, "Liu et al. 2022"]
 tags: [flow-matching, ode, rectified-flow, sampling-acceleration]
-status: draft
+status: active
 created: 2026-05-24
-updated: 2026-05-24
-sources: ["[[wiki/sources/lipmanFlowMatchingGenerative2023]]"]
-family: other
+updated: 2026-05-26
+sources: ["[[wiki/sources/liuFlowStraightFast2022a]]", "[[wiki/sources/lipmanFlowMatchingGenerative2023]]"]
+family: flow-matching
 ---
 
-# Rectified Flow
+# Rectified Flow（RF）
 
-> **Stub**：尚未 ingest 原文（Liu et al. 2022, *Flow Straight and Fast: Learning to Generate and Transfer Data with Rectified Flow*, ICLR 2023）。当前内容据 [[wiki/sources/lipmanFlowMatchingGenerative2023|Flow Matching]] 的并行工作交叉引用整理，待 ingest 后扩充。
+> 方法主页。原文 [[wiki/sources/liuFlowStraightFast2022a|Liu, Gong & Liu 2022 (ICLR 2023)]] 已 ingest。本页负责 RF 在 vault 中的"方法族入口"：把 RF 与 [[wiki/concepts/flow-matching|FM]]、[[wiki/concepts/optimal-transport-path|OT 路径]]、[[wiki/concepts/probability-flow-ode|PF-ODE]] 的精确关系厘清，并承接其工业下游（SD3 / FLUX / RF-Inversion）。
 
 ## 一句话
 
-学一条把噪声分布"尽可能走直线"运输到数据分布的 ODE；再用 **reflow**（rectification）迭代把轨迹拉直，逼近直线后可少步乃至**单步**生成。与 [[wiki/concepts/flow-matching|Flow Matching]] 并行/同源——其线性插值 $x_t=(1-t)x_0+t x_1$ 本质就是 FM 的 [[wiki/concepts/optimal-transport-path|OT 路径]]（去掉 $\sigma_{\min}$ 项的边界处理）。
+学一条把 $\pi_0$（噪声）尽量**直线**输运到 $\pi_1$（数据）的 ODE，训练就是对线性插值做 L2 回归；用 [[wiki/concepts/reflow|reflow]] 迭代把轨迹拉直——极限直线时**单步 Euler 即精确**。
+
+## 核心算法
+
+1. 给 coupling $(X_0,X_1)$，$X_t=(1-t)X_0+t X_1$；
+2. 训 $v_\theta(X_t,t)\approx X_1-X_0$（L2）；最优解 $v^\ast(x,t)=\mathbb E[X_1-X_0\mid X_t=x]$；
+3. 采样 ODE $dZ_t=v_\theta(Z_t,t)\,dt$, $t:0\to 1$；
+4. 用 $(Z_0,Z_1)$ 作新 coupling 再训（[[wiki/concepts/reflow|reflow]]），递推 $k$ 次；
+5. 可选：在 reflow 后蒸馏出 amortized 1-step 生成器。
+
+## 与 [[wiki/concepts/flow-matching|FM]] / [[wiki/concepts/optimal-transport-path|OT 路径]] 的精确异同
+
+| 维度 | Rectified Flow（Liu 2022） | Flow Matching（Lipman 2023） |
+|---|---|---|
+| 路径形式 | $X_t=(1-t)X_0+t X_1$ | 高斯条件路径族；OT 路径 $X_t=(1-(1-\sigma_{\min})t)X_0+t X_1$ |
+| $\sigma_{\min}$ | 隐含 0（端点上 Dirac，需 smoother） | 显式保留 $\sigma_{\min}>0$ |
+| $\pi_0$ 假设 | **任意分布**（生成 / I2I / 域适应统一） | 默认 $\mathcal N(0,I)$ |
+| coupling | **任意**，可被 rewire（[[wiki/concepts/transport-coupling]]） | 默认独立耦合，不讨论 rewire |
+| 训练目标 | $\|v_\theta(X_t,t)-(X_1-X_0)\|^2$ | CFM：$\|v_\theta(X_t,t)-u_t(X_t\mid X_1)\|^2$（OT 路径上恰为 $X_1-(1-\sigma_{\min})X_0$） |
+| 迭代 reflow | **构成性步骤** | 不包含 |
+| 主要卖点 | reflow / 1-step / 任意 coupling | 路径设计自由度 + 与 SDE 解耦 |
+
+> **公式同构**：取 $\sigma_{\min}=0$、独立耦合、$k=1$（不 reflow）时，RF 与 FM-OT **训练目标完全一致**。差异在**接口与流程**：RF 把 coupling 和 reflow 当一等公民；FM 把"换路径"当一等公民。两者在工业实现里（SD3/FLUX）几乎合流。
 
 ## 为什么重要（对本 wiki）
 
-- 是 [[wiki/concepts/flow-matching|FM]] → 工业级文生图的桥：**SD3 / FLUX 的训练目标**即 rectified-flow 一系。
-- **reflow** 提供"训练后再把 ODE 拉直"的加速思路，补强 [[wiki/overview]] 推论 3——采样加速可来自**路径/轨迹设计**，而非只靠采样器或蒸馏。
-- 落点：overview「主要派系 → flow-matching-based」的 text-guided editing 方法多半建立在 RF 模型（SD3 / FLUX）之上（如 RF-Inversion）。
+- **加速可来自训练阶段**：reflow 把 [[wiki/overview]] 推论 3 推到极限——不只改采样器（DDIM 跳步）、不只改路径（FM-OT），而是把 ODE 本身在训练阶段迭代变直。
+- **工业落点**：SD3（Esser et al. 2024）与 FLUX 的训练目标即 RF 一族；其上的编辑方法（RF-Inversion, FlowEdit 等）依然继承"沿 ODE 注入条件"的范式。
+- **coupling 作为研究变量**：RF 把 inversion / DDIM-inv 失稳重表述为 coupling rewiring 失稳——给编辑论文一种新的诊断语言（详见 [[wiki/concepts/transport-coupling]]）。
 
 ## 关系
 
-- 同源 / 并行：[[wiki/concepts/flow-matching]]、[[wiki/concepts/conditional-flow-matching]]、[[wiki/concepts/optimal-transport-path]]
-- 采样近亲：[[wiki/concepts/probability-flow-ode]]（都是确定性 ODE 生成；RF 额外做轨迹拉直）
-- 对照：[[wiki/methods/ddim]]（diffusion 的训练 + flow 的采样）vs RF（连训练也 flow 化 + 拉直）
-- 下游模型（待 ingest）：SD3（Esser et al. 2024）、FLUX
+- 同源 / 并行：[[wiki/concepts/flow-matching]]、[[wiki/concepts/conditional-flow-matching]]、[[wiki/concepts/optimal-transport-path]]、Stochastic Interpolants（Albergo & Vanden-Eijnden 2022，待 ingest）
+- 核心操作：[[wiki/concepts/reflow]]、[[wiki/concepts/transport-coupling]]
+- 采样近亲：[[wiki/concepts/probability-flow-ode]]（同为确定性 ODE 生成，但 score 事后导出 vs RF 直接训速度场）
+- 对照：[[wiki/methods/ddim]]（diffusion 的训练 + flow 的采样）vs RF（连训练也 flow 化 + reflow 拉直）
+- 作者：[[wiki/entities/xingchao-liu]]、[[wiki/entities/qiang-liu]]
+- 下游模型（待 ingest）：SD3（Esser et al. 2024）、FLUX、InstaFlow
 
-## 待补
+## 重要结果速览
 
-- [ ] ingest Liu et al. 2022 原文：reflow 精确流程、k-rectification、1-step 蒸馏与质量损失
-- [ ] 与 FM OT 路径的精确异同（边界条件、$\sigma_{\min}$、是否做 reflow）
-- 出处：待 ingest 原文（暂引自 [[wiki/sources/lipmanFlowMatchingGenerative2023]] 的并行工作讨论）
+- 1-rectified flow（即 $k=1$）已在 [[wiki/benchmarks/cifar10|CIFAR-10]] 与同期 FM-OT 同档；
+- 2-rectified flow 把 **1-step / 2-step 采样 FID** 大幅下压，是 RF 区别于 FM 的最直观红利；
+- 同框架统一覆盖无条件生成、image-to-image translation、域适应。
+
+## 待补 / 开放
+
+- [ ] SD3 / FLUX 原文 ingest，填 overview「主要派系→flow-matching-based」
+- [ ] RF-Inversion 类编辑方法 ingest（是 thesis 的直接相关线）
+- [ ] Reflow 收敛到 OT 的条件与速率
+- [ ] RF 模型上 inversion 往返闭合的稳定性（与 FlowCycle 工作的接合点）
+
+## 出处
+
+- [[wiki/sources/liuFlowStraightFast2022a]]（RF 原文）
+- [[wiki/sources/lipmanFlowMatchingGenerative2023]]（并行工作，formal 关系参照）

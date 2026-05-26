@@ -5,7 +5,7 @@ aliases: [DDIM, "Song, Meng & Ermon 2021", songDenoisingDiffusionImplicit2022]
 tags: [diffusion, sampling-acceleration, deterministic-sampling, foundational]
 status: stable
 created: 2026-05-14
-updated: 2026-05-20
+updated: 2026-05-26
 raw: "[[raw/literature-notes/songDenoisingDiffusionImplicit2022]]"
 authors: [Jiaming Song, Chenlin Meng, Stefano Ermon]
 venue: ICLR
@@ -95,7 +95,7 @@ DDIM 即该 ODE 的一种离散化。两个推论：(i) 步数越多离散误差
   - [[wiki/concepts/variational-bound-elbo]] —— Theorem 1 中 $J_\sigma$ 即此变分目标的非马尔可夫版本
 - 上游：[[wiki/sources/hoDenoisingDiffusionProbabilistic2020|DDPM]]（共享训练目标与 ε 网络）
 - 基准：[[wiki/benchmarks/cifar10]]、[[wiki/benchmarks/lsun]]（论文在二者上报告分步数 FID，展示 step–quality trade-off）
-- 下游：DDIM inversion → 几乎所有 inversion-based text-guided editing 方法；Score SDE 的 probability-flow ODE；扩散蒸馏 / Consistency Models 等加速线
+- 下游：DDIM inversion → 几乎所有 inversion-based text-guided editing 方法；Score SDE 的 [[wiki/concepts/probability-flow-ode|probability-flow ODE]]；[[wiki/methods/rectified-flow|Rectified Flow]]（[[wiki/sources/liuFlowStraightFast2022a|Liu et al. 2022]]）把同一条确定性 ODE 家谱从"事后导出"推到"训练阶段主动拉直"（[[wiki/concepts/reflow|reflow]]）；扩散蒸馏 / Consistency Models 等加速线
 
 ## 对我的 thesis 的启示
 

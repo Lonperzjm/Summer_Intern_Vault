@@ -5,7 +5,7 @@ aliases: [Flow Matching, FM, "Lipman et al. 2023", CFM 原文, Conditional Flow 
 tags: [flow-matching, cnf, optimal-transport, generative-model, foundational]
 status: stable
 created: 2026-05-24
-updated: 2026-05-24
+updated: 2026-05-26
 raw: "[[raw/literature-notes/lipmanFlowMatchingGenerative2023]]"
 authors: [Yaron Lipman, Ricky T. Q. Chen, Heli Ben-Hamu, Maximilian Nickel, Matt Le]
 venue: ICLR 2023
@@ -110,7 +110,7 @@ u_t(x\mid x_1)=\frac{x_1-(1-\sigma_{\min})x}{1-(1-\sigma_{\min})t}.$$
 - **把 diffusion 收为特例**：[[wiki/methods/ddpm|DDPM]]（VP）/[[wiki/methods/ncsn|NCSN]]（VE）的高斯路径是 Gaussian 路径族的成员；FM w/ Diffusion 复现其结果但训练更稳。
 - **CFM ≡ DSM 的 vector-field 版**：[[wiki/concepts/score-matching]] 的条件→边缘恒等式与本文 Theorem 2 同构。
 - **连续性方程 = 无扩散的 [[wiki/concepts/fokker-planck-equation|Fokker-Planck]]**。
-- **下游 / 并行**：[[wiki/methods/rectified-flow|Rectified Flow]]（Liu et al. 2022）、Stochastic Interpolants（Albergo & Vanden-Eijnden 2022）为并行工作；FM-OT 是 SD3 / FLUX 一线 rectified-flow 训练目标的直接源头（待 ingest 原文）。
+- **下游 / 并行**：[[wiki/sources/liuFlowStraightFast2022a|Rectified Flow (Liu et al. 2022)]]（✅ 已 ingest 2026-05-26；公式上 RF 的线性插值 = FM-OT 路径取 $\sigma_{\min}=0$，差异在"任意 coupling 接口 + [[wiki/concepts/reflow|reflow]] 迭代"；详见 [[wiki/methods/rectified-flow]] 异同表）、Stochastic Interpolants（Albergo & Vanden-Eijnden 2022，仍待 ingest）为并行工作；FM-OT / RF 一族是 SD3 / FLUX 训练目标的直接源头（SD3 / FLUX 原文仍待 ingest）。
 - 人物 / 机构：[[wiki/entities/yaron-lipman]]、[[wiki/entities/ricky-chen]]（含 Heli Ben-Hamu、Maximilian Nickel、Matt Le）；[[wiki/entities/meta-ai-fair]]。
 - 评测：[[wiki/benchmarks/cifar10]]、[[wiki/benchmarks/imagenet]]。
 
@@ -124,7 +124,7 @@ u_t(x\mid x_1)=\frac{x_1-(1-\sigma_{\min})x}{1-(1-\sigma_{\min})t}.$$
 
 ## Open questions / 待追
 
-- [ ] FM-OT → Rectified Flow → SD3 / FLUX 的演化链：reflow、few-step、与本文 OT 路径的精确异同（待 ingest Liu et al. 2022 / SD3 / FLUX）。
+- ✅ Liu et al. 2022（[[wiki/sources/liuFlowStraightFast2022a|Rectified Flow]]）已 ingest——reflow / few-step / 与本文 OT 路径的精确异同已在 [[wiki/methods/rectified-flow]] 与 [[wiki/concepts/reflow]] 厘清；**仍待**：SD3（Esser et al. 2024）/ FLUX 原文。
 - [ ] 在 **text-guided editing** 上，FM 模型的 inversion 怎么做？OT 直线路径是否让 inversion 往返更易闭合（对照 [[wiki/methods/ddim]] failure mode）？
 - [ ] 非各向同性高斯 / 更一般 kernel 的路径（作者在 Conclusion 点名的未来方向）。
 - [ ] FM 的 $t$ 反向约定在跨范式（与 score-based）比较时的统一记法。
