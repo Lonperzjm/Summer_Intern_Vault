@@ -5,7 +5,7 @@ aliases: [DDPM]
 tags: [diffusion, foundational]
 status: stable
 created: 2026-05-10
-updated: 2026-05-24
+updated: 2026-05-27
 sources: ["[[wiki/sources/hoDenoisingDiffusionProbabilistic2020]]"]
 family: other
 ---
@@ -71,7 +71,7 @@ return x_0
 
 - 概念：[[wiki/concepts/diffusion-process]]、[[wiki/concepts/variational-bound-elbo]]、[[wiki/concepts/epsilon-parameterization]]、[[wiki/concepts/score-matching]]、[[wiki/concepts/langevin-dynamics]]、[[wiki/concepts/reparameterization-trick]]
 - 上游：[[wiki/methods/diffusion-2015|Sohl-Dickstein 2015]]；[[wiki/methods/ncsn|Song & Ermon 2019]] (NCSN)
-- 下游（直接继承 DDPM 训练形式）：[[wiki/methods/ddim|DDIM]]、IDDPM、[[wiki/concepts/score-sde|Score SDE]]、ADM (Dhariwal & Nichol)、[[wiki/concepts/classifier-free-guidance|CFG]]、Imagen、Stable Diffusion / LDM、几乎所有 text-guided editing 方法
+- 下游（直接继承 DDPM 训练形式）：[[wiki/methods/ddim|DDIM]]、IDDPM、[[wiki/concepts/score-sde|Score SDE]]、ADM (Dhariwal & Nichol)、[[wiki/concepts/classifier-free-guidance|CFG]]、Imagen、[[wiki/methods/ldm|LDM (Stable Diffusion)]]、几乎所有 text-guided editing 方法
 - 路径视角：[[wiki/concepts/flow-matching|Flow Matching]] 把 DDPM 的高斯加噪路径收为其 Gaussian 条件路径族的一个特例（弯曲轨迹）；FM w/ Diffusion 复现 DDPM 结果但训练更稳，换 [[wiki/concepts/optimal-transport-path|OT 路径]]则更快（[[wiki/sources/lipmanFlowMatchingGenerative2023|Lipman et al. 2023]]）
 - 出处：[[wiki/sources/hoDenoisingDiffusionProbabilistic2020]]
 - 评测：[[wiki/benchmarks/cifar10]]、[[wiki/benchmarks/lsun]]

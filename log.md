@@ -2,6 +2,36 @@
 
 > Append-only 时间线。每条 entry 以 `## [YYYY-MM-DD] <op> | <subject>` 起始，便于 `grep "^## \[" log.md | tail`。
 
+## [2026-05-27] lint | LDM ingest 后整改：5 处 Stale 关闭
+- 扫描：56 wiki 页 · 全部 wikilink 解析 · broken **0**（grep 报告 17 条均误报：14 条 markdown-table-pipe-escape、3 条 raw/assets/ 下 .webp 嵌入）/ orphan **0** / weakly-linked **0** / frontmatter 缺失 **0** / 矛盾 **0**
+- updated: `wiki/sources/hoDenoisingDiffusionProbabilistic2020.md` —— S1（line 108）"Stable Diffusion / Latent Diffusion 等" 裸文本 → `[[wiki/methods/ldm|Stable Diffusion / LDM]] (Rombach et al. 2022)`
+- updated: `wiki/methods/ddpm.md` —— S2（line 74）"Stable Diffusion / LDM" 裸文本 → `[[wiki/methods/ldm|LDM (Stable Diffusion)]]`
+- updated: `wiki/concepts/classifier-free-guidance.md` —— S3（line 26）"Stable Diffusion" 裸文本 → `[[wiki/methods/ldm|Stable Diffusion]]`
+- updated: `wiki/concepts/epsilon-parameterization.md` —— S4（line 51）"Stable Diffusion" 裸文本 → `[[wiki/methods/ldm|Stable Diffusion]]`
+- updated: `wiki/overview.md` —— S5（line 38）"cross-attention 在 U-Net 里" → `[[wiki/concepts/cross-attention|cross-attention]] 在 U-Net 里`（推论 1 关键修正(iii) 的精确锚点）
+- 五页 `updated` 同步刷至 2026-05-27（overview 已在前一日 ingest 时刷过）
+- Missing 候选（频繁被提及但未建页）已识别但本次不动，按 thesis 距离排序：
+  - **P0**：第一篇 text-guided editing 论文（推荐 Prompt-to-Prompt → attention-injection 派系直接攻击 cross-attention）；SD3（Esser et al. 2024）；FLUX
+  - **P1**：VQGAN（Esser, Rombach & Ommer 2021）—— LDM 上游；ControlNet
+  - **P2**：classifier guidance / CFG 原文
+  - **P3**：Sohl-Dickstein 2015 / NCSN 原文（已有 stub）；InstaFlow / Stochastic Interpolants
+  - **schema-defer**：DDIM inversion 独立 concept 页（overview「待调研方向」已规定待第一篇 editing 论文 ingest 时再建）
+- 仍开放（Suggestion，待用户定）：下一轮 ingest 候选——Prompt-to-Prompt 或 SD3 二选一作起点
+
+## [2026-05-27] ingest | High-Resolution Image Synthesis with Latent Diffusion Models (Rombach et al. 2022)
+- created: `wiki/sources/rombachHighResolutionImageSynthesis2022.md` —— LDM / Stable Diffusion 方法论原点
+- created: `wiki/methods/ldm.md` —— Latent Diffusion 方法主页（family=other，与 ddpm/ddim 同档的"底座"类）
+- created: `wiki/concepts/cross-attention.md` —— token 类条件注入接口；列出与 self-attn / conditional drift / CFG / classifier guidance 的关系，及在 attention-injection 编辑方法族中的核心地位
+- created: `wiki/concepts/perceptual-compression.md` —— LPIPS+adv+recon+KL/VQ-reg 的 autoencoder 训练；明确 hard upper bound $\mathcal D(\mathcal E(x))\neq x$ 对 thesis 的含义
+- created: `wiki/concepts/latent-space-generative-modeling.md` —— 抽象范式页；区分与 VAE / pixel diffusion；指明 SD3/FLUX = LDM 压缩层 ⊕ FM/RF 训练目标
+- created: `wiki/entities/robin-rombach.md` / `bjorn-ommer.md` / `compvis.md` / `lmu-munich.md` —— 一作 / 通信作者 / 实验室 / 机构
+- updated: `wiki/overview.md` —— **不升 working thesis 版本号，轻量更新**：(1) 可变性光谱"可演化但非主战场"档新增「压缩层」组件，附独立注释说明其正交于其他三档；(2) 推论 1 加 LDM 作为「组件可新增而非替换」的样本，并指出 SD3/FLUX 是两条正交演化线（LDM 压缩层 + FM/RF 训练目标）的汇合点；(3) 推论 2 加「正交维度」注：autoencoder 重建误差是 fidelity 的 hard upper bound、独立于 $t$ 与 guidance 强度；(4) 「主要派系」节加总前提注——四类全部默认建立在 LDM 上，inversion-based 显式注明"latent 上往返"，attention-injection 显式注明"攻击 cross-attention map"；(5) 「重审注」与「待调研方向」吸收 LDM；sources 加 [[wiki/sources/rombachHighResolutionImageSynthesis2022]]；updated 2026-05-27
+- updated: `index.md` —— 刷新 updated
+- updated: `raw/literature-notes/rombachHighResolutionImageSynthesis2022.md` —— 回填 `ingested_to_wiki: true`、`wiki_page`（§5.1 例外）
+- thesis：working thesis v0.4 不变（LDM 没动 paradigm、没动训练目标，是"组件维度"上的新增；与 FM/RF 正交，待 SD3/FLUX ingest 时一并考虑是否升 v0.5）
+- 用户决定：将"autoencoder 重建上限会限制编辑保真度"按 🟣 级 thesis-implication 处理（用户原 annotation 全用黄色，未打 🟣/🔵）；该 implication 已落入 source 页「对我的 thesis 的启示」与 overview 推论 2「正交维度」注
+- 待 ingest（按 P0 → P1 排）：第一篇 text-guided editing 论文（建议 Prompt-to-Prompt 或 InstructPix2Pix，直接对接 thesis）；SD3 / FLUX / RF-Inversion；VQGAN 原文（LDM 上游）
+
 ## [2026-05-26] lint | RF ingest 后整改：4 处 Stale 关闭
 - 扫描：47 wiki 页 · 562+ wikilink · broken **0** / orphan **0** / weak **0** / frontmatter **0**
 - updated: `wiki/sources/lipmanFlowMatchingGenerative2023.md` —— S1（line 113）"Liu et al. 2022 ...为并行工作（待 ingest 原文）"→ ✅ 已 ingest，改链至 [[wiki/sources/liuFlowStraightFast2022a]] 并指 method 页异同表；S2（line 127）open question 中 Liu 2022 部分关闭，仅 SD3/FLUX 待 ingest

@@ -14,7 +14,7 @@ zotero: zotero://select/library/items/W34L9UAV
 tags:
   - literature
   - todo
-status: unread
+status: read
 priority: P2
 my-rating: "5"
 created: 2026-05-26
@@ -118,7 +118,8 @@ wiki_page: "[[wiki/sources/liuFlowStraightFast2022a]]"
     并训练速度场  
     $$  
     v_\theta(X_t,t)\approx X_1-X_0.  
-    $$  
+    $$
+    （相当于一边减少噪声，一边增加原图）  
     训练目标本质是普通 MSE 回归：  
     $$  
     \mathbb E_{t,(X_0,X_1)}  
@@ -196,10 +197,22 @@ wiki_page: "[[wiki/sources/liuFlowStraightFast2022a]]"
 <!-- 用 wikilink 把这篇与已有页面挂上钩；空着也行，ingest 时让 Claude Code 补全。 -->
 
 %% begin wiki-links %%
-- 概念：[[wiki/concepts/]]
-- 方法：[[wiki/methods/]]
-- 实体（作者 / 模型 / 机构）：[[wiki/entities/]]
+- 概念：
+  - [[wiki/concepts/flow-matching|Flow Matching]] —— 公式同构（RF 线性插值 = FM-OT 路径取 $\sigma_{\min}=0$）
+  - [[wiki/concepts/optimal-transport-path|OT 路径]] —— 同源；RF 在 $\sigma_{\min}=0$ 极限 + 任意 coupling
+  - [[wiki/concepts/reflow|reflow / rectification]] —— 本文核心独创操作
+  - [[wiki/concepts/transport-coupling|transport coupling]] —— RF 把 coupling 升为研究变量
+  - [[wiki/concepts/probability-flow-ode|PF-ODE]] —— 同为确定性 ODE，但 RF 是训练阶段主动拉直 vs PF-ODE 事后导出
+  - [[wiki/concepts/score-matching|DSM]] —— L2 + 条件期望=边缘场 同构
+- 方法：
+  - [[wiki/methods/rectified-flow|Rectified Flow]] —— 主页（本文是其原文）
+  - [[wiki/methods/ddim|DDIM]] —— 都得到确定性 ODE，但 DDIM 不拉直
+- 实体：[[wiki/entities/xingchao-liu]]、[[wiki/entities/qiang-liu]]
 - 基线 / 对比：
+  - [[wiki/sources/lipmanFlowMatchingGenerative2023|FM (Lipman et al. 2023)]] —— 同时期独立工作；CIFAR-10 同档
+  - [[wiki/sources/songDenoisingDiffusionImplicit2022|DDIM]]、[[wiki/sources/hoDenoisingDiffusionProbabilistic2020|DDPM]] —— 生成质量对照
+  - Stochastic Interpolants (Albergo & V.-E. 2022) —— 第三个并行（待 ingest）
+
 %% end wiki-links %%
 
 ## 对我的 thesis 的启示
@@ -207,9 +220,13 @@ wiki_page: "[[wiki/sources/liuFlowStraightFast2022a]]"
 <!-- 是否会让 [[wiki/overview]] 的 working thesis 移动？为什么？ -->
 
 %% begin thesis-implication %%
--
--
+- 🟣 **smoother（p.8）= FlowCycle 加噪的理论根因**：式 (4) 的 $v_X$ 在 $\rho(x_0\mid x_1)$ 退化时崩；加 $\xi\sim\mathcal N(0,\sigma^2 I)$ 是定理意义上的修复，不是工程 hack。可写进 thesis "方法稳定性"一章。
+- 🟣 **coupling 是被忽视的研究变量**：DDIM inversion 的不稳定 = coupling rewiring 的不稳定。给 inversion-based 编辑一个新的诊断语言。
+- 🟣 **reflow 把"加速"从采样器问题降级为训练问题**：与 thesis 现有路线（采样器调参）正交，但能复用——若 backbone 是 SD3/FLUX (RF 一族)，编辑方法直接吃 reflow 红利。
+- 🔴 **凸代价非增 ≠ 收敛到 OT**（Thm 3.5 caveat）：不要从"reflow 直线化"推到"reflow 给出 OT 编辑"——前者是定理，后者无保证。thesis claim 要避开这条。
+- 🔵 **待追**：RF-Inversion / SD3 / InstaFlow / Consistency Models 与 reflow 的目的重叠关系。
 %% end thesis-implication %%
+
 
 ## Open questions / 后续要查的引用
 

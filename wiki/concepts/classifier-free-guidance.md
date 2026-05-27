@@ -5,7 +5,7 @@ aliases: [CFG, classifier-free guidance, 无分类器引导]
 tags: [diffusion, guidance, conditioning]
 status: draft
 created: 2026-05-14
-updated: 2026-05-20
+updated: 2026-05-27
 sources: ["[[wiki/sources/songScoreBasedGenerativeModeling2021]]"]
 ---
 
@@ -23,7 +23,7 @@ $$\tilde\varepsilon_\theta(x_t,t,c) = \varepsilon_\theta(x_t,t,\varnothing) + w\
 
 - 等价于把 score 替换为 $s_\theta(x_t,t,c) + w\big(s_\theta(x_t,t,c)-s_\theta(x_t,t,\varnothing)\big)$（见 [[wiki/concepts/score-matching]]）
 - 训练成本几乎为零：只需在条件 dropout 下复用 [[wiki/concepts/epsilon-parameterization]] 的 $L_\mathrm{simple}$
-- 是现代 text-to-image（Imagen / Stable Diffusion）与 text-guided editing 的事实标准
+- 是现代 text-to-image（Imagen / [[wiki/methods/ldm|Stable Diffusion]]）与 text-guided editing 的事实标准
 
 ## 与其他概念的关系
 

@@ -5,7 +5,7 @@ aliases: [DDPM, "Ho et al. 2020", hoDenoisingDiffusionProbabilistic2020]
 tags: [diffusion, generative-model, foundational]
 status: stable
 created: 2026-05-10
-updated: 2026-05-14
+updated: 2026-05-27
 raw: "[[raw/literature-notes/hoDenoisingDiffusionProbabilistic2020]]"
 authors: [Jonathan Ho, Ajay Jain, Pieter Abbeel]
 venue: NeurIPS
@@ -105,7 +105,7 @@ $$
   - [[wiki/concepts/reparameterization-trick]] —— forward 闭式采样
 - 基准：[[wiki/benchmarks/cifar10]]、[[wiki/benchmarks/lsun]]
 - 上游：[[wiki/methods/diffusion-2015|Sohl-Dickstein et al. 2015]]（diffusion 原型）；[[wiki/methods/ncsn|Song & Ermon 2019]]（NCSN, score-based）
-- 下游：[[wiki/sources/songDenoisingDiffusionImplicit2022|DDIM]] (Song et al., ICLR 2021)、IDDPM (Nichol & Dhariwal 2021)、[[wiki/concepts/score-sde|Score SDE]] (Song et al. 2021)、[[wiki/concepts/classifier-free-guidance|Classifier-Free Guidance]] (Ho & Salimans 2022)、Stable Diffusion / Latent Diffusion 等几乎所有现代 diffusion 工作
+- 下游：[[wiki/sources/songDenoisingDiffusionImplicit2022|DDIM]] (Song et al., ICLR 2021)、IDDPM (Nichol & Dhariwal 2021)、[[wiki/concepts/score-sde|Score SDE]] (Song et al. 2021)、[[wiki/concepts/classifier-free-guidance|Classifier-Free Guidance]] (Ho & Salimans 2022)、[[wiki/methods/ldm|Stable Diffusion / LDM]] (Rombach et al. 2022) 等几乎所有现代 diffusion 工作
 
 ## 对我的 thesis 的启示
 

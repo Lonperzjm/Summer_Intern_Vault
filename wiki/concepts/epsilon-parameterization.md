@@ -5,7 +5,7 @@ aliases: [epsilon prediction, noise prediction, ε-pred]
 tags: [diffusion, training-objective, parameterization]
 status: stable
 created: 2026-05-10
-updated: 2026-05-14
+updated: 2026-05-27
 sources: ["[[wiki/sources/hoDenoisingDiffusionProbabilistic2020]]"]
 ---
 
@@ -48,7 +48,7 @@ $$L_{t-1} - C = \mathbb{E}_{x_0,\varepsilon}\!\left[\frac{\beta_t^2}{2\sigma_t^2
 
 ## 在 text-guided editing 中的作用
 
-- **事实标准**：从 Imagen / Stable Diffusion 到 InstructPix2Pix，几乎所有现代 text-guided diffusion 都训练 ε-pred；编辑算法的差异主要在条件注入、inversion、guidance，而非底层目标
+- **事实标准**：从 Imagen / [[wiki/methods/ldm|Stable Diffusion]] 到 InstructPix2Pix，几乎所有现代 text-guided diffusion 都训练 ε-pred；编辑算法的差异主要在条件注入、inversion、guidance，而非底层目标
 - 在 [[wiki/overview]] 的可变性光谱中，ε-pred 属"可演化但非主战场"一档：训练目标确实在变（ε → v → 速度场），但不是 thesis 的研究杠杆
 
 ## 出处与引用
