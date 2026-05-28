@@ -2,6 +2,22 @@
 
 > Append-only 时间线。每条 entry 以 `## [YYYY-MM-DD] <op> | <subject>` 起始，便于 `grep "^## \[" log.md | tail`。
 
+## [2026-05-28] ingest | Adding Conditional Control to Text-to-Image Diffusion Models / ControlNet (Zhang, Rao & Agrawala 2023)
+- created: `wiki/sources/zhangAddingConditionalControl2023.md` —— ControlNet source 摘要页（attention/feature-injection 阵营之外的第一篇 sideband 注入代表）
+- created: `wiki/methods/controlnet.md` —— 方法主页（family=other；附着 SD1.5）
+- created: `wiki/concepts/zero-convolution.md` —— $1\times 1$ conv 零初始化，ControlNet 稳定 fine-tune 关键；与 LoRA $A=0$ / Adapter 末端零初始化思想同源、对照表
+- created: `wiki/concepts/sideband-conditioning.md` —— 统一抽象「frozen backbone + trainable sideband + 初始化恒等」，覆盖 LoRA / Adapter / ControlNet / T2I-Adapter / IP-Adapter；明确为 thesis 在资源约束下的核心可行抽象
+- created: `wiki/entities/stable-diffusion.md` —— **具名模型**条目（与方法页 [[wiki/methods/ldm]] 分开；版本谱系 SD1.x → SDXL → SD3）
+- created: `wiki/entities/lvmin-zhang.md` / `anyi-rao.md` / `maneesh-agrawala.md`
+- updated: `wiki/overview.md` —— **不升 working thesis 版本号，本次有结构性更新**：(1) 推论 1 关键修正(iii) 措辞由"动 backbone 内部"改为"触及 backbone 内部"，并加 ControlNet 作为"克隆结构作 sideband"的精确变奏注；(2) 推论 1 支持光谱新增 ControlNet 作为"sideband 注入"档（与 LDM "压缩层"对称——一前一侧）；(3) 推论 2 新增「全 $t$ sideband vs 逐 $t$ guidance」对照 caveat（thesis 必须回答的核心问题）；(4) 「主要派系」改为五类——新增 **Control/sideband-injection** (✅ ControlNet 已 ingest)，并以 sideband-conditioning 作为前四类的统一上层抽象；(5) 「重审注」吸收 ControlNet；sources 加 [[wiki/sources/zhangAddingConditionalControl2023]]；updated 2026-05-28
+- updated: `wiki/methods/ldm.md` —— 下游编辑方法节标注 ControlNet ✅；具名落地权重指 [[wiki/entities/stable-diffusion]]
+- updated: `wiki/concepts/cross-attention.md` —— 新增 "vs Sideband 注入" 一节对照（U-Net 内部 token K/V 化 vs U-Net 外部 sideband 加性 residual）
+- updated: `index.md` —— 刷新 updated
+- updated: `raw/literature-notes/zhangAddingConditionalControl2023.md` —— 回填 `ingested_to_wiki: true`、`wiki_page`（§5.1 例外）
+- thesis：working thesis v0.4 不变（ControlNet 没动 paradigm、没动训练目标，是"组件维度→sideband 注入"上的新增；但本次 ingest 给出了 thesis 的**核心可行抽象**——frozen backbone + trainable sideband——值得考虑在下次 ingest（推荐 Prompt-to-Prompt 看 attention-injection 是否也能干净塞进该抽象）后升 v0.5）
+- 用户决定：(a) "frozen backbone + sideband 是 thesis 在资源约束下的核心可行抽象" 按 🟣 级 thesis-implication 处理；(b1) 主要派系新增第 5 类 Control/sideband-injection（而非塞进 attention/feature-injection）；(c) 加 Stable Diffusion 具名模型 entity 页
+- 待 ingest（按 thesis 距离）：Prompt-to-Prompt（attention-injection 派系首篇；最能验证 sideband 抽象是否覆盖该派系）；T2I-Adapter / IP-Adapter（Control/sideband 派系并行）；SD3 / FLUX（flow-matching-based 派系首篇）；LoRA / Adapter 原文（sideband-conditioning 概念页的上游）
+
 ## [2026-05-27] lint | LDM ingest 后整改：5 处 Stale 关闭
 - 扫描：56 wiki 页 · 全部 wikilink 解析 · broken **0**（grep 报告 17 条均误报：14 条 markdown-table-pipe-escape、3 条 raw/assets/ 下 .webp 嵌入）/ orphan **0** / weakly-linked **0** / frontmatter 缺失 **0** / 矛盾 **0**
 - updated: `wiki/sources/hoDenoisingDiffusionProbabilistic2020.md` —— S1（line 108）"Stable Diffusion / Latent Diffusion 等" 裸文本 → `[[wiki/methods/ldm|Stable Diffusion / LDM]] (Rombach et al. 2022)`

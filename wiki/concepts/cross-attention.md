@@ -5,7 +5,7 @@ aliases: [cross-attention, cross-attn, 跨注意力]
 tags: [attention, conditioning, diffusion, transformer]
 status: stable
 created: 2026-05-27
-updated: 2026-05-27
+updated: 2026-05-28
 sources: ["[[wiki/sources/rombachHighResolutionImageSynthesis2022]]"]
 ---
 
@@ -44,6 +44,7 @@ $$
 - **vs Self-Attention**：Q/K/V 都来自同一序列；Cross-Attention 把 K/V 替换为外部条件。两者通常**交替使用**——LDM 的 U-Net 中每个 transformer block 是 (self-attn) → (cross-attn) → (FFN)。
 - **vs Conditional Drift（条件 LDM）**：cross-attention 是**实现** conditional drift $\varepsilon_\theta(z_t, t, \tau_\theta(y))$ 的具体机制；理论上也可以走 concat / AdaGN / FiLM，但 cross-attention 在 token 数可变、模态切换、attention map 可读性上明显占优。
 - **vs Concat 注入（空间对齐条件）**：[[wiki/sources/rombachHighResolutionImageSynthesis2022|LDM]] 中把**空间对齐**条件（semantic map / 低清图 / mask）直接 concat 到 noisy latent 沿通道维，**不走** cross-attention——因为这类条件本身已是 spatial grid，无需"token-空间"检索；cross-attention 主要负责"non-spatial token 序列 ↔ 空间"的对齐。
+- **vs Sideband 注入（[[wiki/methods/controlnet|ControlNet]] 系）**：cross-attention 在 U-Net **内部** transformer block 里把 token 类条件 K/V 化注入；ControlNet 在 U-Net **外部** sideband 副本中把空间对齐条件加性 residual 化注入到 12 条 skip + middle。两者**正交且共存**——SD 上文本走原 cross-attn、pose/depth 走 ControlNet sideband。统一抽象见 [[wiki/concepts/sideband-conditioning]]。
 - **vs [[wiki/concepts/classifier-free-guidance|Classifier-Free Guidance]]**：**正交**。Cross-attention 给出 conditional drift $\varepsilon_\theta(\cdot, c)$；CFG 在采样期对 conditional / unconditional drift 做线性外推 $\varepsilon_\theta(\cdot,c) + s(\varepsilon_\theta(\cdot,c)-\varepsilon_\theta(\cdot,\varnothing))$。SD 实践把两者联用——CFG 仍以 cross-attention 给出的 conditional ε 为底料。
 - **vs [[wiki/concepts/classifier-guidance|Classifier Guidance]]**：classifier guidance 走贝叶斯拆分 $\nabla\log p(y\mid x_t)$（需要训一个 noisy classifier）；cross-attention 把 $y$ 当作网络输入，**不**做贝叶斯拆分——这是用户在 ε-pred 高亮处的批注「score 的贝叶斯公式之外的另一种方法」精确指向的差异。
 

@@ -5,7 +5,7 @@ aliases: [LDM, Latent Diffusion Models, "Rombach et al. 2022", Stable Diffusion 
 tags: [diffusion, latent-space, autoencoder, cross-attention, text-to-image, foundational]
 status: stable
 created: 2026-05-27
-updated: 2026-05-27
+updated: 2026-05-28
 raw: "[[raw/literature-notes/rombachHighResolutionImageSynthesis2022]]"
 authors: [Robin Rombach, Andreas Blattmann, Dominik Lorenz, Patrick Esser, Björn Ommer]
 venue: CVPR 2022
@@ -37,16 +37,14 @@ LDM **不重写 diffusion 数学**，而是把扩散搬到**预训练感知自�
 
 ### 0. 两阶段管线
 
-```
-  x  ──E──▶  z  ──+ε──▶  z_t  ──ε_θ(z_t, t, τ_θ(y))──▶  ẑ_0  ──D──▶  x̂
-  (像素)    (latent)              U-Net + cross-attn      (像素)
-            ↑                                              ↑
-            └──── 阶段 1：autoencoder（一次性预训练）───────┘
-                  ↑──── 阶段 2：在 z 空间训扩散模型 ────↑
-```
+**数据流**（像素 → latent → 扩散 → latent → 像素）：
 
-- **阶段 1**（perceptual compression）：自编码器 $\mathcal E,\mathcal D$ 用 [[wiki/concepts/perceptual-compression|reconstruction + perceptual (LPIPS) + adversarial loss]] 训练，**单独**于 diffusion。下采样因子 $f=H/h=W/w\in\{1,2,4,8,16,32\}$；编码后 $z\in\mathbb R^{h\times w\times c}$。两种正则：**KL-reg**（轻 KL 拉向 $\mathcal N(0,I)$，类 VAE）/ **VQ-reg**（VQ codebook，但 quantization 放进 decoder 内，diffusion 仍作用在连续 latent 上）。
-- **阶段 2**（semantic compression）：在 $z$ 空间训 standard [[wiki/methods/ddpm|DDPM]]/[[wiki/methods/ddim|DDIM]] 式扩散——训练目标几乎照搬，仅把 $x$ 换成 $z$。
+$$
+\underbrace{x}_{\text{像素}}\;\xrightarrow{\;\mathcal E\;}\;\underbrace{z}_{\text{latent}}\;\xrightarrow{+\varepsilon}\;z_t\;\xrightarrow{\;\varepsilon_\theta(z_t,t,\tau_\theta(y))\;}\;\hat z_0\;\xrightarrow{\;\mathcal D\;}\;\underbrace{\hat x}_{\text{像素}}
+$$
+
+- **阶段 1**（perceptual compression，**一次性预训练**，多任务复用）：自编码器 $\mathcal E,\mathcal D$ 用 [[wiki/concepts/perceptual-compression|reconstruction + perceptual (LPIPS) + adversarial loss]] 训练，**独立**于 diffusion。下采样因子 $f=H/h=W/w\in\{1,2,4,8,16,32\}$；编码后 $z\in\mathbb R^{h\times w\times c}$。两种正则：**KL-reg**（轻 KL 拉向 $\mathcal N(0,I)$，类 VAE）/ **VQ-reg**（VQ codebook，但 quantization 放进 decoder 内，diffusion 仍作用在连续 latent 上）。负责数据流前后两段 $x\!\to\!z$ 与 $\hat z_0\!\to\!\hat x$。
+- **阶段 2**（semantic compression，**任务相关**）：在 $z$ 空间训 standard [[wiki/methods/ddpm|DDPM]]/[[wiki/methods/ddim|DDIM]] 式扩散——训练目标几乎照搬，仅把 $x$ 换成 $z$。U-Net + cross-attention 负责数据流中段 $z\!\to\!z_t\!\to\!\hat z_0$。
 
 🟡 p.2 "Departure to Latent Space"：这一节是论文的关键论点——「**training diffusion models on such a representation allows for the first time to reach a near-optimal point between complexity reduction and detail preservation**」。
 

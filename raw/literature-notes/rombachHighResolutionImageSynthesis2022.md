@@ -14,7 +14,7 @@ zotero: zotero://select/library/items/96P3CK9W
 tags:
   - literature
   - todo
-status: unread
+status: read
 priority: P2
 my-rating: "4"
 created: 2026-05-27

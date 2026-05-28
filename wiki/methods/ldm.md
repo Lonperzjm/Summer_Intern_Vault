@@ -5,7 +5,7 @@ aliases: [LDM, Latent Diffusion, Stable Diffusion 前身, LDM-KL-8]
 tags: [diffusion, latent-space, autoencoder, cross-attention, foundational]
 status: stable
 created: 2026-05-27
-updated: 2026-05-27
+updated: 2026-05-28
 sources: ["[[wiki/sources/rombachHighResolutionImageSynthesis2022]]"]
 family: other
 ---
@@ -111,4 +111,5 @@ return D(z_0)
 - 连续视角：[[wiki/concepts/score-sde|Score SDE]] / [[wiki/concepts/probability-flow-ode|PF-ODE]] 在 $z$ 空间继续成立——SD 上的 PF-ODE 采样器与 DDIM inversion 是此一致性的直接利用
 - 正交线（训练目标）：[[wiki/concepts/flow-matching|Flow Matching]] / [[wiki/methods/rectified-flow|Rectified Flow]] 改训练目标但**不动**压缩层；SD3 / FLUX = LDM 压缩层 ⊕ RF/FM 训练目标
 - 人物 / 机构：[[wiki/entities/robin-rombach]]、[[wiki/entities/bjorn-ommer]]、[[wiki/entities/compvis]]、[[wiki/entities/lmu-munich]]
-- 下游编辑方法（默认 LDM/SD 底座，多数仍待 ingest）：Prompt-to-Prompt、Null-text Inversion、InstructPix2Pix、ControlNet、IP-Adapter、Plug-and-Play、MasaCtrl、StyleAligned …
+- 具名落地权重：[[wiki/entities/stable-diffusion|Stable Diffusion]]（SD1.x / 2.x / SDXL）—— 几乎所有 text-guided editing 论文的事实底座
+- 下游编辑方法：✅ [[wiki/methods/controlnet|ControlNet]]（已 ingest 2026-05-28，附着于 SD1.5；sideband + zero-conv 注入空间条件）；其余仍待 ingest：Prompt-to-Prompt、Null-text Inversion、InstructPix2Pix、T2I-Adapter、IP-Adapter、Plug-and-Play、MasaCtrl、StyleAligned …
