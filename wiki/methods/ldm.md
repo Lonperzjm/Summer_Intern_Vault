@@ -12,7 +12,7 @@ family: other
 
 # LDM（Latent Diffusion Models）
 
-> family 标作 `other`：LDM **不是** text-guided editing 方法族本身，而是几乎所有现代 text-to-image / text-guided editing 方法的**底座**。从 SD1.x/2.x 到 InstructPix2Pix、ControlNet、Prompt2Prompt 等编辑系，统统建在 LDM 管线之上。
+> family 标作 `other`：LDM **不是** text-guided editing 方法族本身，而是几乎所有现代 text-to-image / text-guided editing 方法的**底座**。从 [[wiki/entities/stable-diffusion|SD1.x/2.x]] 到 InstructPix2Pix、[[wiki/methods/controlnet|ControlNet]]、Prompt2Prompt 等编辑系，统统建在 LDM 管线之上。
 
 ## 一句话总结
 
@@ -89,7 +89,7 @@ return D(z_0)
 **适用**：
 - text-to-image（SD1.x/2.x）
 - class-conditional / layout-to-image / semantic-to-image / super-resolution / inpainting（同一管线、改 $\tau_\theta$ 与注入通道）
-- text-guided **editing** 的默认底座（几乎所有 inversion-based / attention-injection / ControlNet / instruction-tuned 方法）
+- text-guided **editing** 的默认底座，覆盖 [[wiki/overview]] 主要派系前四类：inversion-based / attention-injection / [[wiki/methods/controlnet|control/sideband-injection]] / instruction-tuned（第 5 类 flow-matching-based 也以 LDM 风格的 latent 管线为基础，但换训练目标）
 
 **限制**：
 - **autoencoder 重建上限**：$\mathcal D(\mathcal E(x))\neq x$ 是 hard upper bound——对像素级精确任务（细小文字、人脸 micro-feature、高频纹理）会失真，并污染编辑保真度评测。

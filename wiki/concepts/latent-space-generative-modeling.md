@@ -5,7 +5,7 @@ aliases: [latent-space generative modeling, 隐空间生成建模]
 tags: [latent-space, diffusion, autoencoder, paradigm]
 status: stable
 created: 2026-05-27
-updated: 2026-05-27
+updated: 2026-05-28
 sources: ["[[wiki/sources/rombachHighResolutionImageSynthesis2022]]"]
 ---
 
@@ -62,7 +62,7 @@ $$
 
 ## 在 text-guided editing 中的作用
 
-- **几乎所有现代 text-guided editing 都默认在 latent 空间做**：inversion、attention injection、ControlNet feature 注入都发生在 $z$ 上；像素 $x$ 仅在 input / output 出现。
+- **几乎所有现代 text-guided editing 都默认在 latent 空间做**：inversion、attention injection、[[wiki/methods/controlnet|ControlNet]] sideband 注入都发生在 $z$ 上；像素 $x$ 仅在 input / output 出现。
 - 这给 thesis 的 fidelity↔controllability trade-off 加了一个**正交维度**：当前 working thesis 把该旋钮形式化为"在哪个 $t$ 注入条件 + 多强"；latent 空间引入的"**在被注入之前数据已经被压缩到什么程度**"是该旋钮**正交且更上游**的变量（见 [[wiki/concepts/perceptual-compression]]）。
 
 ## 出处与引用

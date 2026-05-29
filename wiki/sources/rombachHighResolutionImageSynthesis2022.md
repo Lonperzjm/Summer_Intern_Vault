@@ -106,7 +106,7 @@ Q=W_Q^{(i)}\!\cdot\!\phi_i(z_t),\;\;K=W_K^{(i)}\!\cdot\!\tau_\theta(y),\;\;V=W_V
 - **Guidance**：LDM-*-G 的 "-G" 即 [[wiki/concepts/classifier-free-guidance|CFG]]，与 cross-attention 注入**正交且通常组合**（cross-attention 改 conditional drift，CFG 在采样期把 conditional/unconditional ε 线性组合放大方向）。
 - **与 [[wiki/sources/songScoreBasedGenerativeModeling2021|Score SDE]]**：LDM 没改 score / ε / 训练目标本身，所以 Song et al. 的 SDE/PF-ODE 视角在 $z$ 空间继续成立——SD 上跑 PF-ODE 采样器与 DDIM inversion 即此一致性的直接利用。
 - **与 [[wiki/sources/lipmanFlowMatchingGenerative2023|Flow Matching]] / [[wiki/sources/liuFlowStraightFast2022a|Rectified Flow]]**：LDM **不动训练目标**，FM/RF 才动。两者**正交**——SD3 / FLUX = **LDM 风格的 latent + autoencoder + cross-attention 注入** ⊕ **FM/RF 风格的速度场训练目标**。在 [[wiki/overview]] 「可变性光谱」语言下：LDM 在"组件维度"加了**压缩层**一档，FM/RF 在"训练目标"档施力——两条线汇合于 SD3 / FLUX。
-- **下游编辑论文（皆默认 SD/LDM 底座，待 ingest）**：Prompt-to-Prompt、Null-text Inversion、InstructPix2Pix、ControlNet、IP-Adapter、Plug-and-Play、PnP-Diffusion、MasaCtrl、StyleAligned、RF-Inversion（这条还要求 RF 底座）… 这些方法的 "在 latent 上做 inversion / attention injection / ControlNet 加 sideband" 全部默认 LDM 管线。
+- **下游编辑论文（皆默认 SD/LDM 底座）**：✅ [[wiki/methods/controlnet|ControlNet]]（已 ingest 2026-05-28）；待 ingest：Prompt-to-Prompt、Null-text Inversion、InstructPix2Pix、T2I-Adapter、IP-Adapter、Plug-and-Play、PnP-Diffusion、MasaCtrl、StyleAligned、RF-Inversion（这条还要求 RF 底座）… 这些方法的"在 latent 上做 inversion / attention injection / sideband 加性注入"全部默认 LDM 管线。
 - 人物：[[wiki/entities/robin-rombach]]（一作）、[[wiki/entities/bjorn-ommer]]（通信作者 / 实验室 PI）；机构：[[wiki/entities/compvis]]、[[wiki/entities/lmu-munich]]。
 
 ## 对我的 thesis 的启示
@@ -130,4 +130,4 @@ Q=W_Q^{(i)}\!\cdot\!\phi_i(z_t),\;\;K=W_K^{(i)}\!\cdot\!\tau_\theta(y),\;\;V=W_V
 - [ ] **P1**：cross-attention 注入与 CFG 在数学上的精确组合——CFG 的贝叶斯拆分式 + cross-attention 的 conditional drift，是否在"在哪个 $t$ 注入"维度上**有冲突**？SD 实践把它们当作可加但未必正确。
 - [ ] **P1**：VQ-reg vs KL-reg 在编辑任务上是否有系统差异？论文给出生成 metrics 对比但**无编辑下游评测**；SD 选 KL-reg，VQGAN 系选 VQ-reg，差异在 editability 上是否显著？
 - [ ] **P1**：SD3 / FLUX：LDM 压缩层 + RF/FM 训练目标的组合落地——SD3 paper（Esser et al. 2024）/ FLUX 仍未 ingest，是 overview「主要派系→flow-matching-based」的下一个直接落点。
-- [ ] **P2**：layout-to-image / semantic-to-image 走 concat 通道而非 cross-attention，这条"空间对齐条件用 concat"的设计原则在后来的 ControlNet 是否被保留？ControlNet 用 sideband 副本而非 concat——精确异同待 ingest ControlNet 原文厘清。
+- ✅ **P2 (2026-05-28 [[wiki/methods/controlnet|ControlNet]] ingest 关闭)**：layout-to-image / semantic-to-image 走 concat 通道而非 cross-attention，这条"空间对齐条件用 concat"的设计原则在后来的 ControlNet **未被保留**——ControlNet 改成"复制 SD encoder + middle 作 trainable copy + [[wiki/concepts/zero-convolution|zero conv]] 加性 residual 注入 12 条 skip + 1 个 middle"。两者的核心差异：(i) LDM concat 把条件直接拼通道，diffusion 仍要重训以学会用这个新通道；(ii) ControlNet sideband **冻结 SD 主干**，只训副本——避免灾难性遗忘、50k 数据即稳。详见 [[wiki/sources/zhangAddingConditionalControl2023]]。

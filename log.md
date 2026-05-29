@@ -2,6 +2,30 @@
 
 > Append-only 时间线。每条 entry 以 `## [YYYY-MM-DD] <op> | <subject>` 起始，便于 `grep "^## \[" log.md | tail`。
 
+## [2026-05-28] lint | ControlNet ingest 后整改：5 处 Stale 关闭 + SUG-1 措辞统一
+- 扫描：64 wiki 页 · 全部 wikilink + raw/assets/ 图片嵌入解析 · broken **0**（1 false positive：[[research/thesis]] 在 Obsidian 正常解析，脚本未扫 research/）/ orphan **0** / weakly-linked **0** / frontmatter 缺失 **0** / 矛盾 **0**
+- updated: `wiki/sources/rombachHighResolutionImageSynthesis2022.md`
+  - S1（line 109）"下游编辑论文 ... ControlNet ..." 裸文本 → ControlNet 链 [[wiki/methods/controlnet]] 并标 ✅ 已 ingest；改写整段说"sideband 加性注入"
+  - S2（line 133）open question P2 "待 ingest ControlNet 原文厘清" → ✅ 关闭，给出实际答案：ControlNet **未保留** LDM 的 concat 设计、改成 "复制 SD encoder + middle + zero conv 加性注入"，并对照差异（concat 仍要重训 vs sideband 冻主干）
+- updated: `wiki/methods/ldm.md`
+  - S3（line 15）family 注释 "ControlNet、Prompt2Prompt" 裸文本 → ControlNet 链 [[wiki/methods/controlnet]]；SD1.x/2.x 链 [[wiki/entities/stable-diffusion]]
+  - S4（line 92）"几乎所有 inversion-based / attention-injection / ControlNet / instruction-tuned 方法"分类不齐 → 按 overview 新派系**重述为五类**：inversion-based / attention-injection / **control/sideband-injection** / instruction-tuned + flow-matching-based 注释
+  - **SUG-1**：line 92 的措辞统一已并入 S4 修改
+- updated: `wiki/concepts/latent-space-generative-modeling.md`
+  - S5（line 65）"ControlNet feature 注入" → ControlNet 链 [[wiki/methods/controlnet|ControlNet]] sideband 注入
+  - `updated` 刷 2026-05-27 → 2026-05-28
+- 实际涉及 **3 个文件**（5 处 + SUG-1 中 S1+S2 同文件、S3+S4+SUG-1 同文件、S5 独立），非预估的 6 页
+- Missing 候选（按 thesis 距离 + 提及频率）：
+  - **P0**：Prompt-to-Prompt（8）/ Null-text Inversion（9）/ InstructPix2Pix（9）/ SD3（44）/ FLUX（42）
+  - **P1**：T2I-Adapter（12）/ IP-Adapter（10）/ LoRA（14，sideband-conditioning 上游）/ VQGAN（12，perceptual-compression 上游）
+  - **P2**：MasaCtrl / Plug-and-Play / StyleAligned / Classifier guidance 原文 / CFG 原文
+  - **Schema-defer**：DDIM inversion 概念页（待 Null-text Inversion ingest 时一并建）
+- Suggestion（建议但本次不动）：
+  - **SUG-2**：raw/assets/zhangAddingConditionalControl2023-1779969409375.webp 是 size-identical 重复副本，未被任何文档 embed —— 用户手动删除（§1 raw 区只读）
+  - **SUG-3**：sideband-conditioning 当前列 5 个实例（LoRA / Adapter / ControlNet / T2I-Adapter / IP-Adapter）但只有 ControlNet 有 wiki 页 —— **下次 ingest 优先 LoRA 或 T2I-Adapter** 而非 SD3 的论据（虽然 SD3 提及次数更高，但 LoRA / T2I-Adapter 直接提升 sideband 抽象的可证伪性）
+  - **SUG-4**：overview 第 5 类派系成员中 T2I-Adapter / IP-Adapter / GLIGEN 仍是裸文本，待这些 ingest 后再补链
+- 仍开放（用户决策）：下一轮 ingest 候选——Prompt-to-Prompt（验证 sideband 抽象覆盖 attention-injection）/ LoRA（sideband 上游）/ SD3（flow-matching-based 派系首篇）三选一
+
 ## [2026-05-28] ingest | Adding Conditional Control to Text-to-Image Diffusion Models / ControlNet (Zhang, Rao & Agrawala 2023)
 - created: `wiki/sources/zhangAddingConditionalControl2023.md` —— ControlNet source 摘要页（attention/feature-injection 阵营之外的第一篇 sideband 注入代表）
 - created: `wiki/methods/controlnet.md` —— 方法主页（family=other；附着 SD1.5）
