@@ -2,6 +2,14 @@
 
 > Append-only 时间线。每条 entry 以 `## [YYYY-MM-DD] <op> | <subject>` 起始，便于 `grep "^## \[" log.md | tail`。
 
+## [2026-05-29] query | Score ∇log p vs Velocity Field v（保守场 vs 一般场）
+- 触发：用户 query「SDE 和 FM 的 ODE 是并列的吗」+ 追问"语义上 score 能写成 ∇log p、FM 的 v 不能"
+- created: `wiki/comparisons/score-vs-velocity-field.md` —— 归档该对比：结果层（仅高斯路径可线性互转）vs 语义层（score 必保守场、v 一般非保守，写不成 ∇(·)）；diffusion PF-ODE 速度场恒保守（VE/VP 验证）；FM 把动力学从保守场子集解放到一般场 = OT 能走直线的根源
+- updated: `wiki/concepts/flow-matching.md` —— 「与 score-based 分工」表后加"对象本质"指引；updated 2026-05-29
+- updated: `wiki/concepts/probability-flow-ode.md` —— 关系节加"PF-ODE 速度场保守 vs FM 非保守"条；updated 2026-05-29
+- updated: `wiki/overview.md` —— 推论 1「训练目标」一档加数学本质注（保守→一般场的解放 = RF 能拉直的根源）
+- 不写 thesis 改动：working thesis v0.4 不变；本条是概念澄清沉淀，非新源 ingest
+
 ## [2026-05-29] ingest | SDEdit: Guided Image Synthesis and Editing with SDEs (Meng et al. 2022)
 - created: `wiki/sources/mengSDEditGuidedImage2022.md` —— SDEdit source 摘要页（含原文 Fig 1 perturb 直观 + Algorithm 1 VE-SDE 伪代码嵌入）
 - created: `wiki/methods/sdedit.md` —— 方法主页（family=**editing**，vault 首个 editing family 页）

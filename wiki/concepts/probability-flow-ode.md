@@ -5,7 +5,7 @@ aliases: [probability flow ODE, PF-ODE, 概率流 ODE, 确定性采样 ODE]
 tags: [diffusion, sde, sampling, ode, score-based]
 status: active
 created: 2026-05-20
-updated: 2026-05-26
+updated: 2026-05-29
 sources: ["[[wiki/sources/songScoreBasedGenerativeModeling2021]]", "[[wiki/sources/liuFlowStraightFast2022a]]"]
 ---
 
@@ -40,6 +40,7 @@ $$\tilde f(x,t) = f(x,t) - \tfrac12 g(t)^2\nabla_x\log p_t(x).$$
 - 与 [[wiki/concepts/predictor-corrector-sampling|PC 采样]] 并列，是 [[wiki/concepts/score-sde|Score SDE]] 的两类采样器之一（确定性 vs 随机）
 - 共享边缘的依据是 [[wiki/concepts/fokker-planck-equation]]
 - score 由 [[wiki/concepts/score-matching]] 训练给出
+- **速度场本质**：PF-ODE 的速度场 $f-\tfrac12 g^2\nabla\log p$ 是**保守场**（VE/VP 下均可验证），而 [[wiki/concepts/flow-matching|FM]] 的速度场一般非保守——这是 PF-ODE 与 FM-ODE"同为确定性 ODE 却不等价"的根源，详见 [[wiki/comparisons/score-vs-velocity-field]]
 
 ## 在 text-guided editing 中的作用
 

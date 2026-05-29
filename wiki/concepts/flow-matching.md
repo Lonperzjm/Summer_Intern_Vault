@@ -5,7 +5,7 @@ aliases: [Flow Matching, FM, 流匹配]
 tags: [flow-matching, cnf, generative-model, ode]
 status: active
 created: 2026-05-24
-updated: 2026-05-26
+updated: 2026-05-29
 sources: ["[[wiki/sources/lipmanFlowMatchingGenerative2023]]", "[[wiki/sources/liuFlowStraightFast2022a]]"]
 ---
 
@@ -28,6 +28,8 @@ sources: ["[[wiki/sources/lipmanFlowMatchingGenerative2023]]", "[[wiki/sources/l
 | 关于 $p(x)$ 的知识 | 在 score 里 | **全在 $v(x,t)$ 里** |
 
 > 一句话延续 vault 既有提法：**DDIM/PF-ODE = diffusion 的训练 + flow 的采样；FM = 连训练也 flow 化**。
+
+> 📐 **更深一层（对象本质）**：score $\nabla\log p_t$ 必是**保守场**（梯度），$v_t$ 一般是**非保守场**（写不成 $\nabla(\cdot)$）——两者只在固定高斯路径下可线性互转。这是 FM 更一般、OT 路径能"走直线"的数学根源，详见 [[wiki/comparisons/score-vs-velocity-field]]。
 
 ## 朴素目标与它的麻烦
 
