@@ -5,7 +5,7 @@ aliases: [DDIM]
 tags: [diffusion, sampling-acceleration, deterministic-sampling]
 status: stable
 created: 2026-05-14
-updated: 2026-05-24
+updated: 2026-05-29
 sources: ["[[wiki/sources/songDenoisingDiffusionImplicit2022]]"]
 family: other
 ---
@@ -69,4 +69,5 @@ return x_0
 - 概念：[[wiki/concepts/non-markovian-diffusion]]、[[wiki/concepts/epsilon-parameterization]]、[[wiki/concepts/diffusion-process]]、[[wiki/concepts/score-sde]]、[[wiki/concepts/probability-flow-ode]]、[[wiki/concepts/variational-bound-elbo]]
 - 上游：[[wiki/methods/ddpm]]（共享 ε 网络与训练目标）；[[wiki/concepts/probability-flow-ode|probability-flow ODE]]（确定性采样的连续母体，[[wiki/sources/songScoreBasedGenerativeModeling2021|Song et al. 2021]]）
 - 下游：DDIM inversion → inversion-based text-guided editing；扩散蒸馏 / Consistency Models；"连训练也 flow 化"的近亲 → [[wiki/concepts/flow-matching|Flow Matching]] / [[wiki/methods/rectified-flow|Rectified Flow]]
+- 编辑应用：**SD img2img** = [[wiki/methods/sdedit|SDEdit]] 用 DDIM 采样器的确定性版——加噪到 [[wiki/concepts/noising-strength|$t_0$（`strength`）]] 后用 DDIM reverse；"确定性 SDEdit ≈ DDIM img2img"。注意区分 **DDIM inversion**（把 $x_0$ 精确反演回 $x_T$，需要带优化的编辑方法）与 **SDEdit/img2img**（直接加噪，不反演）——同属 inversion/noising-based 派系但成本两端
 - 出处：[[wiki/sources/songDenoisingDiffusionImplicit2022]]

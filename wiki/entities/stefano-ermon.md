@@ -5,8 +5,8 @@ aliases: [Ermon, S. Ermon]
 tags: [researcher, professor]
 status: draft
 created: 2026-05-14
-updated: 2026-05-20
-sources: ["[[wiki/sources/songDenoisingDiffusionImplicit2022]]", "[[wiki/sources/songScoreBasedGenerativeModeling2021]]"]
+updated: 2026-05-29
+sources: ["[[wiki/sources/songDenoisingDiffusionImplicit2022]]", "[[wiki/sources/songScoreBasedGenerativeModeling2021]]", "[[wiki/sources/mengSDEditGuidedImage2022]]"]
 kind: person
 ---
 
@@ -21,10 +21,11 @@ kind: person
 - DDIM（[[wiki/sources/songDenoisingDiffusionImplicit2022]]，资深作者）
 - [[wiki/methods/ncsn|NCSN]]（Song & Ermon 2019）—— score matching + annealed Langevin 的生成模型化
 - [[wiki/concepts/score-sde|Score SDE]]（[[wiki/sources/songScoreBasedGenerativeModeling2021|Song et al. 2021]]，资深作者）—— 连续时间统一框架
+- [[wiki/methods/sdedit|SDEdit]]（[[wiki/sources/mengSDEditGuidedImage2022]]，资深作者）—— noising-based 编辑奠基
 
 ## 关系网
 
-- 学生 / 合作者：[[wiki/entities/jiaming-song|Jiaming Song]]、[[wiki/entities/yang-song|Yang Song]]、Chenlin Meng 等
+- 学生 / 合作者：[[wiki/entities/jiaming-song|Jiaming Song]]、[[wiki/entities/yang-song|Yang Song]]、[[wiki/entities/chenlin-meng|Chenlin Meng]]、[[wiki/entities/yutong-he|Yutong He]] 等
 
 ## 备注
 

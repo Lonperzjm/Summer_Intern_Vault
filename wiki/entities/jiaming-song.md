@@ -5,8 +5,8 @@ aliases: [Song, J. Song, Jiaming Song]
 tags: [researcher]
 status: draft
 created: 2026-05-14
-updated: 2026-05-14
-sources: ["[[wiki/sources/songDenoisingDiffusionImplicit2022]]"]
+updated: 2026-05-29
+sources: ["[[wiki/sources/songDenoisingDiffusionImplicit2022]]", "[[wiki/sources/mengSDEditGuidedImage2022]]"]
 kind: person
 ---
 
@@ -19,6 +19,7 @@ kind: person
 ## 关键贡献 / 关键工作
 
 - DDIM（[[wiki/sources/songDenoisingDiffusionImplicit2022]]，第一作者）—— 把 diffusion 采样从 1000 步压到 20–100 步，并打开 inversion 的理论入口
+- [[wiki/methods/sdedit|SDEdit]]（[[wiki/sources/mengSDEditGuidedImage2022]]，合作者）—— noising-based 编辑奠基
 - 与 score-based 生成、采样加速相关的多项后续工作
 
 ## 关系网

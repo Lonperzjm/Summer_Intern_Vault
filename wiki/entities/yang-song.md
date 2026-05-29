@@ -5,8 +5,8 @@ aliases: [Song, Y. Song, Yang Song, 宋飏]
 tags: [researcher]
 status: draft
 created: 2026-05-20
-updated: 2026-05-20
-sources: ["[[wiki/sources/songScoreBasedGenerativeModeling2021]]"]
+updated: 2026-05-29
+sources: ["[[wiki/sources/songScoreBasedGenerativeModeling2021]]", "[[wiki/sources/mengSDEditGuidedImage2022]]"]
 kind: person
 ---
 
@@ -20,6 +20,7 @@ score-based 生成模型这条主线的**奠基人之一**。博士期间在 [[w
 
 - [[wiki/methods/ncsn|NCSN（Song & Ermon 2019）]] —— 多噪声尺度 score matching + annealed Langevin，score-based 生成的开山作
 - [[wiki/concepts/score-sde|Score SDE]]（[[wiki/sources/songScoreBasedGenerativeModeling2021|Song et al. 2021]]，第一作者）—— 用 SDE 统一 [[wiki/methods/ncsn|SMLD]] 与 [[wiki/methods/ddpm|DDPM]]，提出 PC 采样与 probability-flow ODE
+- [[wiki/methods/sdedit|SDEdit]]（[[wiki/sources/mengSDEditGuidedImage2022]]，合作者）—— noising-based 编辑奠基
 - Consistency Models（Song et al. 2023）—— few-step 生成（后续可 ingest）
 
 ## 关系网

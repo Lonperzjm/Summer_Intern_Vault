@@ -5,7 +5,7 @@ aliases: [sideband conditioning, sideband injection, frozen backbone sideband, �
 tags: [parameter-efficient-finetuning, conditioning, controlnet, lora, adapter, diffusion]
 status: stable
 created: 2026-05-28
-updated: 2026-05-28
+updated: 2026-05-29
 sources: ["[[wiki/sources/zhangAddingConditionalControl2023]]"]
 ---
 
@@ -50,10 +50,10 @@ $$
 **这是 thesis 在资源约束下的核心可行抽象**：
 
 - 在 SD/SD3/FLUX 的 backbone 整段冻结的假设下（学界事实成立），text-guided editing 几乎所有方法都可重新归到 "sideband + 注入接口" 这一抽象之下：
-  - **Inversion-based**（DDIM-inversion / Null-text inversion）：sideband = "在初始 noisy latent $z_T$ 上学/优化的扰动"
+  - **Inversion / noising-based**（✅ [[wiki/methods/sdedit|SDEdit]] / DDIM-inversion / Null-text inversion）：sideband = "在初始 noisy 状态上设置/优化的扰动"。**注意 SDEdit 是极端朴素的一支——连优化都没有**，直接把 guide 加噪到 [[wiki/concepts/noising-strength|$t_0$]] 当起点。所以"sideband"在此退化为"用 guide 替换初始噪声"，是抽象的**零成本下界**（对比 Null-text 要优化空文本 embedding 几百步）
   - **Attention-injection**（Prompt-to-Prompt / Plug-and-Play）：sideband = "在 cross/self-attention map 上加性 / 替换的修改"
-  - **Control-injection**（ControlNet / T2I-Adapter）：sideband = "在 skip connection 上加性的空间条件残差"
-- 差别只在 sideband 接入的位置（初始噪声 / attention map / skip connection）与训练成本（zero-shot / 优化几百步 / 50k–200k 训练）。
+  - **Control-injection**（[[wiki/methods/controlnet|ControlNet]] / T2I-Adapter）：sideband = "在 skip connection 上加性的空间条件残差"
+- 差别只在 sideband 接入的位置（初始噪声 / attention map / skip connection）与训练成本（**SDEdit 零成本加噪 → DDIM-inversion 确定性反演 → Null-text 优化几百步 → ControlNet 50k–200k 训练**）。
 - 对 [[wiki/overview]] 主要派系的影响：新增第 5 类 "Control/sideband-injection"，并把"frozen backbone + trainable sideband"作为四类编辑方法的**统一上层抽象**——这条统一化是 thesis 方法论范围的核心声明。
 
 ## 出处与引用

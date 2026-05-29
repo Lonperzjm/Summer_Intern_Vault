@@ -2,6 +2,20 @@
 
 > Append-only 时间线。每条 entry 以 `## [YYYY-MM-DD] <op> | <subject>` 起始，便于 `grep "^## \[" log.md | tail`。
 
+## [2026-05-29] ingest | SDEdit: Guided Image Synthesis and Editing with SDEs (Meng et al. 2022)
+- created: `wiki/sources/mengSDEditGuidedImage2022.md` —— SDEdit source 摘要页（含原文 Fig 1 perturb 直观 + Algorithm 1 VE-SDE 伪代码嵌入）
+- created: `wiki/methods/sdedit.md` —— 方法主页（family=**editing**，vault 首个 editing family 页）
+- created: `wiki/concepts/noising-strength.md` —— $t_0$ / SD img2img `strength` 旋钮；realism↔faithfulness 单调曲线；推论 2 的核心量
+- created: `wiki/entities/chenlin-meng.md`（一作，也是 DDIM 二作）/ `jiajun-wu.md` / `jun-yan-zhu.md`（CycleGAN/pix2pix 作者，GAN 编辑时代代表）/ `yutong-he.md`
+- updated: `wiki/overview.md` —— **不升 working thesis 版本号**：(1) 推论 2 主体由"待编辑论文验证"→ ✅ **SDEdit 首次直接实证**（新增「首个直接编辑实证」块，含 $t_0$ vs CFG-$w$ 旋钮区分、单次 vs 全程介入对照）；(2) 主要派系第 1 类 **Inversion-based 改名 Inversion / noising-based**（用户选 a1），SDEdit ✅ 填入并排出"SDEdit→DDIM-inversion→Null-text"成本递增光谱；(3) 派系总前提"全部建立在 SD 上"修正为"多数"——SDEdit 是底座无关反例（早于 SD、套任意 score model）；(4) 重审注 + 待调研方向吸收 SDEdit；sources 加 [[wiki/sources/mengSDEditGuidedImage2022]]；updated 2026-05-29
+- updated: `wiki/methods/ddim.md` —— 关联节加 SD img2img = 确定性 SDEdit；厘清 DDIM-inversion（带优化反演）vs SDEdit/img2img（直接加噪）同派系两端；updated 2026-05-29
+- updated: `wiki/concepts/sideband-conditioning.md` —— inversion 一支补 SDEdit 作为"零成本下界"（连优化都没有），sideband 退化为"用 guide 替换初始噪声"；成本光谱细化为 SDEdit→DDIM-inv→Null-text→ControlNet；updated 2026-05-29
+- updated: `index.md` —— 刷新 updated
+- updated: `raw/literature-notes/mengSDEditGuidedImage2022.md` —— 回填 `ingested_to_wiki: true`、`wiki_page`（§5.1 例外）
+- thesis：working thesis v0.4 不变；但 SDEdit 是 **vault 首篇真正的 text/stroke-guided editing 论文**、且给推论 2 第一个直接实证——下次 ingest attention-injection 派系（Prompt-to-Prompt）后，推论 2 若再获一致支持，可考虑升 v0.5
+- 用户决定：(a1) Inversion-based 派系改名 Inversion / noising-based 并纳入 SDEdit；(b) 建 noising-strength 概念页；(c) "SDEdit $t_0$ 是推论 2 首个直接实证" 按 🟣 级 thesis-implication 处理
+- 待 ingest（按 thesis 距离）：Prompt-to-Prompt（attention-injection 首篇）；Null-text inversion / DDIM-inversion（noising-based 派系内更精细者，验证成本光谱）；SD3 / FLUX（flow-matching-based 首篇）；LoRA / T2I-Adapter（sideband-conditioning 上游）
+
 ## [2026-05-28] lint | ControlNet ingest 后整改：5 处 Stale 关闭 + SUG-1 措辞统一
 - 扫描：64 wiki 页 · 全部 wikilink + raw/assets/ 图片嵌入解析 · broken **0**（1 false positive：[[research/thesis]] 在 Obsidian 正常解析，脚本未扫 research/）/ orphan **0** / weakly-linked **0** / frontmatter 缺失 **0** / 矛盾 **0**
 - updated: `wiki/sources/rombachHighResolutionImageSynthesis2022.md`
