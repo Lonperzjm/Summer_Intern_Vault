@@ -5,8 +5,8 @@ aliases: [Fokker-Planck, FPE, forward Kolmogorov equation, 边缘分布演化]
 tags: [diffusion, sde, score-based]
 status: active
 created: 2026-05-20
-updated: 2026-05-20
-sources: ["[[wiki/sources/songScoreBasedGenerativeModeling2021]]"]
+updated: 2026-06-01
+sources: ["[[wiki/sources/songScoreBasedGenerativeModeling2021]]", "[[wiki/sources/zhouDenoisingDiffusionBridge2023]]"]
 ---
 
 # Fokker-Planck 方程
@@ -38,6 +38,7 @@ $$\frac{\partial p_t(x)}{\partial t} = -\nabla_x\!\cdot\!\big(f(x,t)\,p_t(x)\big
 - 描述 [[wiki/concepts/diffusion-process]] 前向链的连续时间极限
 - 是 [[wiki/concepts/probability-flow-ode]] 与 [[wiki/concepts/predictor-corrector-sampling]] 成立的共同依据
 - [[wiki/concepts/langevin-dynamics]] 的稳态分布即 FPE 的 $\partial_t p=0$ 解
+- **是生成元 $\mathcal L_t$ 的伴随**：FPE = $\partial_t p=\mathcal L_t^* p$（作用在密度上），而 Kolmogorov backward = $\partial_t h+\mathcal L_t h=0$（作用在观测函数上）。两者同源，推导见 [[wiki/concepts/infinitesimal-generator]]；[[wiki/concepts/doob-h-transform|Doob's h-transform]] 与 [[wiki/methods/ddbm|DDBM]] 的桥漂移即由此派生
 
 ## 出处与引用
 

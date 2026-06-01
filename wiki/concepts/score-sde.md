@@ -5,8 +5,8 @@ aliases: [Score SDE, "Yang Song et al. 2021", score-based SDE, 连续时间极�
 tags: [diffusion, score-based, sde]
 status: active
 created: 2026-05-14
-updated: 2026-05-24
-sources: ["[[wiki/sources/songScoreBasedGenerativeModeling2021]]", "[[wiki/sources/songDenoisingDiffusionImplicit2022]]"]
+updated: 2026-06-01
+sources: ["[[wiki/sources/songScoreBasedGenerativeModeling2021]]", "[[wiki/sources/songDenoisingDiffusionImplicit2022]]", "[[wiki/sources/zhouDenoisingDiffusionBridge2023]]"]
 ---
 
 # Score SDE（连续时间 score-based 生成框架）
@@ -61,6 +61,7 @@ $$\mathrm dx=\big\{f-g^2[\nabla\log p_t(x)+\nabla\log p_t(y\mid x)]\big\}\mathrm
 - 统一 [[wiki/concepts/score-matching]] 的离散多尺度版本与连续版本
 - 与 [[wiki/concepts/langevin-dynamics]]：corrector / 反向过程是 annealed Langevin 的连续时间对应物
 - [[wiki/concepts/probability-flow-ode]] 是 [[wiki/methods/ddim|DDIM]] 确定性采样的连续母体，并通往 [[wiki/concepts/flow-matching|Flow Matching]] / Rectified Flow——区别在于 FM **直接把训练目标换成回归速度场**（ODE 是训出来的本体），PF-ODE 则由训练好的 score **事后导出**（[[wiki/sources/lipmanFlowMatchingGenerative2023|Lipman et al. 2023]]）
+- **推广到 paired 端点（[[wiki/methods/ddbm|DDBM]]）**：把 Score SDE 的前向 SDE 经 [[wiki/concepts/doob-h-transform|Doob's h-transform]] 钉死终点 $x_T=y$，就从 noise↔data 的扩散变成 data↔condition 的 [[wiki/concepts/diffusion-bridge|扩散桥]]；源端设回高斯时 DDBM 严格退化为本框架的反向 SDE / PF-ODE（[[wiki/sources/zhouDenoisingDiffusionBridge2023|Zhou et al. 2023]] §6.1 Case 1）
 
 ## 在 text-guided editing 中的作用
 

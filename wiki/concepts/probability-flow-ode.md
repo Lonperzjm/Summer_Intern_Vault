@@ -5,8 +5,8 @@ aliases: [probability flow ODE, PF-ODE, 概率流 ODE, 确定性采样 ODE]
 tags: [diffusion, sde, sampling, ode, score-based]
 status: active
 created: 2026-05-20
-updated: 2026-05-29
-sources: ["[[wiki/sources/songScoreBasedGenerativeModeling2021]]", "[[wiki/sources/liuFlowStraightFast2022a]]"]
+updated: 2026-06-01
+sources: ["[[wiki/sources/songScoreBasedGenerativeModeling2021]]", "[[wiki/sources/liuFlowStraightFast2022a]]", "[[wiki/sources/zhouDenoisingDiffusionBridge2023]]"]
 ---
 
 # Probability-Flow ODE
@@ -41,6 +41,7 @@ $$\tilde f(x,t) = f(x,t) - \tfrac12 g(t)^2\nabla_x\log p_t(x).$$
 - 共享边缘的依据是 [[wiki/concepts/fokker-planck-equation]]
 - score 由 [[wiki/concepts/score-matching]] 训练给出
 - **速度场本质**：PF-ODE 的速度场 $f-\tfrac12 g^2\nabla\log p$ 是**保守场**（VE/VP 下均可验证），而 [[wiki/concepts/flow-matching|FM]] 的速度场一般非保守——这是 PF-ODE 与 FM-ODE"同为确定性 ODE 却不等价"的根源，详见 [[wiki/comparisons/score-vs-velocity-field]]
+- **桥版 PF-ODE（[[wiki/methods/ddbm|DDBM]]）**：钉死终点 $x_T=y$ 后，桥也有自己的确定性 PF-ODE（[[wiki/sources/zhouDenoisingDiffusionBridge2023|Zhou et al. 2023]] 公式 7）$\mathrm dx_t=[f-g^2(\tfrac12 s-h)]\mathrm dt$，含 [[wiki/concepts/doob-h-transform|Doob h]] 项 $h$；但 DDBM 实测**纯 ODE 采样会糊**（确定性给"平均"路径），需注入 stochasticity——印证"桥的多样性靠 SDE 的随机性"
 
 ## 在 text-guided editing 中的作用
 

@@ -110,9 +110,6 @@ wiki_page: "[[wiki/sources/mengSDEditGuidedImage2022]]"
 	$$  
 	所以 SDEdit 本质上是「noisy initialization + reverse denoising」。
 
-1.
-2.
-3.
 %% end my-summary %%
 
 ## 与已有 wiki 的关系

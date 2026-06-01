@@ -5,8 +5,8 @@ aliases: [Flow Matching, FM, 流匹配]
 tags: [flow-matching, cnf, generative-model, ode]
 status: active
 created: 2026-05-24
-updated: 2026-05-29
-sources: ["[[wiki/sources/lipmanFlowMatchingGenerative2023]]", "[[wiki/sources/liuFlowStraightFast2022a]]"]
+updated: 2026-06-01
+sources: ["[[wiki/sources/lipmanFlowMatchingGenerative2023]]", "[[wiki/sources/liuFlowStraightFast2022a]]", "[[wiki/sources/zhouDenoisingDiffusionBridge2023]]"]
 ---
 
 # Flow Matching（FM）
@@ -64,4 +64,5 @@ $$\frac{\partial p_t}{\partial t}+\nabla\!\cdot(p_t v_t)=0,$$
 ## 出处与引用
 
 - [[wiki/sources/lipmanFlowMatchingGenerative2023]]（FM 原文）
-- 并行工作：[[wiki/sources/liuFlowStraightFast2022a|Liu et al. 2022 (Rectified Flow)]]（已 ingest 2026-05-26；公式上 RF = FM-OT 路径取 $\sigma_{\min}=0$ + 任意 coupling 接口 + [[wiki/concepts/reflow|reflow]]）、Albergo & Vanden-Eijnden 2022（Stochastic Interpolants，待 ingest）
+- 并行工作：[[wiki/sources/liuFlowStraightFast2022a|Liu et al. 2022 (Rectified Flow)]]（已 ingest 2026-05-26；公式上 RF = FM-OT 路径取 $\sigma_{\min}=0$ + 任意 coupling 接口 + [[wiki/concepts/reflow|reflow]]）、[[wiki/concepts/stochastic-interpolants|Stochastic Interpolants]]（Albergo & Vanden-Eijnden，原文待 ingest——是"固定 interpolant + 选 diffusion 系数"统一 flow 与 diffusion 的框架）
+- **bridge ODE vs bridge SDE**：FM/RF 是**确定 ODE**地连接两端分布（学速度场）；[[wiki/methods/ddbm|DDBM]] 是**随机 SDE** 版的 [[wiki/concepts/diffusion-bridge|扩散桥]]（学 score、[[wiki/concepts/doob-h-transform|Doob h]] 钉端点）。DDBM 论文称"unifies OT-FM"，但其正文表明这只是 noiseless 极限 $c\to0$ + 特定 VE schedule 的**有条件约化**（非严格特例）；两者真正的统一归宿是 [[wiki/concepts/stochastic-interpolants|stochastic interpolants]]，且 DDBM 用的是不同的 denoising bridge score-matching loss

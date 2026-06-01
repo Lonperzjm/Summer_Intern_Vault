@@ -2,6 +2,50 @@
 
 > Append-only 时间线。每条 entry 以 `## [YYYY-MM-DD] <op> | <subject>` 起始，便于 `grep "^## \[" log.md | tail`。
 
+## [2026-06-01] lint | DDBM ingest 后整改：消 1 orphan + raw priority 规范化
+- 扫描：81 wiki 页 · 全部 wikilink + .webp 嵌入解析 · **broken 0**（50+ grep 报告均误报：markdown 表格 `\|` 转义 + raw/assets .webp 嵌入 + research/CLAUDE 脚手架占位符）/ **frontmatter 缺字段 0** / **矛盾 0**
+- updated: `wiki/overview.md` —— Orphan 修复：待调研方向 Bridge 行加 [[wiki/synthesis/bridge-sde-editing-landscape]] 链
+- updated: `wiki/methods/ddbm.md` —— 关系网加 landscape 反链
+- updated: `research/ideas.md` —— 2026-06-01 条加 landscape 全景链（landscape 入链 0 → 3，orphan 消除）
+- updated: `raw/literature-notes/zhouDenoisingDiffusionBridge2023.md` —— Suggestion 采纳（用户授权）：`priority: p5 → P1`，使其进 index「🔥优先阅读」看板（§5.1 用户自管字段，经确认才改）
+- Missing 候选（识别但本次不建，按 thesis 距离）：**P1** EDM(Karras 2022，4 页)/ I²SB(Liu 2023，5 页，bridge-SDE 选题最近 baseline)；**P2** Schrödinger Bridge 概念页(5 页)；**P3** DDIB/BBDM(各 2 页)
+- 复跑校验：broken 0 / orphan 0 / weak 0
+- 触发：用户"sweep 一下"——确认 [[research/ideas]] bridge-SDE 选题的 prior-art 边界
+- created: `wiki/synthesis/bridge-sde-editing-landscape.md` —— bridge SDE/ODE × 任务网格 + 关键论文定位（均未 ingest，仅 arXiv 链接）；后补「理论侧 landscape」节 + 两摞优先阅读清单
+- 理论侧 sweep 结论：bridge-SDE 理论已基本合拢（统一=stochastic interpolants 2303.08797；lens 已成文=2509.24531；SB 收敛/最优 stochasticity/误差界 2024–2026 正被专业概率组钉死）——**不宜作主选题**；若要理论味则做应用毗邻理论（随机桥上 inversion/cycle-consistency 闭合条件）
+- updated: `research/ideas.md` —— 2026-06-01 条加 sweep 结果：**#2 加速 KILL**（CDBM NeurIPS'24 / Inverse Bridge Matching Distillation）；FlowCycle 身份确认 = HKUST Long 组 inversion-FREE flow editing（修正我此前"RF-inversion 往返"的误解）；选题收窄为"随机桥上的 target-aware cycle-consistent editing（FlowCycle 的 SDE 推广）"；列待确认 4 篇
+- 关键发现：bridge-ODE 侧 inversion/editing 红海（RF-Inversion/RF-Solver-Edit/OT-for-RF）、SDE 侧加速已满（CDBM）；相对开放格 = SDE 侧 cycle-consistent text-editing
+- 未改 thesis（用户决定：待 4 篇精读后再定 v0.2）
+
+## [2026-06-01] thesis-update | overview v0.4 → v0.5（立 bridge-SDE 为方向）+ research/ 首次实质写入
+- 用户决定（选项 B）：把 bridge-SDE 立为 thesis 方向；并把候选 idea 写入 research/（带 prior-art 边界）
+- updated: `wiki/overview.md` —— 标题 v0.4 → v0.5（+ DDBM/Bridge）；**新增推论 4**：transport 为比 denoising 更高一层的候选不变量、SDE/ODE realization 为正交结构轴、bridge-SDE 侧欠发达 = 施力点；附三条诚实 caveat（lens 非原创=stochastic interpolants / DDBM 是 translation 非 editing / 非 greenfield）；重审注从"三条推论"改为含推论 4 待验证；待调研方向新增 Bridge 线；frontmatter +DDBM source
+- created（research 区，§8 经用户确认）：
+  - `research/thesis.md` —— **首个实质版本 v0.1 草稿**（标注待用户精修）：research 问题 = bridge-SDE inversion/editing；核心论点 3 条 + 诚实边界 3 条；全部 wikilink 引 wiki，无复制
+  - `research/ideas.md` —— Active 新增 [2026-06-01]「Bridge-SDE inversion/editing（接 FlowCycle）」：用户原创 framing + 子问题 #1–#4 + prior-art 边界（stochastic interpolants / I²SB / SB / BBDM；#2 加速须查 2024）
+- 校准记录：明确告知用户"bridge SDE vs bridge ODE"lens ≈ stochastic interpolants（Albergo），非原创；可 defensible 的卖点是 bridge-SDE 侧欠发达，最近选题 = bridge-SDE inversion（复用 FlowCycle）
+- 注：thesis.md / ideas.md 为草稿，最终措辞与押注力度由用户校准
+
+## [2026-06-01] ingest | Denoising Diffusion Bridge Models / DDBM (Zhou, Lou, Khanna & Ermon 2023)
+- created: `wiki/sources/zhouDenoisingDiffusionBridge2023.md` —— DDBM source 摘要页（含 Fig 1 forward bridge SDE / reverse PF-ODE 嵌入；Table 2 translation + Table 4 unconditional 真实数字，从 Zotero PDF 交叉验证取得）
+- created: `wiki/methods/ddbm.md` —— 方法主页（family=**bridge**，vault 首个 bridge family；与 RF/SDEdit 对照表）
+- created: `wiki/concepts/infinitesimal-generator.md` —— 生成元 → Kolmogorov backward → Fokker-Planck（伴随）→ h-transform 生成元；骨架来自用户手写 [[raw/notes/生成元方法对于SDE]]
+- created: `wiki/concepts/doob-h-transform.md` —— 终点吸引漂移 $g^2\nabla\log h$ 的来源；DDBM 公式 5 的机制
+- created: `wiki/concepts/diffusion-bridge.md` —— 双端点随机桥；bridge SDE vs bridge ODE 对照表；SB/Doob/Brownian 谱系
+- created: `wiki/concepts/stochastic-interpolants.md` —— **draft 枢纽页**（Albergo 原文待 ingest）：bridge SDE vs bridge ODE 的严格统一归宿
+- created: `wiki/entities/linqi-zhou.md` / `aaron-lou.md` —— 一作 / 二作 stub
+- updated: `wiki/concepts/score-sde.md` —— 关系加"DDBM = Score SDE 经 Doob h 推广到 paired 端点；源端高斯严格退化"；sources +DDBM
+- updated: `wiki/concepts/probability-flow-ode.md` —— 加"桥版 PF-ODE（公式 7）+ 纯 ODE 采样糊、需 stochasticity"；sources +DDBM
+- updated: `wiki/concepts/flow-matching.md` —— Albergo 裸文本 → 链 stochastic-interpolants；加"bridge ODE vs bridge SDE + DDBM 统一是有条件约化非特例"；sources +DDBM
+- updated: `wiki/concepts/fokker-planck-equation.md` —— 关系加"FPE = 生成元伴随、backward 作用在观测函数"链 infinitesimal-generator；sources +DDBM
+- updated: `wiki/methods/rectified-flow.md` —— Stochastic Interpolants 裸文本 → 链新页；加 DDBM bridge SDE 对位 + RF 跨域崩盘（DIODE 77.18）实证；sources +DDBM
+- updated: `wiki/entities/stefano-ermon.md` / `stanford.md` —— 回填 DDBM 工作 + Linqi Zhou / Aaron Lou 链接
+- updated: `index.md` —— 刷新 updated
+- updated: `raw/literature-notes/zhouDenoisingDiffusionBridge2023.md` —— 回填 `ingested_to_wiki: true`、`wiki_page`（§5.1 例外）；**未动** `status`(unread) / `priority`(p5) / `my-rating`(1)，留用户重设
+- thesis：按用户指示 **不动** working thesis、source 页「对我的 thesis 的启示」留空（仅列候选角度待用户取舍）；overview 未改
+- 讨论结论（ingest 前对齐）：DDBM 对 OT-FM 的"unification"是话术——仅 noiseless 极限 $c\to0$+VE 的有条件约化（§6.1 Case 2），严格退化只对 diffusion（Case 1）；bridge SDE（DDBM）vs bridge ODE（flow）的真正公约数是 stochastic interpolants（论文自承用不同 loss）
+- 待 ingest（按 thesis 距离）：Stochastic Interpolants（Albergo，统一框架）；I²SB / Schrödinger Bridge；EDM（Karras 2022，DDBM 的 preconditioning+sampler 基础）；DDBM 上的 editing/inversion 后续（接 FlowCycle）
+
 ## [2026-05-29] query | Score ∇log p vs Velocity Field v（保守场 vs 一般场）
 - 触发：用户 query「SDE 和 FM 的 ODE 是并列的吗」+ 追问"语义上 score 能写成 ∇log p、FM 的 v 不能"
 - created: `wiki/comparisons/score-vs-velocity-field.md` —— 归档该对比：结果层（仅高斯路径可线性互转）vs 语义层（score 必保守场、v 一般非保守，写不成 ∇(·)）；diffusion PF-ODE 速度场恒保守（VE/VP 验证）；FM 把动力学从保守场子集解放到一般场 = OT 能走直线的根源
