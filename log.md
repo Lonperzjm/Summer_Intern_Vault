@@ -2,6 +2,41 @@
 
 > Append-only 时间线。每条 entry 以 `## [YYYY-MM-DD] <op> | <subject>` 起始，便于 `grep "^## \[" log.md | tail`。
 
+## [2026-06-01] query | diversity-editing sweep + 止损 KILL bridge-editing 全家桶
+- 触发：用户"sweep"验证"可控多样性 / 一对多 text editing"carve 是否开放
+- 结果：🔴 **也被占** —— [OSCAR (2510.09060)](https://arxiv.org/abs/2510.09060)（training-free 正交随机控制提多样性、不损 fidelity）、Variational Rectified Flow Matching（latent 捕多模）、Discretized-RF、FlowSlider（fidelity-steering 旋钮）；one-to-many 编辑自 Blended Diffusion 2022 即有
+- updated: `research/ideas.md` —— **重构**：Active 清空为"无存活方法 carve + 下一步(FlowCycle 弱点/窄 niche/导师 brief)"；Killed 新增"Bridge-SDE editing 全家桶"条（逐落点撞车证据：加速=CDBM、inversion=DBIM、ODE 编辑=RF-Inversion 系、FlowCycle-SDE=derivative、diversity=OSCAR、理论=SI/SB）
+- updated: `wiki/synthesis/bridge-sde-editing-landscape.md` —— text-editing 格标 🔴 也被占；"对 thesis 指向"改为止损实况（三次 sweep 三次撞 → 红海，方向交回导师）
+- meta 结论：armchair 想方法→sweep→撞，循环三次即证明找题方法错；红海出论文靠 execution+窄 niche+导师在研线
+- thesis：[[research/thesis]] v0.1 不动
+
+## [2026-06-01] ingest | Stochastic Interpolants (Albergo, Boffi & Vanden-Eijnden 2023, JMLR) — cold ingest from PDF
+- 触发：用户验证"让 SDE bridge 脱离 diffusion 框架"是否撞车（无 Zotero 文献笔记，直接读 raw/articles/2303.08797v4.pdf，80 页）
+- created: `wiki/sources/albergoStochasticInterpolants2023.md` —— SI source 摘要页（核心构造 + ODE/SDE 解耦 + likelihood control + Schrödinger Bridge 还原 + Fig 15 多样性机制）
+- upgraded: `wiki/concepts/stochastic-interpolants.md` —— draft → **active**，真实内容重写（含 SI vs DDBM/DBIM/FM 分工表）；sources 指向新 source 页
+- created: `wiki/entities/michael-albergo.md` / `eric-vanden-eijnden.md` / `nyu-courant.md`
+- updated（关链 ✅）：`wiki/concepts/flow-matching.md`、`wiki/methods/rectified-flow.md`、`wiki/sources/liuFlowStraightFast2022a.md` —— "Stochastic Interpolants 待 ingest" → ✅ 已 ingest + 链 source
+- updated: `wiki/synthesis/bridge-sde-editing-landscape.md` —— 理论侧"统一与构造"标 ✅ ingest；优先阅读清单①标 ✅；点明 SI Conclusion 自指 inpainting/SR 应用口
+- updated: `wiki/overview.md` —— Bridge 待调研行：SI/DBIM 标 ✅ ingest，新增"纯 bridge-SDE 理论/脱离 diffusion 已验明 KILL（撞 SI）"；frontmatter +SI source
+- updated: `research/ideas.md` —— Active 加 SI 应用口；**Killed 新增**"脱离 diffusion 框架"条（逐条撞车证据 + 直觉正确但转应用）
+- **关键判决（对用户选题）**：用户"脱离 diffusion 的 SDE bridge"理论想法 = SI 本身（自由插值/任意两分布/ODE+SDE 可调噪声/还原 SB），理论侧已满 → KILL；但 SI 自指 inpainting/SR/forecasting 应用口 + Fig 15 可调 ε 多样性机制，把出路指回"editing 应用 + diversity 旋钮"
+- 注：raw/articles/ 非 literature-note，无 §5.1 frontmatter 回填
+
+## [2026-06-01] ingest | Diffusion Bridge Implicit Models / DBIM (Zheng, He, Chen, Bao & Zhu 2025, ICLR)
+- created: `wiki/sources/zhengDiffusionBridgeImplicit2025.md` —— DBIM source 摘要页（Table 2 translation + ImageNet inpainting + η 消融真实数字，从 Zotero PDF 取）
+- created: `wiki/methods/dbim.md` —— 方法主页（family=bridge）：DDBM 的 DDIM 化，training-free 25× 加速 + 确定可逆桥
+- created: `wiki/entities/kaiwen-zheng.md` / `jun-zhu.md` / `tsinghua-university.md` —— 一作 / 资深作者 / 机构（THU-ML）
+- updated: `wiki/concepts/non-markovian-diffusion.md` —— **新增 Bridge 版小节**：DBIM:DDBM = DDIM:DDPM 对位表 + booting noise；sources +DBIM
+- updated: `wiki/concepts/probability-flow-ode.md` —— 加"桥的隐式 ODE（DBIM）解决 DDBM 纯 ODE 奇异 + 双向确定→encoding/reconstruction"；sources +DBIM
+- updated: `wiki/concepts/diffusion-bridge.md` —— 加 DBIM 快速采样/确定可逆条；sources +DBIM
+- updated: `wiki/methods/ddbm.md` —— 关系网加 DBIM/CDBM 快速采样行；待补项标注 inversion 原语已由 DBIM 提供
+- updated: `wiki/synthesis/bridge-sde-editing-landscape.md` —— 网格拆出 inversion（DBIM 已占）vs text-editing（仍开）两行；新增 DBIM 定位节；选题再收窄为"DBIM 可逆桥之上的 target-aware cycle-consistent text-editing"；I³SB 降级（被 DBIM 覆盖）；sources +DBIM
+- updated: `research/ideas.md` —— bridge 条加 2026-06-01 DBIM ingest 后的再收窄
+- updated: `raw/literature-notes/zhengDiffusionBridgeImplicit2025.md` —— 回填 `ingested_to_wiki: true` / `wiki_page`（§5.1 例外）；status/priority/my-rating 未动（用户自管）
+- updated: `index.md` —— 刷新 updated
+- thesis：按惯例 **不改** overview/thesis.md，source 页 thesis-implication 留空（列候选）；关键 implication = DBIM 提供 bridge inversion 原语，把 bridge-SDE 编辑选题从"做 inversion"再收窄为"在可逆桥上做 cycle-consistent text-editing"
+- 关键 takeaway：DBIM = 非马尔可夫桥族保边缘 → 复用 DDBM score 不重训；ρ 控随机（ρ=0 确定 ODE+booting noise→可逆）；25× 加速；η 消融给出"确定性利可逆/收敛、随机性利多样性"的实证
+
 ## [2026-06-01] lint | DDBM ingest 后整改：消 1 orphan + raw priority 规范化
 - 扫描：81 wiki 页 · 全部 wikilink + .webp 嵌入解析 · **broken 0**（50+ grep 报告均误报：markdown 表格 `\|` 转义 + raw/assets .webp 嵌入 + research/CLAUDE 脚手架占位符）/ **frontmatter 缺字段 0** / **矛盾 0**
 - updated: `wiki/overview.md` —— Orphan 修复：待调研方向 Bridge 行加 [[wiki/synthesis/bridge-sde-editing-landscape]] 链

@@ -6,7 +6,7 @@ tags: [sde, diffusion-bridge, image-translation, generative-model]
 status: active
 created: 2026-06-01
 updated: 2026-06-01
-sources: ["[[wiki/sources/zhouDenoisingDiffusionBridge2023]]"]
+sources: ["[[wiki/sources/zhouDenoisingDiffusionBridge2023]]", "[[wiki/sources/zhengDiffusionBridgeImplicit2025]]"]
 ---
 
 # 扩散桥（diffusion bridge）
@@ -49,6 +49,7 @@ $$
 
 - 构造工具：[[wiki/concepts/doob-h-transform]] / [[wiki/concepts/infinitesimal-generator]]
 - 实现方法：[[wiki/methods/ddbm]]
+- 快速采样 / 确定可逆：[[wiki/methods/dbim|DBIM]]（桥的 [[wiki/concepts/non-markovian-diffusion|非马尔可夫]] 化 = "DDIM for bridge"，$\rho{=}0$ + booting noise 支持 encoding/reconstruction）
 - 对照：[[wiki/concepts/diffusion-process]]（单端）、[[wiki/concepts/flow-matching]] / [[wiki/methods/rectified-flow]]（bridge ODE）、[[wiki/concepts/stochastic-interpolants]]（统一框架）
 
 ## 出处与引用

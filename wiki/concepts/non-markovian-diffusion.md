@@ -5,8 +5,8 @@ aliases: [non-Markovian diffusion, 非马尔可夫扩散, "DDIM 前向族"]
 tags: [diffusion, sampling-acceleration]
 status: active
 created: 2026-05-14
-updated: 2026-05-24
-sources: ["[[wiki/sources/songDenoisingDiffusionImplicit2022]]"]
+updated: 2026-06-01
+sources: ["[[wiki/sources/songDenoisingDiffusionImplicit2022]]", "[[wiki/sources/zhengDiffusionBridgeImplicit2025]]"]
 ---
 
 # Non-Markovian Diffusion（非马尔可夫前向过程族）
@@ -30,6 +30,20 @@ $$
 - $\sigma$ 介于两者之间 → 一条随机性可调的连续谱。
 
 因为不依赖马尔可夫性，反向链可只定义在时间步的**任意子序列**上 → 跳步加速采样。
+
+### Bridge 版（DBIM）：同一招用在扩散桥上
+
+[[wiki/sources/zhengDiffusionBridgeImplicit2025|DBIM]] 把这套"保边缘、松绑路径"原样搬到 [[wiki/methods/ddbm|DDBM]] 的扩散桥上——**结构完全对位 DDIM:DDPM ＝ [[wiki/methods/dbim|DBIM]]:DDBM**：
+
+| | DDIM（扩散） | DBIM（桥） |
+|---|---|---|
+| 保住的边缘 | $q(x_t\mid x_0)$ | $q(x_{t_n}\mid x_T)$（Prop 3.1） |
+| 系数 | $\alpha_t,\sigma_t$ | 桥的 $a_t,b_t,c_t$ |
+| 随机旋钮 | $\sigma_t$（$\eta$） | $\rho_n$ |
+| 确定极限 | $\sigma{=}0$ → DDIM ODE | $\rho{=}0$ → 桥 ODE |
+| 复用网络 | ε 网络 | DDBM bridge score $s_\theta$ |
+
+差异：桥在**初始步 $c_T{=}0$ 处奇异**，DBIM 用 **booting noise**（固定 $x_T$ 下的 latent）补上，从而 $\rho{=}0$ 仍能 faithful encoding/reconstruction。
 
 ## 与其他概念的关系
 

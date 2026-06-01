@@ -48,7 +48,7 @@ family: flow-matching
 
 ## 关系
 
-- 同源 / 并行：[[wiki/concepts/flow-matching]]、[[wiki/concepts/conditional-flow-matching]]、[[wiki/concepts/optimal-transport-path]]、[[wiki/concepts/stochastic-interpolants|Stochastic Interpolants]]（Albergo & Vanden-Eijnden，原文待 ingest）
+- 同源 / 并行：[[wiki/concepts/flow-matching]]、[[wiki/concepts/conditional-flow-matching]]、[[wiki/concepts/optimal-transport-path]]、[[wiki/concepts/stochastic-interpolants|Stochastic Interpolants]]（[[wiki/sources/albergoStochasticInterpolants2023|Albergo, Boffi & Vanden-Eijnden 2023]]，✅ 已 ingest）
 - **bridge SDE 对位（[[wiki/methods/ddbm|DDBM]]）**：RF 是 bridge **ODE**（确定、学速度场、直线插值），DDBM 是 bridge **SDE**（随机、学 score、[[wiki/concepts/doob-h-transform|Doob h]] 钉端点）。[[wiki/sources/zhouDenoisingDiffusionBridge2023|DDBM]] §6.1 Case 2 证明在 noiseless 极限 $c\to0$ + 特定 VE schedule 下其 PF-ODE 漂移恰好约化为 RF 的直线项 $x_1-x_0$——但这是**有条件极限约化**，非严格包含。⚠️ DDBM Table 2 显示 RF 在**跨域低相似度** translation（DIODE）上崩盘（FID 77.18），是"OT 直线假设失效"的一条实证边界
 - 核心操作：[[wiki/concepts/reflow]]、[[wiki/concepts/transport-coupling]]
 - 采样近亲：[[wiki/concepts/probability-flow-ode]]（同为确定性 ODE 生成，但 score 事后导出 vs RF 直接训速度场）

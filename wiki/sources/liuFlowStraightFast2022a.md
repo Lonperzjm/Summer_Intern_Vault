@@ -148,6 +148,6 @@ L2 回归 + "monolithic 边缘场 = 条件期望"的结构与 [[wiki/concepts/co
 ## 出处与引用
 
 - arXiv [2209.03003](http://arxiv.org/abs/2209.03003)；ICLR 2023
-- 同时期并行：[[wiki/sources/lipmanFlowMatchingGenerative2023|Lipman et al. 2023 (FM)]]、Albergo & Vanden-Eijnden 2022（Stochastic Interpolants，待 ingest）
+- 同时期并行：[[wiki/sources/lipmanFlowMatchingGenerative2023|Lipman et al. 2023 (FM)]]、[[wiki/sources/albergoStochasticInterpolants2023|Albergo, Boffi & Vanden-Eijnden 2023]]（Stochastic Interpolants，✅ 已 ingest）
 - 直接下游：SD3（Esser et al. 2024，待 ingest）、FLUX（Black Forest Labs，待 ingest）、RF-Inversion 系（待 ingest）
 - 作者实体：[[wiki/entities/xingchao-liu]]、[[wiki/entities/qiang-liu]]

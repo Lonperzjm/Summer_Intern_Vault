@@ -48,6 +48,7 @@ family: bridge
 
 - 源：[[wiki/sources/zhouDenoisingDiffusionBridge2023]]
 - 机制：[[wiki/concepts/doob-h-transform]]、[[wiki/concepts/infinitesimal-generator]]、[[wiki/concepts/diffusion-bridge]]
+- 快速采样 / 隐式桥：[[wiki/methods/dbim|DBIM]]（DDBM 的 DDIM 化，training-free、最高 25× 加速、$\rho{=}0$ 确定可逆桥支持 encoding/reconstruction）；CDBM（consistency 蒸馏加速）
 - 近亲：[[wiki/concepts/stochastic-interpolants]]、[[wiki/methods/rectified-flow]]、[[wiki/concepts/flow-matching]]、[[wiki/methods/sdedit]]
 - 采样/训练复用：[[wiki/concepts/probability-flow-ode]]、[[wiki/concepts/predictor-corrector-sampling]]、[[wiki/concepts/score-matching]]
 - 作者：[[wiki/entities/linqi-zhou]]、[[wiki/entities/aaron-lou]]、[[wiki/entities/stefano-ermon]]（[[wiki/entities/stanford]]）
@@ -57,4 +58,4 @@ family: bridge
 
 - [ ] I²SB / Schrödinger Bridge 类对照页
 - [ ] EDM（Karras 2022）独立页（DDBM 的 preconditioning 与 sampler 基础）
-- [ ] DDBM 上做 text-guided editing / inversion 的后续工作（与 FlowCycle 接合）
+- [ ] DDBM 上做 text-guided editing / inversion 的后续工作（与 FlowCycle 接合）——inversion 原语已由 [[wiki/methods/dbim|DBIM]] 提供（确定 ODE + booting noise），开口在其上做 text-guided 编辑
