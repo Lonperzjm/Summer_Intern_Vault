@@ -2,6 +2,19 @@
 
 > Append-only 时间线。每条 entry 以 `## [YYYY-MM-DD] <op> | <subject>` 起始，便于 `grep "^## \[" log.md | tail`。
 
+## [2026-06-02] ingest | FLUX.1 Kontext: Flow Matching for In-Context Image Gen & Editing (Black Forest Labs 2025)
+- created: `wiki/sources/labsFLUX1KontextFlow2025.md` —— source 摘要页（条件生成 $p(x|y,c)$ + 潜空间 RF + in-context token 拼接 + KontextBench 结果，PDF 交叉验证）
+- created: `wiki/methods/flux-kontext.md` —— 方法主页（family=editing；与 SDEdit/ControlNet/attention-injection 条件注入分界表）
+- created: `wiki/concepts/in-context-conditioning.md` —— **第六条条件注入通道**（上下文图作 latent token 序列拼接 + 3D RoPE）；区别于 noising/cross-attn/attention-injection/sideband
+- created: `wiki/benchmarks/kontextbench.md` —— vault 首个 in-context 编辑 benchmark（1026 pairs / 5 任务 / 人评 + AuraFace 角色相似度）
+- created: `wiki/entities/black-forest-labs.md` / `flux.md`（具名模型族）
+- updated: `wiki/overview.md` —— 主要派系「flow-matching-based」首篇 ✅ FLUX.1 Kontext；新增第六条注入通道 in-context-conditioning 注（编辑主线 = 条件 FM，非 bridge）
+- updated: `wiki/methods/rectified-flow.md` —— 下游/工业落点/open-question 标 FLUX.1 Kontext ✅；sources +Kontext
+- updated: `wiki/concepts/flow-matching.md`、`wiki/entities/robin-rombach.md`（+BFL/FLUX/Kontext，sources +Kontext）
+- updated: `index.md`；`raw/literature-notes/labsFLUX1KontextFlow2025.md` 回填 ingested_to_wiki/wiki_page（§5.1；status/priority/my-rating 未动）
+- 关键 takeaway（对 thesis）：BFL 工业旗舰把统一编辑做成 **in-context 条件 FM**，**不走 bridge**——再次印证 bridge-editing 是支线、编辑主线在 in-context 条件生成；Kontext 是绕不开的强 baseline + KontextBench 是绕不开的评测，故"纯方法新意"更难、execution/窄 niche 更现实（Kontext 弱项：global editing / 风格参考）
+- thesis：working thesis / research/thesis 未改（用户 thesis-implication 原文留空）
+
 ## [2026-06-01] query | diversity-editing sweep + 止损 KILL bridge-editing 全家桶
 - 触发：用户"sweep"验证"可控多样性 / 一对多 text editing"carve 是否开放
 - 结果：🔴 **也被占** —— [OSCAR (2510.09060)](https://arxiv.org/abs/2510.09060)（training-free 正交随机控制提多样性、不损 fidelity）、Variational Rectified Flow Matching（latent 捕多模）、Discretized-RF、FlowSlider（fidelity-steering 旋钮）；one-to-many 编辑自 Blended Diffusion 2022 即有

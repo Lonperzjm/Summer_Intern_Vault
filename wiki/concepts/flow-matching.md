@@ -58,7 +58,7 @@ $$\frac{\partial p_t}{\partial t}+\nabla\!\cdot(p_t v_t)=0,$$
 
 ## 在 text-guided editing 中的作用
 
-- FM 是 SD3 / FLUX 等 [[wiki/methods/rectified-flow|rectified-flow]] 一线的训练底座；这些模型上的编辑方法（如 RF-Inversion）继承"在 ODE 链上注入条件"的范式。
+- FM 是 SD3 / FLUX 等 [[wiki/methods/rectified-flow|rectified-flow]] 一线的训练底座；这些模型上的编辑方法（如 RF-Inversion、✅ [[wiki/methods/flux-kontext|FLUX.1 Kontext]]）或在 ODE 链上注入条件、或走 [[wiki/concepts/in-context-conditioning|in-context token 拼接]]。
 - ⚠️ FM 的 $t$ 与 diffusion 的 $t$ 方向相反，做"介入时间步"分析时须先统一坐标。
 
 ## 出处与引用

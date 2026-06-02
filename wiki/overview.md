@@ -93,7 +93,7 @@ sources: ["[[wiki/sources/hoDenoisingDiffusionProbabilistic2020]]", "[[wiki/sour
 - **Instruction-tuned**：InstructPix2Pix、MagicBrush、… —— sideband = "在 SD 上做 instruction-following 全模型微调"；与其他派系不同，**改 backbone 参数**（仍待 ingest）
 - **Attention-injection**：Prompt-to-Prompt、Plug-and-Play、MasaCtrl、Attend-and-Excite、StyleAligned、… —— sideband = "在 cross/self-attention map 上加性 / 替换的修改"；直接攻击 LDM 的 [[wiki/concepts/cross-attention|cross-attention map]]（仍待 ingest）
 - **Control/sideband-injection（🆕 [2026-05-28] LDM ingest 后新增第 5 类）**：✅ [[wiki/methods/controlnet|ControlNet]]（已 ingest）、T2I-Adapter、IP-Adapter、GLIGEN、… —— sideband = "在 skip connection 上加性的空间对齐条件残差"；用 [[wiki/concepts/zero-convolution|zero conv]] 等初始化恒等机制做稳定 fine-tune；与 attention-injection **正交**（一个在 U-Net 外部 sideband、一个在 U-Net 内部 attention map），是 thesis 在资源约束下最可行的研究通道
-- **Flow-matching-based**：SD3、FLUX、RF-Inversion、… —— LDM 压缩层 ⊕ [[wiki/methods/rectified-flow|RF]]/[[wiki/concepts/flow-matching|FM]] 训练目标的工业实现（仍待 ingest）；与前四类**正交**——底座换了，前四类的 sideband 接口需要重新设计
+- **Flow-matching-based**：✅ [[wiki/methods/flux-kontext|FLUX.1 Kontext]]（已 ingest，BFL 2025；该派系首篇）、SD3 / FLUX 基础模型 / RF-Inversion、… —— [[wiki/methods/ldm|LDM]] 压缩层 ⊕ [[wiki/methods/rectified-flow|RF]]/[[wiki/concepts/flow-matching|FM]] 训练目标的工业实现；与前四类**正交**——底座换了，前四类的 sideband 接口需重设计。**🆕 Kontext 还引入第六条条件注入通道 [[wiki/concepts/in-context-conditioning|in-context token 序列拼接]]**（区别于 noising/cross-attn/attention-injection/sideband）：把编辑建成条件生成 $p(x\mid y,c)$ 而非显式 bridge——印证编辑主线在 in-context 条件 FM、不在 bridge（仍待 ingest：SD3 / FLUX 基础模型原文）
 
 ## 关键源
 

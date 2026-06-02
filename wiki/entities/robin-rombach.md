@@ -5,8 +5,8 @@ aliases: [Rombach, R. Rombach]
 tags: [researcher]
 status: draft
 created: 2026-05-27
-updated: 2026-05-27
-sources: ["[[wiki/sources/rombachHighResolutionImageSynthesis2022]]"]
+updated: 2026-06-02
+sources: ["[[wiki/sources/rombachHighResolutionImageSynthesis2022]]", "[[wiki/sources/labsFLUX1KontextFlow2025]]"]
 kind: person
 ---
 
@@ -21,7 +21,7 @@ kind: person
 - **LDM**（[[wiki/sources/rombachHighResolutionImageSynthesis2022]]）—— 一作，把 diffusion 搬到 latent space，奠定 SD 全系产品线
 - **Stable Diffusion 1.x / 2.x** —— 在 Stability AI 期间主导
 - **SD3 (Stable Diffusion 3, Esser et al. 2024)** —— 把 LDM 与 [[wiki/methods/rectified-flow|Rectified Flow]] 训练目标组合（仍待 ingest）
-- **FLUX 系列**（Black Forest Labs）—— RF backbone 上的工业级 T2I 旗舰（仍待 ingest）
+- **FLUX 系列**（[[wiki/entities/black-forest-labs|Black Forest Labs]]）—— RF backbone 上的工业级 T2I 旗舰（[[wiki/entities/flux|FLUX]]）；✅ [[wiki/methods/flux-kontext|FLUX.1 Kontext]]（统一 in-context 编辑，2025）已 ingest；FLUX 基础模型原文仍待 ingest
 - 早期 / 平行：High-Resolution Complex Scene Synthesis（cond-transformer）、VQGAN（合作）
 
 ## 关系网

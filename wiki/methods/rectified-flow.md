@@ -5,8 +5,8 @@ aliases: [Rectified Flow, rectified flow, RF, "Liu et al. 2022"]
 tags: [flow-matching, ode, rectified-flow, sampling-acceleration]
 status: active
 created: 2026-05-24
-updated: 2026-06-01
-sources: ["[[wiki/sources/liuFlowStraightFast2022a]]", "[[wiki/sources/lipmanFlowMatchingGenerative2023]]", "[[wiki/sources/zhouDenoisingDiffusionBridge2023]]"]
+updated: 2026-06-02
+sources: ["[[wiki/sources/liuFlowStraightFast2022a]]", "[[wiki/sources/lipmanFlowMatchingGenerative2023]]", "[[wiki/sources/zhouDenoisingDiffusionBridge2023]]", "[[wiki/sources/labsFLUX1KontextFlow2025]]"]
 family: flow-matching
 ---
 
@@ -43,7 +43,7 @@ family: flow-matching
 ## 为什么重要（对本 wiki）
 
 - **加速可来自训练阶段**：reflow 把 [[wiki/overview]] 推论 3 推到极限——不只改采样器（DDIM 跳步）、不只改路径（FM-OT），而是把 ODE 本身在训练阶段迭代变直。
-- **工业落点**：SD3（Esser et al. 2024）与 FLUX 的训练目标即 RF 一族；其上的编辑方法（RF-Inversion, FlowEdit 等）依然继承"沿 ODE 注入条件"的范式。
+- **工业落点**：SD3（Esser et al. 2024）与 FLUX 的训练目标即 RF 一族；其上的编辑方法（RF-Inversion, FlowEdit 等）依然继承"沿 ODE 注入条件"的范式。✅ [[wiki/methods/flux-kontext|FLUX.1 Kontext]] 是 FLUX 的统一编辑形态——但它换了条件通道（[[wiki/concepts/in-context-conditioning|in-context token 拼接]]）而非 inversion/sideband。
 - **coupling 作为研究变量**：RF 把 inversion / DDIM-inv 失稳重表述为 coupling rewiring 失稳——给编辑论文一种新的诊断语言（详见 [[wiki/concepts/transport-coupling]]）。
 
 ## 关系
@@ -54,7 +54,7 @@ family: flow-matching
 - 采样近亲：[[wiki/concepts/probability-flow-ode]]（同为确定性 ODE 生成，但 score 事后导出 vs RF 直接训速度场）
 - 对照：[[wiki/methods/ddim]]（diffusion 的训练 + flow 的采样）vs RF（连训练也 flow 化 + reflow 拉直）
 - 作者：[[wiki/entities/xingchao-liu]]、[[wiki/entities/qiang-liu]]
-- 下游模型（待 ingest）：SD3（Esser et al. 2024）、FLUX、InstaFlow
+- 下游模型：✅ [[wiki/methods/flux-kontext|FLUX.1 Kontext]]（已 ingest，FLUX 的统一编辑形态）；待 ingest：SD3（Esser et al. 2024）、FLUX 基础模型、InstaFlow
 
 ## 重要结果速览
 
@@ -64,7 +64,7 @@ family: flow-matching
 
 ## 待补 / 开放
 
-- [ ] SD3 / FLUX 原文 ingest，填 overview「主要派系→flow-matching-based」
+- [x] ✅ overview「主要派系→flow-matching-based」首篇已由 [[wiki/methods/flux-kontext|FLUX.1 Kontext]] 填上；仍待 SD3 / FLUX 基础模型原文
 - [ ] RF-Inversion 类编辑方法 ingest（是 thesis 的直接相关线）
 - [ ] Reflow 收敛到 OT 的条件与速率
 - [ ] RF 模型上 inversion 往返闭合的稳定性（与 FlowCycle 工作的接合点）
