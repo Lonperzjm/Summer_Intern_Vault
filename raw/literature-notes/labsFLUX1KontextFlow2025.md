@@ -129,13 +129,13 @@ wiki_page: "[[wiki/sources/labsFLUX1KontextFlow2025]]"
 
 %% begin my-summary %%
 1. FLUX.1 Kontext 的核心建模对象是条件分布
-   p_\theta(x \mid y, c),
-   其中 x 是目标图像，y 是可选的上下文图像，c 是文本提示或编辑指令。于是 y=\varnothing 时它就是文本到图像，y\neq\varnothing 时它就是图像编辑、参考生成或图像到图像；它的统一点在于把这些任务都视为“上下文条件生成”。
+   $$p_\theta(x \mid y, c)$$
+   其中 x 是目标图像，y 是可选的上下文图像，c 是文本提示或编辑指令。于是 $y=\varnothing$ 时它就是文本到图像，$y\neq\varnothing$ 时它就是图像编辑、参考生成或图像到图像；它的统一点在于把这些任务都视为“上下文条件生成”。
 
 2. 它本质上是一个建立在 FLUX.1 之上的潜空间 Rectified Flow Transformer。图像先通过自编码器编码到潜空间，再在潜空间里做 Flow Matching；训练目标是速度预测而不是噪声预测、score 预测或 bridge score 预测。它学习的是
-   v_\theta(z_t,t,y,c)\approx (\varepsilon-x),
+   $$v_\theta(z_t,t,y,c)\approx (\varepsilon-x),$$
    其中
-   z_t=(1-t)x+t\varepsilon。
+  $$ z_t=(1-t)x+t\varepsilon$$
    所以它是条件 Flow Matching，不是 DDBM / DBIM 那种显式 source-target bridge。
 
 3. Kontext 最关键的设计是“上下文图像作为词元进入模型”。上下文图像不会像 SDEdit / img2img 那样被加噪后作为采样起点，也不是像 ControlNet 那样走额外控制分支；它是先被编码成潜变量词元，再与目标图像词元做序列拼接，然后与文本词元一起通过双流 / 单流 Transformer 做统一注意力建模。这使它可以自然支持局部编辑、全局编辑、角色参考、风格参考、文本编辑和多轮编辑。
@@ -145,7 +145,7 @@ wiki_page: "[[wiki/sources/labsFLUX1KontextFlow2025]]"
    它和 Stable Diffusion img2img 的本质区别是：后者主要靠“从哪里开始反推”，而 Kontext 更像是“把图像和文本都当作上下文，让模型学习每一步该往哪里流”。因此它更适合统一参考生成、多轮编辑和身份保持，而不是单纯做一次性图像重绘。
 
 5. 论文最有启发的地方有两点。第一，很多图像编辑问题不一定要建模成显式 bridge，也可以建模成条件生成：
-   p_\theta(x\mid y,c)。
+   $$p_\theta(x\mid y,c)$$
    第二，把参考图像、源图像、视觉标记、文本指令都统一成上下文，让模型在注意力里自行学习“如何利用上下文”，这比针对每个任务单独设计一套结构更有通用性。实验上它最强的点是角色一致性、多轮编辑稳定性、局部编辑与文本编辑，同时速度也明显快，说明这种统一的上下文式生成模型很可能是未来图像编辑系统的重要方向。
 %% end my-summary %%
 

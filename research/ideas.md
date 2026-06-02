@@ -38,7 +38,6 @@ updated: 2026-06-01
 - **bridge-SDE 加速** → 🔴 [CDBM (NeurIPS'24, 2410.22637)](https://arxiv.org/abs/2410.22637)、[Inverse Bridge Matching Distillation (2502.01362)](https://arxiv.org/abs/2502.01362)。
 - **bridge inversion / encoding** → 🔴 [[wiki/methods/dbim|DBIM (ICLR'25)]] 已给确定可逆桥 + booting noise 原语。
 - **bridge-ODE inversion/editing** → 🔴 红海：RF-Inversion (ICLR'25)、[RF-Solver-Edit (2411.04746)](https://arxiv.org/abs/2411.04746)、[OT-for-RF-Editing (2508.02363)](https://arxiv.org/abs/2508.02363)。
-- **FlowCycle 的 SDE 推广 / 随机桥上的 cycle-consistent text-editing** → derivative（"FlowCycle 换底座"），且用户明确不想做 FlowCycle 衍生。
 - **可控多样性 / 随机 flow 编辑（diversity 旋钮）** → 🔴 [OSCAR: Orthogonal Stochastic Control for diversity in Flow Matching (2510.09060)](https://arxiv.org/abs/2510.09060)（training-free 注入正交随机扰动提多样性、不损 fidelity）；Variational Rectified Flow Matching（latent 捕获多模）；Discretized-RF（stochastic velocity 补多样性）；[FlowSlider (2604.02088)](https://arxiv.org/abs/2604.02088)（fidelity-steering 旋钮）。one-to-many 编辑自 Blended Diffusion (2022) 即有。
 - **stochasticity / schedule 理论** → 🔴 SB/SI + [Stochasticity Control (2410.21553)](https://arxiv.org/abs/2410.21553)（"最优 coefficient 下 path-KL 与 schedule 无关"）。
 

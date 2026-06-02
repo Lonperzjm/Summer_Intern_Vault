@@ -5,7 +5,7 @@ aliases: [DBIM, Diffusion Bridge Implicit Models, "Zheng et al. 2025", 隐式扩
 tags: [diffusion-bridge, sampling-acceleration, non-markovian, inversion, score-based]
 status: active
 created: 2026-06-01
-updated: 2026-06-01
+updated: 2026-06-02
 raw: "[[raw/literature-notes/zhengDiffusionBridgeImplicit2025]]"
 authors: [Kaiwen Zheng, Guande He, Jianfei Chen, Fan Bao, Jun Zhu]
 venue: "ICLR 2025 (arXiv 2405.15885)"
@@ -93,7 +93,7 @@ $$
 
 > 本节按惯例**留给你写**，未改 [[wiki/overview]] / [[research/thesis]]。候选挂钩：
 
-- 候选 ①（最重要）：**DBIM 提供了 bridge 上的 inversion 原语**——$\rho{=}0$ 确定 ODE + booting noise 充当 latent，实现 faithful encoding/reconstruction。这正是 [[research/ideas]] bridge-SDE 编辑选题里"随机桥 inversion 闭合"那块的**现成底座**。于是选题该再收窄为：**在 DBIM 的确定可逆桥之上，做 target-aware cycle-consistent text-editing**（FlowCycle 是 flow-ODE 侧的对应物）。
+- 候选 ①（最重要）：**DBIM 提供了 bridge 上的 inversion 原语**——$\rho{=}0$ 确定 ODE + booting noise 充当 latent，实现 faithful encoding/reconstruction。这填补了随机桥上"inversion 闭合"的空缺；在此基础上做 **text-guided 编辑**仍是开放方向（DBIM 自身只演示 reconstruction / interpolation）。
 - 候选 ②：DBIM 的 $\eta$ 消融给了"stochasticity 何时有用"的实证（确定性利于可逆/收敛，随机性利于多样性/大 NFE）——可直接喂给 thesis 的 fidelity↔diversity 论证。
 
 ## Open questions / 待追
