@@ -59,3 +59,5 @@ CFG 可视作"把引导项内化、免去外部分类器"的演化版；但 clas
 - [[wiki/sources/songScoreBasedGenerativeModeling2021]]（条件反向 SDE 的贝叶斯分解、逆问题求解）
 - Dhariwal & Nichol 2021（classifier guidance + 引导强度，原文待 ingest）
 - 演化版：[[wiki/concepts/classifier-free-guidance]]
+- 推广版：[[wiki/concepts/energy-guidance]]（把"分类器梯度"推广为"任意能量 + product of experts"，代表 [[wiki/methods/egsde|EGSDE]]）
+- 免训练版：[[wiki/concepts/training-free-guidance]]（$\hat x_0$ 点估计 + 现成模型，代表 [[wiki/methods/freedom|FreeDoM]]）；母页 [[wiki/concepts/conditional-diffusion]]

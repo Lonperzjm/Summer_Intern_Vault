@@ -118,7 +118,7 @@ higher-order ODE（Heun，来自 EDM / Karras et al. 2022）+ 在步间插入 **
 
 > 本节按你的指示**留给你自己写**，未改动 [[wiki/overview]] working thesis。下列是我在 ingest 时识别到的候选挂钩，仅供你取舍：
 
-- 候选 ①（你 why-read 提到的 idea）：把 DDBM 改进为 **score-based bridge SDE**——在「bridge SDE 一侧、换插值路径/噪声 schedule」这个格子里做文章；与你的 FlowCycle（RF inversion 往返）方向接合点见 [[wiki/methods/rectified-flow]] open questions。
+- 候选 ①（你 why-read 提到的 idea）：把 DDBM 改进为 **score-based bridge SDE**——在「bridge SDE 一侧、换插值路径/噪声 schedule」这个格子里做文章。
 - 候选 ②（你红色批注）：原文"ODE 方法经验上打不过 diffusion"在 SD3/FLUX 时代已不成立；DDBM 的 Table 2 反而显示 **OT-ODE 在跨域 translation 上崩盘**（DIODE RF 77.18）——这是"flow vs bridge"在编辑/翻译任务上的一条可证伪边界。
 - 候选 ③：DDBM 把 editing/translation 形式化为"两端点随机桥"，是 [[wiki/overview]] 推论 1「editing-as-transport」的 SDE 化身——但是否要纳入 working thesis 由你决定。
 

@@ -1,0 +1,58 @@
+---
+type: concept
+title: Training-Free Guidance（免训练引导）
+aliases: [training-free guidance, 免训练引导, plug-and-play guidance, clean-estimate guidance, TFG, "Training-free Diffusion Guidance"]
+tags: [diffusion, guidance, conditioning, energy-guidance, training-free]
+status: active
+created: 2026-06-23
+updated: 2026-06-23
+sources: ["[[wiki/sources/yuFreeDoMTrainingFreeEnergyGuided2023b]]"]
+---
+
+# Training-Free Guidance（免训练引导）
+
+> 概念页。指**不重训生成器、也不训练 noise-aware 打分器**，仅靠"估 $\hat x_0$ + 现成 clean-image 模型"在采样期注入条件的一族方法。代表 [[wiki/methods/freedom|FreeDoM]]、DPS；统一框架 TFG。
+
+## 一句话定义
+
+判别器/reward 都在**干净图**上训过，但采样时在带噪 $x_t$。免训练引导 = 用 Tweedie 估 $\hat x_0=\hat x_0(x_t,t)$，把现成模型评在 $\hat x_0$ 上，梯度 $\nabla_{x_t}E(\hat x_0,c)$ 当引导——**不为新条件训练任何东西**（详见 [[wiki/concepts/conditional-diffusion]] §3–§4）。
+
+## 与 EGSDE / classifier guidance 的分界
+
+- [[wiki/concepts/classifier-guidance|classifier guidance]] / [[wiki/methods/egsde|EGSDE]]：要**重训 noise-aware 打分器**（吃 $(x_t,t)$）。换个条件就重训——贵。
+- training-free：复用**现成 time-independent** 模型（CLIP / ArcFace / 分割 / 检测 …），零额外训练。代价是 $\hat x_0$ 高噪声下糊 → 梯度有偏、不稳。
+
+## 设计空间（TFG 统一表）
+
+[TFG (Ye et al., NeurIPS'24, 2403.12404)](https://arxiv.org/abs/2403.12404) 证明这族方法是**同一个设计空间**的特例，四个旋钮：
+
+| 旋钮 | 含义 |
+|---|---|
+| **mean guidance** | 把能量评在 $\hat x_0$ 上（所有方法都做） |
+| **variance guidance** | 在 $\hat x_0$ 周围加噪/采样平滑梯度 |
+| **recurrence / time-travel** | 回跳几步重评引导 |
+| **iteration / 步长** | 自适应步长（Polyak）促收敛 |
+
+各方法 = 限制超参的特例：
+
+| 方法 | $\hat x_0$ | 期望怎么处理 | 额外 trick |
+|---|---|---|---|
+| **DPS** | Tweedie | 点估计 | 反传过网络（反问题） |
+| **[[wiki/methods/freedom\|FreeDoM]]** | Tweedie | 点估计 | **time-travel**（仅 semantic stage） |
+| **Universal Guidance** | Tweedie | 点估计 | forward+backward + self-recurrence |
+| **LGD** | Tweedie | **局部 MC**（$\mathcal N(\hat x_0,r^2I)$ 采样） | variance guidance |
+| **MPGD** | latent Tweedie | 点估计 | 流形投影，免反传扩散网 |
+
+> 轴心区别：**FreeDoM/UG/DPS = 确定性点估计**；**LGD = 采样估期望**。要快速吃下这一片，读 TFG 一篇即可。
+
+## 偏差问题与 flow 角度
+
+点估计 $E(\hat x_0)\approx\mathbb E[E(x_0)]$ 有 Jensen 偏差，高噪声下大。修法：训练精确能量（[Contrastive Energy Prediction (Lu 2023)](https://arxiv.org/pdf/2304.12824)）或局部 MC（LGD）。
+- **flow 角度**：RF/FM 的 $\hat x_0=x_t-t\,v_\theta$ 因轨迹近直线更准 → 偏差可能更小 → 点估计或许更够用（[[research/ideas]] 待验证假设；flow 版已有 [TFG-Flow](https://arxiv.org/pdf/2501.14216)、FlowChef、OC-Flow）。
+
+## 关系
+
+- 母页：[[wiki/concepts/conditional-diffusion]]、[[wiki/concepts/energy-guidance]]
+- 原型：[[wiki/concepts/classifier-guidance]]；对照：[[wiki/methods/egsde]]（noisy-aligned 反例）
+- 代表方法：[[wiki/methods/freedom]]
+- 出处：[[wiki/sources/yuFreeDoMTrainingFreeEnergyGuided2023b]]

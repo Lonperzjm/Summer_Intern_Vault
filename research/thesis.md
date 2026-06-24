@@ -3,22 +3,24 @@ type: research
 title: 论文 Thesis 演化
 status: draft
 created: 2026-05-05
-updated: 2026-06-01
+updated: 2026-06-18
 ---
 
 # Thesis
 
 <!-- 我的论文核心论点。在阅读中演化，由 Claude Code 协助维护，每次改动必须经过我确认。 -->
 
-## 当前版本（v0.1 草稿 · 2026-06-01 · ⚠️ 待用户精修）
+## 当前版本（v0.1 草稿 · 2026-06-01 · ⚠️ 待用户精修 · 🔁 方向复审中 2026-06-18）
 
 > 本节由 ingest [[wiki/sources/zhouDenoisingDiffusionBridge2023|DDBM]] 后、用户确定"立 bridge-SDE 为方向"（选项 B）时起草，是 thesis.md 的**首个实质版本**。措辞和押注力度请你自己校准。
 
-**研究问题**：把 text-guided image editing 放进"两端分布之间 transport"的统一视角下，**系统性发展 bridge-SDE 一侧的 inversion / editing 理论与方法**——这正是 bridge-ODE 侧（[[wiki/methods/rectified-flow|RF]]、RF-Inversion、我的 FlowCycle）已经成熟、而 bridge-SDE 侧（[[wiki/methods/ddbm|DDBM]]、I²SB、Schrödinger Bridge）明显欠发达的缺口。
+> 🔁 **2026-06-18 方向复审中**：师兄推 energy-guided conditional generation（EGSDE 路线）作为候选新方向，已记入 [[research/ideas]] 顶部 Active 条。bridge-SDE 这条线本身已"无存活方法级 idea"（见 ideas Killed），故本 thesis 方向**暂挂复审**——energy-guidance 须先过 3-sweep 纪律才考虑替换下方 v0.1。FlowCycle 引用已按用户指示移除（RF-Inversion 接管"ODE 侧已成熟"论据）。
+
+**研究问题**：把 text-guided image editing 放进"两端分布之间 transport"的统一视角下，**系统性发展 bridge-SDE 一侧的 inversion / editing 理论与方法**——这正是 bridge-ODE 侧（[[wiki/methods/rectified-flow|RF]]、RF-Inversion）已经成熟、而 bridge-SDE 侧（[[wiki/methods/ddbm|DDBM]]、I²SB、Schrödinger Bridge）明显欠发达的缺口。
 
 **核心论点（草稿）**：
 1. 生成 / 编辑 / 翻译可统一为"两个端点分布之间、由学到的 drift/score 驱动、迭代采样的 transport"；denoising（噪声端点）只是特例。组织轴见 [[wiki/overview]] 推论 4 与 [[wiki/concepts/diffusion-bridge]]。
-2. 该 transport 有 **SDE（随机）** 与 **ODE（确定）** 两种 realization。ODE 侧的 inversion 往返（[[wiki/concepts/probability-flow-ode|PF-ODE]] 可逆性）已被 FlowCycle 等利用；SDE 侧因随机项，inversion 闭合困难、基本空白——**这是本 thesis 的施力点**。
+2. 该 transport 有 **SDE（随机）** 与 **ODE（确定）** 两种 realization。ODE 侧的 inversion 往返（[[wiki/concepts/probability-flow-ode|PF-ODE]] 可逆性）已被 RF-Inversion 等利用；SDE 侧因随机项，inversion 闭合困难、基本空白——**这是本 thesis 的施力点**。
 3. 预期贡献：bridge-SDE 的 inversion / editing 工具，或 SDE↔ODE spectrum 上 inversion 稳定性的统一刻画。
 
 **诚实边界（写进 thesis 是为了不自欺）**：

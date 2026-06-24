@@ -89,7 +89,7 @@ $$v_X(z,t)=\mathbb E\!\left[\frac{X_1-z}{1-t}\,\eta_t(X_1,z)\right],\quad
 \eta_t(X_1,z)=\frac{\rho(\tfrac{z-tX_1}{1-t}\mid X_1)}{\mathbb E[\rho(\tfrac{z-tX_1}{1-t}\mid X_1)]}.\tag{4}$$
 其中 $\rho(x_0\mid x_1)$ 是 coupling 的条件密度。若 $\pi_0$ 是 dirac/离散（端点对完全 overfit），$v_X$ 退化。**修复**：给 $X_0$ 加 $\xi\sim\mathcal N(0,\sigma^2 I)$ 得到 $\tilde X_0=X_0+\xi$ 作为 smoother，使 $\rho(x_0\mid x_1)$ 良定。
 
-🟢 用户标注：与 [[wiki/methods/rectified-flow|RF]] 后续 / FlowCycle 的 smoother 设计同思路；🔴 用户标注："不加 smoother 完全过拟合" 与 FlowCycle 的现象一致——这是论文给出的"为什么必须加噪"的根因，不只是工程 trick。
+🟢 用户标注：与 [[wiki/methods/rectified-flow|RF]] 后续的 smoother 设计同思路；🔴 用户标注："不加 smoother 完全过拟合"——这是论文给出的"为什么必须加噪"的根因，不只是工程 trick。
 
 ### 7. Nonlinear extension
 
@@ -134,8 +134,8 @@ L2 回归 + "monolithic 边缘场 = 条件期望"的结构与 [[wiki/concepts/co
 ## 对我的 thesis 的启示
 
 - 🟣 **加速可设计在训练阶段，而不只是采样器**：reflow 把 [[wiki/overview]] 推论 3 的"采样链可改"推到极限——**轨迹本身可被改造**。本 thesis 关心的编辑场景反复采样，若 backbone 已是 RF 一族（SD3 / FLUX），inversion / guidance 的设计能否利用"接近直线"的轨迹来稳定 fidelity↔controllability？这是一个具体可做的研究杠杆。
-- 🟣 **coupling 是被忽视的研究变量**：RF 显式承认 coupling 可任取并可被 rewire。在编辑场景里，inversion 出的 $(x_0^{\text{src}}, x_T)$ 也是一个 coupling——RF 视角能否解释/改进 DDIM inversion 的 "rewiring 失败"现象？与你已有的 FlowCycle 工作直接接合。
-- 🟣 **smoother / $\rho(x_0\mid x_1)$ 良定性**（用户 p.8 批注）：RF 给出的 smoother 修复（$\tilde X_0 = X_0+\xi$）从原理上回答了"为什么 FlowCycle 必须加噪"——这是定理 (4) 的退化条件，不是工程 hack。该结论可写进 thesis 的"方法稳定性"一章。
+- 🟣 **coupling 是被忽视的研究变量**：RF 显式承认 coupling 可任取并可被 rewire。在编辑场景里，inversion 出的 $(x_0^{\text{src}}, x_T)$ 也是一个 coupling——RF 视角能否解释/改进 DDIM inversion 的 "rewiring 失败"现象？与你的编辑方向直接相关。
+- 🟣 **smoother / $\rho(x_0\mid x_1)$ 良定性**（用户 p.8 批注）：RF 给出的 smoother 修复（$\tilde X_0 = X_0+\xi$）从原理上回答了"为什么端点对退化时必须加噪"——这是定理 (4) 的退化条件，不是工程 hack。该结论可写进 thesis 的"方法稳定性"一章。
 - 🔴 **凸代价非增 ≠ 收敛到 OT**：Thm 3.5 只断言单调改善。reflow 收敛到 OT 的条件、收敛速率仍是开问题——若 thesis 想从"为什么直线化能改善编辑"出发做 claim，需要小心这一点。
 
 ## 待调研方向（来自 🔵 与开放问题）

@@ -58,4 +58,4 @@ family: bridge
 
 - [ ] I²SB / Schrödinger Bridge 类对照页
 - [ ] EDM（Karras 2022）独立页（DDBM 的 preconditioning 与 sampler 基础）
-- [ ] DDBM 上做 text-guided editing / inversion 的后续工作（与 FlowCycle 接合）——inversion 原语已由 [[wiki/methods/dbim|DBIM]] 提供（确定 ODE + booting noise），开口在其上做 text-guided 编辑
+- [ ] DDBM 上做 text-guided editing / inversion 的后续工作——inversion 原语已由 [[wiki/methods/dbim|DBIM]] 提供（确定 ODE + booting noise），开口在其上做 text-guided 编辑

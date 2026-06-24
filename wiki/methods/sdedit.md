@@ -76,4 +76,5 @@ return x
 - 派系对照：[[wiki/methods/controlnet|ControlNet]]（全 $t$ sideband vs SDEdit 单次 $t_0$ 介入）；统一抽象 [[wiki/concepts/sideband-conditioning]]
 - 编辑派系定位：[[wiki/overview]] 主要派系 → Inversion / noising-based 首篇（最朴素：不优化、不反演）
 - 下游 / 后续（待 ingest）：DDIM-inversion 系、Null-text inversion、Prompt-to-Prompt（更精细的局部编辑，弥补 SDEdit 全局性短板）
+- 直接扩展：[[wiki/methods/egsde|EGSDE]]（[[wiki/sources/zhaoEGSDEUnpairedImagetoImage2022|Zhao et al. 2022]]）—— SDEdit 式"加噪源图 + 目标域 reverse"是 EGSDE 的 $p_{r1}$ realism 专家，EGSDE 在其上叠加 [[wiki/concepts/energy-guidance|energy guidance]] 让源信息全程参与
 - 作者：[[wiki/entities/chenlin-meng]]、[[wiki/entities/yutong-he]]、[[wiki/entities/yang-song]]、[[wiki/entities/jiaming-song]]、[[wiki/entities/jiajun-wu]]、[[wiki/entities/jun-yan-zhu]]、[[wiki/entities/stefano-ermon]]；机构 [[wiki/entities/stanford]]

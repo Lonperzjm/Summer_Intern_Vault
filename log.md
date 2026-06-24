@@ -2,6 +2,58 @@
 
 > Append-only 时间线。每条 entry 以 `## [YYYY-MM-DD] <op> | <subject>` 起始，便于 `grep "^## \[" log.md | tail`。
 
+## [2026-06-24] lint | wiki 整改：overview 同步 + 补 Missing 页 + 综述沉淀
+- 扫描结果：broken link 0、orphan 0、frontmatter 缺失 0（结构层健康）
+- updated: `wiki/overview.md` —— 推论 4 加"2026-06-24 方向复审"：bridge-SDE 暂挂、活线转 energy-guidance（与 research 层对齐）；sources +EGSDE/FreeDoM；updated 刷新
+- created: `wiki/concepts/tweedie-formula.md` —— Missing（6 页提及无页）：后验均值 $\hat x_0$ 公式 + 推导 + flow 变体
+- created: `wiki/methods/dps.md` —— Missing（6 页提及）：DPS draft 骨架（待 ingest 原文），FreeDoM 最近邻
+- created: `wiki/synthesis/energy-guidance-landscape.md` —— 沉淀 sweep 四落点 + 师兄三段框架 + 结构化 E + 收束 flow（顺带给 afhq 补第二入链）
+- updated: `wiki/concepts/training-free-guidance.md` —— 加 TFG 别名（5 页提及，并入此页不另开）
+- updated: `index.md` —— updated 刷新
+- 未做（判断为低价值）：Dhariwal/UGD/MPGD/ILVR/CycleGAN 独立页——已在相关页标"待 ingest"，提及即可
+
+## [2026-06-24] thesis-update | energy-guidance 候选升级：sliver 已定（师兄三段框架）
+- updated: `research/ideas.md` —— 顶部候选条从"待 sweep"升到"sliver 已定（待第一个实验）"：补 sweep 结论（generic 全红、因导师在研线不 KILL）+ 师兄 6/23 三段框架（①$\hat x_0$ 估计 ②energy 获取 ③→guidance，逐段 heuristic→原理化）+ 核心收束"三段原理化方向全指向 flow/RF 底座"+ 下一步（三段梳理 + 第一个最小实验设计）
+- 触发：与师兄 6/23 对话确认 FreeDoM=baseline、三段改进框架；本轮在 chat 完成第③段（energy→guidance: MPGD/TFG/步长/流形）盘点
+
+## [2026-06-23] ingest | FreeDoM: Training-Free Energy-Guided Conditional Diffusion (Yu et al. ICCV 2023)
+- created: `wiki/sources/yuFreeDoMTrainingFreeEnergyGuided2023b.md` —— source 页（clean-estimate 路线：Tweedie $\hat x_0$ + 现成距离能量 + time-travel；含用户 🔴"eq4 Z 没算"批注的交叉引用）
+- created: `wiki/methods/freedom.md` —— 方法页（family=guidance；pipeline 伪代码；三大局限）
+- created: `wiki/concepts/training-free-guidance.md` —— 新概念（免训练引导 + TFG 统一设计空间表：DPS/FreeDoM/UGD/LGD/MPGD）
+- updated: `wiki/concepts/energy-guidance.md` —— clean-estimate 行 FreeDoM 加链；出处补 FreeDoM + 母页/子族
+- updated: `wiki/methods/egsde.md` —— 加 clean-estimate 对照（FreeDoM）
+- updated: `wiki/sources/zhaoEGSDEUnpairedImagetoImage2022.md` —— open-question FreeDoM 标 ✅ 已 ingest
+- updated: `wiki/concepts/classifier-guidance.md` —— 加"免训练版 = training-free-guidance/FreeDoM"
+- updated（raw 回填，§5.1 四字段）：`raw/literature-notes/yuFreeDoMTrainingFreeEnergyGuided2023b.md` —— `ingested_to_wiki: true`、`wiki_page` 填好
+- updated（raw 正文，用户授权"错的就修"）：FreeDoM 笔记 why-read / my-summary / wiki-links 的 misnamed + 缺页 wikilink 已修正（DPS/reward-guidance 等无页项转纯文本）
+- 未动：`status` 用户自定；overview working thesis（energy-guidance 仍红海，待师兄定 sliver）
+
+## [2026-06-23] ingest | conditional-diffusion（用户手写推导 raw/notes）
+- created: `wiki/concepts/conditional-diffusion.md` —— 概念母页（贝叶斯拆条件 score → Tweedie → 点估计 → 能量梯度；含归一化 $Z$ 两种 framing + 用户 cat-dog 洞见 + noisy-aligned vs clean-estimate 对照表）
+- 来源：`raw/notes/conditional diffision.md`（用户手写，已自行改对符号 $s_0-\nabla_y E$ 并补 $Z'$ 推导）；按 §1，raw/notes 非 literature-notes，**正文未改一字**
+- 关系：成为 classifier-guidance / energy-guidance / training-free-guidance / EGSDE / FreeDoM 的数学母页
+
+## [2026-06-21] ingest | EGSDE: Unpaired I2I via Energy-Guided SDE (Zhao et al. NeurIPS 2022)
+- created: `wiki/sources/zhaoEGSDEUnpairedImagetoImage2022.md` —— source 摘要页（能量引导反向 SDE + 双专家 + PoE + noisy-aligned 设计 + thesis 接口）
+- created: `wiki/methods/egsde.md` —— 方法页（family=guidance；冻结生成器 + 采样期能量梯度；pipeline 伪代码）
+- created: `wiki/concepts/energy-guidance.md` —— 新概念（classifier guidance 的能量化推广 + PoE + noisy-aligned vs clean-estimate 设计轴）
+- created: `wiki/benchmarks/afhq.md` —— AFHQ 数据集页（Cat→Dog / Wild→Dog；unpaired I2I realism↔faithfulness 双量）
+- updated: `wiki/concepts/classifier-guidance.md` —— 加"推广版 = energy-guidance/EGSDE"链
+- updated: `wiki/methods/sdedit.md` —— 下游加 EGSDE（SDEdit 是其 p_r1 realism 专家）
+- updated: `wiki/entities/jun-zhu.md` —— 关键工作加 EGSDE；合作者加 Chongxuan Li / Min Zhao；sources +EGSDE
+- updated: `index.md` —— updated 时间戳（Dataview 自动收录新页）
+- updated（raw 回填，§5.1 例外 + 用户本次显式授权改 raw）：`raw/literature-notes/zhaoEGSDEUnpairedImagetoImage2022.md` —— `ingested_to_wiki: true`、`wiki_page` 填好；修 my-summary #4 公式缺等号 + `# $$` 标题 bug；修 why-read 错名 wikilink；补 wiki-links 节
+- 未动：raw 的 `status/priority/my-rating`（用户自定）；`wiki/overview.md` working thesis 版本号（thesis 仍 🔁 复审中，energy-guidance 升级待 sweep）
+
+## [2026-06-18] refactor | 削减 FlowCycle 占比 + thesis 方向标复审 + energy-guidance 入候选
+- updated: `wiki/overview.md` —— thesis 押注的 ODE 侧成熟论据去 FlowCycle，RF-Inversion 接管
+- updated: `wiki/methods/ddbm.md`、`wiki/methods/rectified-flow.md` —— open-question 去 FlowCycle 接合话术，保留技术点
+- updated: `wiki/sources/liuFlowStraightFast2022a.md`（3 处）、`wiki/sources/zhouDenoisingDiffusionBridge2023.md`、`wiki/sources/labsFLUX1KontextFlow2025.md` —— 去 FlowCycle 命名，smoother/coupling 技术点保留
+- updated: `README.md` —— 6.1-6.7 止损结论去 FlowCycle 弱点分析
+- updated: `research/thesis.md` —— 去 FlowCycle（RF-Inversion 接管）；v0.1 标 🔁 方向复审中（energy-guidance 候选待 sweep）
+- updated: `research/ideas.md` —— Active 顶部新增 [2026-06-18] energy-guided conditional generation 候选（EGSDE 路线，待 3-sweep）；删"FlowCycle 弱点分析"下一步项；KILL 标题去 FlowCycle-SDE
+- 未动（按契约）：`raw/literature-notes/liuFlowStraightFast2022a.md` line 97/223 用户手写批注仍含 FlowCycle，§1 raw 只读，留用户自删；log 历史条目不改
+
 ## [2026-06-02] ingest | FLUX.1 Kontext: Flow Matching for In-Context Image Gen & Editing (Black Forest Labs 2025)
 - created: `wiki/sources/labsFLUX1KontextFlow2025.md` —— source 摘要页（条件生成 $p(x|y,c)$ + 潜空间 RF + in-context token 拼接 + KontextBench 结果，PDF 交叉验证）
 - created: `wiki/methods/flux-kontext.md` —— 方法主页（family=editing；与 SDEdit/ControlNet/attention-injection 条件注入分界表）

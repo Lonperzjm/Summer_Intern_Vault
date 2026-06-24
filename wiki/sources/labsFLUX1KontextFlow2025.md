@@ -76,7 +76,7 @@ KontextBench（见 [[wiki/benchmarks/kontextbench]]，1026 pairs / 5 任务）�
 
 - 🟣 **编辑前沿 ≠ bridge**：Kontext（BFL 工业旗舰）把统一编辑做成 **in-context 条件 FM**，而非 DDBM/DBIM 式 bridge。这与 [[research/ideas]] 里"bridge-SDE editing 全家桶已 KILL"的结论一致——**再次印证 bridge-editing 是支线，主线在 in-context 条件生成**。
 - 🟣 **它定义了一个强 baseline + 一个 benchmark（KontextBench）**：若 thesis 要做编辑，绕不开和 Kontext 比、在 KontextBench 上测。这也意味着"纯方法新意"更难，**execution / 特定能力 / 窄 niche** 才是现实切入点（呼应止损结论）。
-- 可能的窄 niche 信号：Kontext 强在角色一致性/多轮，**弱项**是 global editing、SREF（次于 gpt-image-1 / Gen-4）——这类"它没做到最好的子能力"是比"发明新范式"更现实的切入点（待 FlowCycle 弱点分析时一并看）。
+- 可能的窄 niche 信号：Kontext 强在角色一致性/多轮，**弱项**是 global editing、SREF（次于 gpt-image-1 / Gen-4）——这类"它没做到最好的子能力"是比"发明新范式"更现实的切入点。
 
 ## Open questions / 待追
 

@@ -4,8 +4,8 @@ title: 领域总览 · Diffusion / Flow Matching for Text-Guided Image Editing
 tags: [overview, thesis]
 status: active
 created: 2026-05-05
-updated: 2026-06-01
-sources: ["[[wiki/sources/hoDenoisingDiffusionProbabilistic2020]]", "[[wiki/sources/songDenoisingDiffusionImplicit2022]]", "[[wiki/sources/songScoreBasedGenerativeModeling2021]]", "[[wiki/sources/lipmanFlowMatchingGenerative2023]]", "[[wiki/sources/liuFlowStraightFast2022a]]", "[[wiki/sources/rombachHighResolutionImageSynthesis2022]]", "[[wiki/sources/zhangAddingConditionalControl2023]]", "[[wiki/sources/mengSDEditGuidedImage2022]]", "[[wiki/sources/zhouDenoisingDiffusionBridge2023]]", "[[wiki/sources/albergoStochasticInterpolants2023]]"]
+updated: 2026-06-24
+sources: ["[[wiki/sources/hoDenoisingDiffusionProbabilistic2020]]", "[[wiki/sources/songDenoisingDiffusionImplicit2022]]", "[[wiki/sources/songScoreBasedGenerativeModeling2021]]", "[[wiki/sources/lipmanFlowMatchingGenerative2023]]", "[[wiki/sources/liuFlowStraightFast2022a]]", "[[wiki/sources/rombachHighResolutionImageSynthesis2022]]", "[[wiki/sources/zhangAddingConditionalControl2023]]", "[[wiki/sources/mengSDEditGuidedImage2022]]", "[[wiki/sources/zhouDenoisingDiffusionBridge2023]]", "[[wiki/sources/albergoStochasticInterpolants2023]]", "[[wiki/sources/zhaoEGSDEUnpairedImagetoImage2022]]", "[[wiki/sources/yuFreeDoMTrainingFreeEnergyGuided2023b]]"]
 ---
 
 # Overview
@@ -69,9 +69,11 @@ sources: ["[[wiki/sources/hoDenoisingDiffusionProbabilistic2020]]", "[[wiki/sour
 >
 >    新增一条与可变性光谱**正交**的结构轴：**用什么动力学 realize transport**——随机 **bridge SDE**（[[wiki/methods/ddbm|DDBM]]，学 score、[[wiki/concepts/doob-h-transform|Doob h]] 钉端点）vs 确定 **bridge ODE**（[[wiki/methods/rectified-flow|RF]]/[[wiki/concepts/flow-matching|FM]]，学速度场）。二者经 [[wiki/concepts/stochastic-interpolants|stochastic interpolants]] 统一（SDE↔ODE 可互转），故这是 realization 选择而非本质分界（见 [[wiki/concepts/diffusion-bridge]]）。
 >
->    **thesis 押注**：bridge-**ODE** 侧 inversion/editing 已成熟（RF-Inversion、FlowCycle）；bridge-**SDE** 侧因随机项 inversion 闭合困难、基本空白——发展 bridge-SDE inversion/editing 为本 thesis 选定施力点（[[research/ideas]] 2026-06-01 条、[[research/thesis]] v0.1）。
+>    **thesis 押注**：bridge-**ODE** 侧 inversion/editing 已成熟（RF-Inversion）；bridge-**SDE** 侧因随机项 inversion 闭合困难、基本空白——发展 bridge-SDE inversion/editing 为本 thesis 选定施力点（[[research/ideas]] 2026-06-01 条、[[research/thesis]] v0.1）。
 >
 >    ⚠️ **诚实 caveat**：(i)"SDE/ODE 双构造"lens 源自 [[wiki/concepts/stochastic-interpolants|stochastic interpolants]]，**非原创**，novelty 须落在 SDE 侧具体方法；(ii) DDBM 是 **translation** 非 text-editing，"editing = paired transport"目前是**泛化假设、未验证**；(iii) bridge-SDE 已有 DDBM/I²SB/SB/BBDM，**非 greenfield**，开题前须 sweep（尤其 2024 加速类工作）。
+>
+>    🔁 **2026-06-24 方向复审（与 [[research/thesis]] / [[research/ideas]] 同步）**：caveat (iii) 的 sweep 已做——bridge-SDE editing 全家桶**三次 sweep 三撞全占**（见 [[wiki/synthesis/bridge-sde-editing-landscape]]），bridge-SDE 押注**暂挂**。当前活线已转向 **energy-guidance**（discriminative logits → energy → guidance，师兄在研线）：sweep 同样显示 generic 形式红海，但坐导师在研线、**sliver 已定**（[[wiki/methods/freedom|FreeDoM]] 三段改进 × 收束到 flow 底座），详见 [[wiki/synthesis/energy-guidance-landscape]] 与 [[research/ideas]]。**working thesis 版本号仍不动**，待第一个实验出结果再定升级。
 
 > _下次 ingest 后请重新审视上述推论是否仍然成立（**推论 4 为 2026-06-01 新增的方向级押注，尚待 editing 任务验证**）。推论 1、3 已被 DDIM + [[wiki/sources/songScoreBasedGenerativeModeling2021|Score SDE]] + [[wiki/sources/lipmanFlowMatchingGenerative2023|Flow Matching]] + [[wiki/sources/liuFlowStraightFast2022a|Rectified Flow]] + [[wiki/sources/rombachHighResolutionImageSynthesis2022|LDM]] + [[wiki/sources/zhangAddingConditionalControl2023|ControlNet]] 正向支持（FM 是"换训练目标却不离范式"的最强样本；RF 进一步把加速来源从"路径设计"推到"训练阶段轨迹改造"；**LDM 给"组件可新增而非替换"补一档"压缩层"**；**ControlNet 把"组件可新增"推到 sideband 极端——不动 backbone 参数、只克隆结构外挂**，并催生统一抽象 [[wiki/concepts/sideband-conditioning|frozen backbone + trainable sideband]] 把四类编辑方法重新组织；**两条演化线在 SD3/FLUX 处汇合**）；推论 2 已从 Score SDE 拿到形式化抓手（逐 $t$ 的条件 score 引导项），并被 FM 追加"跨范式时间坐标须对齐"的 caveat、被 LDM 追加"autoencoder 重建上限作为正交 fidelity 上界"的新维度、被 ControlNet 追加"全 $t$ sideband vs 逐 $t$ guidance"的对照 caveat，**并被 [[wiki/sources/mengSDEditGuidedImage2022|SDEdit]] 首次直接编辑实证**（$t_0$ = [[wiki/concepts/noising-strength|noising strength]] 旋钮，Fig 3 单调 realism↔faithfulness 曲线）——"高 $t$ 改结构、低 $t$ 改细节"从假设升级为可测量；**仍待**：text/attention 类编辑（Prompt-to-Prompt 等）是否给出与 noising-based 一致的 $t$ 依赖。RF 还引入新研究变量 [[wiki/concepts/transport-coupling|coupling]]——DDIM inversion 的稳定性可被重表述为 coupling rewiring 的稳定性，是 thesis 可用的诊断语言。_
 

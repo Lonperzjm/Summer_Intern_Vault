@@ -67,7 +67,7 @@ family: flow-matching
 - [x] ✅ overview「主要派系→flow-matching-based」首篇已由 [[wiki/methods/flux-kontext|FLUX.1 Kontext]] 填上；仍待 SD3 / FLUX 基础模型原文
 - [ ] RF-Inversion 类编辑方法 ingest（是 thesis 的直接相关线）
 - [ ] Reflow 收敛到 OT 的条件与速率
-- [ ] RF 模型上 inversion 往返闭合的稳定性（与 FlowCycle 工作的接合点）
+- [ ] RF 模型上 inversion 往返闭合的稳定性
 
 ## 出处
 
