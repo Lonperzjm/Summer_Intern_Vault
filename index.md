@@ -1,6 +1,6 @@
 ---
 title: Index
-updated: 2026-06-24
+updated: 2026-07-21
 ---
 
 # Index
@@ -139,6 +139,38 @@ SORT updated DESC
 - [[research/experiments]]
 - [[research/related_work]]
 - [[research/outline]]
+
+## Reporting（汇报与项目状态）
+
+- [[reports/dashboard]] —— 汇报总览
+- [[reports/state]] —— 当前任务、Blocker、风险与待决策事项
+
+### 周报（reports/weekly）
+
+```dataview
+TABLE period, status, start, end, updated
+FROM "reports/weekly"
+WHERE type = "weekly-report"
+SORT period DESC
+```
+
+### Blockers（reports/blockers）
+
+```dataview
+TABLE title, status, severity, opened, updated
+FROM "reports/blockers"
+WHERE type = "blocker"
+SORT updated DESC
+```
+
+### 会议简报（reports/meetings）
+
+```dataview
+TABLE meeting, date, status
+FROM "reports/meetings"
+WHERE type = "meeting-brief"
+SORT date DESC
+```
 
 ---
 

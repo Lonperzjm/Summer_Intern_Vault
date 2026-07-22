@@ -12,32 +12,29 @@ updated: 2026-06-24
 
 ## Active
 
-### [2026-06-18 · 更新 2026-06-24] Energy-guided conditional generation —— sliver 已定（待第一个实验）
+### [2026-06-18 · 更新 2026-06-29] Energy-guided conditional generation —— 公开文献无 carve，存活仅靠导师在研线
 
-来源：师兄 6/2 推 [EGSDE (NeurIPS'22)](https://arxiv.org/abs/2207.06635)（可迁移范式 **discriminative logits/reward → energy → guidance**）；6/23 进一步把 [[wiki/methods/freedom|FreeDoM]] 定为 baseline 并给出三段改进框架。已 ingest：[[wiki/sources/zhaoEGSDEUnpairedImagetoImage2022|EGSDE]]、[[wiki/sources/yuFreeDoMTrainingFreeEnergyGuided2023b|FreeDoM]]。概念骨架：[[wiki/concepts/conditional-diffusion]]、[[wiki/concepts/energy-guidance]]、[[wiki/concepts/training-free-guidance]]。
+来源：师兄 6/2 推 [EGSDE (NeurIPS'22)](https://arxiv.org/abs/2207.06635)（范式 **discriminative logits/reward → energy → guidance**）；6/23 定 [[wiki/methods/freedom|FreeDoM]]=baseline + 三段改进框架。已 ingest：[[wiki/sources/zhaoEGSDEUnpairedImagetoImage2022|EGSDE]]、[[wiki/sources/yuFreeDoMTrainingFreeEnergyGuided2023b|FreeDoM]]、[[wiki/sources/songFlowMatchingPosterior2025|FMPS]]。全景：[[wiki/synthesis/energy-guidance-landscape]]。
 
-**核心 novelty 假设**：怎么从 $x_t$ **高效且准确**地拿到对应 $x_0$ 的评分（判别 logits/reward），再用 energy 当桥转成引导。
+**核心 novelty 假设**：怎么从 $x_t$ 高效且准确拿 $x_0$ 评分，再用 energy 转引导。
 
-**✅ sweep 已做（2026-06-24，结论：generic 形式全红）**——比 bridge-SDE 还挤：
-- 点估计 $\hat x_0$ + 现成 reward（diffusion）→ DPS / [[wiki/methods/freedom|FreeDoM]] / UGD / LGD / MPGD，被 [TFG 2403.12404](https://arxiv.org/abs/2403.12404) 统一收编。
-- energy 搬到 flow → [Energy-Weighted FM (ICLR'25)](https://arxiv.org/pdf/2503.04975)、Energy-Guided FM、[TFG-Flow](https://arxiv.org/pdf/2501.14216)。
-- training-free flow 编辑 → [FlowChef (ICCV'25)](https://github.com/FlowChef/flowchef)、[OC-Flow (ICLR'25)](https://arxiv.org/html/2410.18070v2)、D-Flow。
-- energy 编辑（EGSDE 后续）→ [DragonDiffusion](https://arxiv.org/pdf/2307.02421)、[Contrastive Energy Prediction (Lu'23)](https://arxiv.org/pdf/2304.12824)。
-- **不 KILL 的唯一理由**：坐在师兄/Long 组 flow 在研线上（红海生存三铁律里命中"导师在研线"）。
+**✅ sweep 三轮（关键词 + 引用图 + 第一性原理），结论：generic 全红，比 bridge-SDE 还挤。**
 
-**🎯 sliver（师兄 6/23 三段框架）**——FreeDoM 三段都还是 heuristic，逐段找原理化改进：
+**🎯 师兄 6/23 三段框架 —— 逐段 sweep 后全部沦陷：**
 
-| 段 | FreeDoM 的 heuristic | 原理化方向 | 占用 |
-|---|---|---|---|
-| ① $x_t\to\hat x_0$ 估计 | Tweedie 单点 | RF 的 $\hat x_0=x_t-t\,v$ 更准、偏差更小 | 较空、正交 |
-| ② energy 获取 | 单个现成距离 + 简单加权 | **结构化 E**：保/丢拆分（EGSDE 思路）但用现成模型拼、不重训 | 半占（核心 sliver） |
-| ③ energy→guidance | 手调 $\rho_t$ + 欧氏梯度 + 反传 | 原理化步长（接 $g(t)^2$ 尺度）/ 流形投影 / 便宜雅可比 | MPGD/TFG 啃过，flow 上较空 |
+| 段 | 原理化方向 | 结局 |
+|---|---|---|
+| ① $\hat x_0$ 估计 | RF $\hat x_0=x_t-tv$ | ☠️ **死**：[[wiki/sources/songFlowMatchingPosterior2025\|FMPS]] 占（gradient/free 两实现都给了）；且 $\hat x_0=\mathbb E[x_0\mid x_t]$ 也是后验均值，"flow 更准"理论存疑（[Straightness is not your need](https://arxiv.org/html/2410.07303v2)）；况且能高效得 $x_0$ 是比 energy 更大的鱼，scope 错配 |
+| ② 结构化 E | 保/丢分解、现成模型拼、正交不打架 | 🔴 **占**：[TtfDiffusion](https://www.sciencedirect.com/science/article/abs/pii/S0925231224019301) / [DICE](https://arxiv.org/html/2602.08059)（结构-语义解耦）+ [GradOPS](https://arxiv.org/html/2503.03438v1)（正交消冲突） |
+| ③ →guidance | 原理化步长/流形/便宜雅可比 | 🔴 **占**：MPGD/TFG/manifold-CFG + FMPS 的 $g^1$ 归一化 + free 版便宜雅可比 |
 
-**核心收束（最值钱的一句）**：三段的原理化方向**全指向同一个底座 flow/RF**——① $\hat x_0$ 更准、③ 雅可比更便宜、② 结构化 E 在更准的 $\hat x_0$ 上更稳。**这不是三个独立改进，是"换 flow 底座"一个动作同时盘活三段。**
+**❌ 收束作废**：原"换 flow 底座盘活三段"已塌——① flow 不更准、③ flow 上 FMPS 已占。**flow 不是金底座。**
 
-**待正面回答的张力**：clean-estimate 在 flow 上凭什么赢 diffusion？= RF 的 $\hat x_0$ 直、Jensen 偏差更小 → **须实验证伪**。
+**引用图硬证据**：FreeDoM 的引用里"沾 RF/flow"的一抓一把（FlowChef 32 引领跑），高引后代全往 test-time reward 对齐汇 → 领域重心已过、饱和。
 
-**下一步**：① 按三段整理思路（已答应师兄，重点 ③ 盘得最少）；② 设计第一个最小实验——选底座（RF/SD3-FLUX）、$F_{\text{keep}}/F_{\text{drop}}$ 用哪俩现成模型、数据集/指标、baseline = EGSDE + FreeDoM。
+**存活仅一条**：坐师兄/Long 组 flow 在研线（红海三铁律唯一命中项）。
+
+**下一步**：把"①②③全红 + 已查 FMPS/FlowChef/TtfDiffusion/DICE/GradOPS"地图带回师兄，让他用**非公开信息**定具体 execution sliver；**不再 armchair carve**（已证多次必撞）。第一个实验设计待 sliver 定。
 **待 ingest（🔵）**：DPS、[TFG 2403.12404](https://arxiv.org/abs/2403.12404)（统一框架）、MPGD（③ 的流形改法）。
 
 ---

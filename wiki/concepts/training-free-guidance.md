@@ -48,7 +48,7 @@ sources: ["[[wiki/sources/yuFreeDoMTrainingFreeEnergyGuided2023b]]"]
 ## 偏差问题与 flow 角度
 
 点估计 $E(\hat x_0)\approx\mathbb E[E(x_0)]$ 有 Jensen 偏差，高噪声下大。修法：训练精确能量（[Contrastive Energy Prediction (Lu 2023)](https://arxiv.org/pdf/2304.12824)）或局部 MC（LGD）。
-- **flow 角度**：RF/FM 的 $\hat x_0=x_t-t\,v_\theta$ 因轨迹近直线更准 → 偏差可能更小 → 点估计或许更够用（[[research/ideas]] 待验证假设；flow 版已有 [TFG-Flow](https://arxiv.org/pdf/2501.14216)、FlowChef、OC-Flow）。
+- **flow 角度**：FM 无显式 score，[[wiki/methods/fmps|FMPS]] 用"速度↔score 桥"把这套接到 flow，并给 $\hat x_0=x_t-tv$（gradient，准/贵）与前向反解（free，便宜/糙）两版——**等于把"flow 上 clean-estimate 引导"做齐了**。其它 flow 版：[TFG-Flow](https://arxiv.org/pdf/2501.14216)、FlowChef、OC-Flow。⚠️ 注：$\hat x_0=x_t-tv=\mathbb E[x_0\mid x_t]$ 同为后验均值，"flow 更准"未被证（[[research/ideas]]）。
 
 ## 关系
 

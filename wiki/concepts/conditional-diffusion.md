@@ -53,7 +53,7 @@ $$\nabla_{x_t}\log p(c\mid x_t)\approx\nabla_{x_t}\log p(c\mid\hat x_0)=-\Big(\t
 | | noisy-aligned | clean-estimate |
 |---|---|---|
 | 怎么对付带噪 $x_t$ | 把参照也噪化到同 $t$，对噪声求期望（MC） | 估 $\hat x_0$，在干净空间评现成模型 |
-| 代表 | [[wiki/methods/egsde\|EGSDE]]（$E_s$ 须重训 noise-aware 分类器） | [[wiki/methods/freedom\|FreeDoM]] / DPS（复用现成 clean 模型） |
+| 代表 | [[wiki/methods/egsde\|EGSDE]]（$E_s$ 须重训 noise-aware 分类器） | [[wiki/methods/freedom\|FreeDoM]] / DPS（diffusion）；[[wiki/methods/fmps\|FMPS]]（flow，速度↔score 桥） |
 | 这一页第几节 | §2 写法 B + 噪化源做 MC | §3 Tweedie + §4 点估计 |
 
 > EGSDE 的能量梯度 $\nabla_{y_t}\mathcal E$ 完整展开（余弦项 + 低通项）见 [[wiki/methods/egsde]]；FreeDoM 把它换成 $E(\hat x_0,c)$ 的距离族，见 [[wiki/methods/freedom]]。这两条都是本页 §2–§4 的具体化。

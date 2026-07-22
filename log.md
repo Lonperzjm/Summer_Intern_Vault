@@ -2,6 +2,26 @@
 
 > Append-only 时间线。每条 entry 以 `## [YYYY-MM-DD] <op> | <subject>` 起始，便于 `grep "^## \[" log.md | tail`。
 
+## [2026-07-21] report | 科研汇报体系 schema v1 落地（per CLAUDE_CODE_REPORTING_SYSTEM_SPEC.md）
+- created: `raw/worklogs/`（用户每日原始记录，LLM 只读）、`reports/{weekly,meetings,blockers}/`
+- created: `reports/state.md` —— 唯一状态源骨架；初始化仅含「待用户确认迁移项」草案（拟 T/B/R/D 各 1–2 条，全部 needs-confirmation，未写入正式状态表）
+- created: `reports/dashboard.md` —— 汇报入口 + Dataview（最近 8 周报 / active Blocker / 最近 8 会议简报）
+- created: `templates/daily-worklog.md`、`templates/weekly-report.md`、`templates/blocker-report.md`、`templates/meeting-brief.md`
+- updated: `CLAUDE.md` —— 架构表 3→4 层（+Reports）；目录契约 +`raw/worklogs/`、+`reports/`；新增 §9 Report 工作流（weekly/blocker/meeting/status/sync 五命令 + 状态词/结论强度/事实约束/ID 规则）；op 集合 +`report`（仅 confirmed 周报、确认的 Blocker 关闭、重大 schema 变更写日志，draft 不写）；Self-check +5 条报告类不变量；原 §9/§10 顺延为 §10/§11
+- updated: `GUIDANCE.md` —— 四层结构说明 + 「科研汇报体系」用法节
+- updated: `index.md` —— 新增 Reporting 入口 + 周报/Blocker/会议简报三个 Dataview 列表
+- updated: `README.md` —— 工作记录节加「历史快照」说明（不重写既有记录）
+- 边界遵守：`raw/` 既有文件、`research/` 全部内容、`wiki/` 均未改动；不回填历史周报；state 正式表待用户确认迁移项后再填
+
+## [2026-06-29] ingest | FMPS: Flow Matching Posterior Sampling (Song et al. 2025)
+- created: `wiki/sources/songFlowMatchingPosterior2025.md` —— source 页（速度↔score 桥 Prop1 + FreeDoM 式距离能量 + gradient/free 两种 $\hat x_0$ + $g^1$ 归一化；含用户 🔴"a,b 反了"待核）
+- created: `wiki/methods/fmps.md` —— 方法页（family=guidance；FreeDoM 的 flow matching 版）
+- updated: `wiki/methods/freedom.md`（加 flow 版 FMPS）、`wiki/concepts/conditional-diffusion.md`（clean-estimate 代表加 FMPS-flow）、`wiki/concepts/training-free-guidance.md`（flow 角度补 FMPS + 后验均值 caveat）
+- updated: `wiki/synthesis/energy-guidance-landscape.md` —— ①行改☠️死(FMPS占)、②③改🔴占、§4 收束标作废
+- updated: `research/ideas.md` —— energy-guidance 候选大改：FMPS 把①坐死 + 三段全红 + 收束作废 + 引用图硬证据；status → "公开文献无 carve，存活仅靠导师在研线"
+- updated（raw 回填，§5.1）：`raw/literature-notes/songFlowMatchingPosterior2025.md` —— `ingested_to_wiki: true`、`wiki_page` 填好、补 wiki-links 节
+- updated: `index.md` —— updated 刷新
+
 ## [2026-06-24] lint | wiki 整改：overview 同步 + 补 Missing 页 + 综述沉淀
 - 扫描结果：broken link 0、orphan 0、frontmatter 缺失 0（结构层健康）
 - updated: `wiki/overview.md` —— 推论 4 加"2026-06-24 方向复审"：bridge-SDE 暂挂、活线转 energy-guidance（与 research 层对齐）；sources +EGSDE/FreeDoM；updated 刷新

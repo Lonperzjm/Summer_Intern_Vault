@@ -8,9 +8,10 @@
 一个由 **Claude Code 维护、Obsidian 浏览** 的个人知识库。Karpathy 的核心思想：你负责**找资料、提问、做判断**；LLM 负责**总结、归档、维护交叉引用**。Obsidian 是 IDE，LLM 是程序员，wiki 是被持续编译的代码库。
 
 三层结构：
-- `raw/`：你丢进去的原始资料（论文、博客、笔记），**不可变**
+- `raw/`：你丢进去的原始资料（论文、博客、笔记），**不可变**；其中 `raw/worklogs/` 是你每天写的原始工作记录
 - `wiki/`：Claude Code 写的总结、概念页、方法页、对比 —— 你只读
 - `research/`：你自己的论文进展（thesis、实验、outline），LLM 协助但不擅自改
+- `reports/`：科研汇报层（状态台账 + 周报 + Blocker + 组会简报），LLM 生成 draft、你确认后定稿；入口见 [reports/dashboard.md](reports/dashboard.md)
 
 工作流契约写在 [CLAUDE.md](CLAUDE.md)，每次会话 Claude Code 会自动加载。
 
@@ -60,6 +61,40 @@ lint wiki
 ```dataview
 TABLE status, updated FROM "wiki/concepts" SORT updated DESC
 ```
+
+---
+
+## 科研汇报体系（reports/）
+
+日常闭环：你每天在 `raw/worklogs/` 写原始记录（模板 `templates/daily-worklog.md`）→ Claude 在周报时统一归纳 → 状态沉淀到 `reports/state.md` → 下次汇报逐条对账。规则详见 [CLAUDE.md](CLAUDE.md) §9。
+
+```text
+# 用户每天在 Obsidian 中写
+raw/worklogs/2026-07-20.md
+
+# 查看当前状态，不写文件
+report status
+
+# 问题卡住时
+report blocker 训练后期出现 NaN，日志见 runs/exp-017/train.log
+
+# 周五生成周报草稿
+report weekly 2026-W30
+
+# 用户校正并确认后
+确认这份周报；用其中的下周承诺和 blockers 更新 state
+
+# 组会前
+report meeting 2026-07-27 group
+
+# 每周做一次一致性检查
+report sync
+```
+
+要点：
+- `reports/state.md` 是任务/Blocker/风险/待决策的**唯一状态源**；周报是时间切片，不是最新状态
+- Claude 只能写 draft；`confirmed` 周报、state 更新、`research/` 改动都需要你确认
+- 正式实验结论只归 `research/experiments.md`；周报只引用
 
 ---
 

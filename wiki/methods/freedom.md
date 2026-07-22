@@ -57,7 +57,8 @@ return x_0
 
 - 出处：[[wiki/sources/yuFreeDoMTrainingFreeEnergyGuided2023b]]
 - 概念：[[wiki/concepts/training-free-guidance]]、[[wiki/concepts/energy-guidance]]、[[wiki/concepts/conditional-diffusion]]、[[wiki/concepts/classifier-guidance]]
-- 最近邻：DPS（同构，待 ingest）；统一框架 TFG（待 ingest）
+- 最近邻：[[wiki/methods/dps|DPS]]（同构）；统一框架 TFG（待 ingest）
+- **flow 版**：[[wiki/methods/fmps|FMPS]]——把本方法搬到 flow matching（用速度↔score 桥补 FM 无 score），含 gradient/free 两种 $\hat x_0$
 - 对照：[[wiki/methods/egsde|EGSDE]]（noisy-aligned，须重训 $E_s$ + MC）↔ FreeDoM（clean-estimate，现成模型 + 点估计）
 - 可外挂底座：[[wiki/methods/ldm]]、[[wiki/methods/controlnet]]
 - 作者：Jiwen Yu、Yinhuai Wang、Chen Zhao、Bernard Ghanem、Jian Zhang（PKU + KAUST）

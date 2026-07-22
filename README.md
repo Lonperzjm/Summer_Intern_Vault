@@ -10,6 +10,7 @@
 
 
 2. 工作记录(简要版，详见由ai编写的[[log]])：
+	> 后续动态进度以 [[reports/dashboard]] 与 confirmed 周报为准；本节保留为早期历史快照。
 	* 5.1-5.7 构建zotero与obsidian环境，整理论文，构建Summer_Intern_Vault。学习U-Net、VAE、crossattn等基本知识
 	* 5.8-5.11 DDPM + DDIM bg+NON-MARKOVIAN FORWARD PROCESSES 。形成 [[raw/literature-notes/hoDenoisingDiffusionProbabilistic2020|hoDenoisingDiffusionProbabilistic2020]] 阅读笔记，半完成 [[raw/literature-notes/songDenoisingDiffusionImplicit2022|songDenoisingDiffusionImplicit2022]] 阅读笔记，`ingest ddpm` 
 	* 5.11-5.17 完成DDIM, 完成[[raw/literature-notes/songDenoisingDiffusionImplicit2022|songDenoisingDiffusionImplicit2022]] 阅读笔记，读 score-based SDEs abstract+intro+conclusion, 半完成[[songScoreBasedGenerativeModeling2021]] 笔记。`ingest ddim`

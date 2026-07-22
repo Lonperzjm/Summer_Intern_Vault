@@ -3,13 +3,14 @@
 > 本文件是 Claude Code 维护本 wiki 的"宪法"。每次会话开始，请先阅读本文件与 `index.md`。
 > 方法论原文：[[Karpathy's_Wiki_Method/llm-wiki]] —— 不改写，只引用。
 
-## 1. 三层架构
+## 1. 四层架构
 
 | 层 | 路径 | 谁能写 | 说明 |
 |---|---|---|---|
 | Raw（原始资料） | `raw/` | 仅用户 | 不可变。LLM 只读，不修改、不删除（唯一例外：`raw/literature-notes/*.md` 的 `ingested_to_wiki` 与 `wiki_page` 两个 frontmatter 字段，详见 §5.1） |
 | Wiki | `wiki/` | LLM 全权 | 由你（Claude Code）维护：创建、更新、重构、删除 |
 | Research（我的研究产出） | `research/` | LLM + 用户协同 | LLM 可写但需用户确认，避免单方面改动 thesis/实验记录 |
+| Reports（汇报与项目状态） | `reports/` | LLM + 用户协同 | LLM 可生成 draft；更新状态台账和确认版报告需用户确认（详见 §9） |
 | Schema | `CLAUDE.md` | 用户主导 | 工作流契约，演化时与用户讨论后再改 |
 
 ## 2. 目录契约
@@ -21,6 +22,7 @@ raw/
   talks/              # 讲座/视频文字稿
   notes/              # 用户手写的会议/讨论笔记（也是原始输入）
   literature-notes/   # Zotero Integration 渲染输出的文献笔记（含我的高亮+批注）
+  worklogs/           # 用户每日原始工作记录（模板 templates/daily-worklog.md）；LLM 只读
   assets/             # Obsidian 自动下载的图片附件
 
 wiki/
@@ -39,13 +41,21 @@ research/
   experiments.md    # 实验记录
   related_work.md   # related work 草稿（引用 wiki，不复制）
   outline.md        # paper outline 草稿
+
+reports/            # 汇报层（§9）：LLM 可维护，状态台账与 confirmed 报告需用户确认
+  dashboard.md      # 当前状态入口，主要由 Dataview 展示
+  state.md          # 任务/Blocker/风险/待决策的唯一状态源
+  weekly/           # 周报时间切片（YYYY-Www.md），不是最新状态源
+  meetings/         # 面向交流的会议简报，不是实验真相源
+  blockers/         # Blocker 报告（YYYY-MM-DD-<slug>.md）
 ```
 
-## 3. 命名规范
+## 3. 命名与写作规范
 
 - 文件名：**英文 kebab-case**，如 `classifier-free-guidance.md`、`instructpix2pix.md`
 - 中文标题、别名通过 frontmatter 表达
 - `wiki/sources/<slug>.md` 的 slug 与 `raw/.../<slug>.{pdf,md}` 对齐（论文以 arXiv ID 或缩写为 slug，如 `2211-09800-instructpix2pix.md`）
+- **谨慎使用中英混杂**：行文以中文为主，术语、模型/方法名、代码标识保留英文原文即可；不要把普通叙述写成中英夹杂的碎片（如"这个 approach 很 promising"），也不要滥用可以直接用中文表达的英文词——混杂难看且难读
 
 ## 4. Frontmatter 规范（统一字段，便于 Dataview 查询）
 
@@ -148,7 +158,59 @@ re-import 已 ingest 过的文献后的快速修复命令。**不是新 ingest**
 - `related_work.md` 必须用 wikilink 引用 `wiki/`，**不允许**把 wiki 内容复制粘贴进来（保持单一事实源）
 - `experiments.md` 由用户主导记录，LLM 仅协助格式化与交叉引用
 
-## 9. 日志格式
+## 9. Report 工作流（科研汇报体系）
+
+> 完整设计见 `CLAUDE_CODE_REPORTING_SYSTEM_SPEC.md`。核心闭环：`raw/worklogs` 原始事实 → `reports/state.md` 状态 → 周报 / Blocker 汇报 / 组会简报 → 可验收承诺 → 下次汇报逐条对账。
+
+### 9.0 通用约束
+
+- **状态与证据分离**：`raw/worklogs/` 是用户记录的事实证据（LLM 只读）；`reports/state.md` 是任务/Blocker/风险/待决策的**唯一状态源**；`reports/weekly/` 是时间切片；`reports/meetings/` 是交流简报；正式实验结论只归 `research/experiments.md`，周报只能引用或提出待回填项。
+- **工作状态**统一使用：`completed` / `in-progress` / `attempted` / `blocked` / `planned` / `dropped`，不允许混用。"阅读了""调试了""思考了"默认不是 `completed`，除非产生明确交付物。
+- **结论强度**统一标记：`observation` / `hypothesis` / `conclusion` / `decision` / `unknown`。不得把 observation 自动升级成 conclusion，也不得把 hypothesis 写成事实。
+- **事实约束**：不编造实验、指标、时间、commit、路径、导师意见或完成状态；无证据写"待补充"；不得从文件修改时间推断工作完成。"完成"必须同时满足：有交付物、有验收标准、当前证据显示标准已达到。失败实验必须保留但不强行给根因；结论必须带边界；求助项必须可回答（背景/尝试/选项/倾向/希望对方决定什么）；下周计划必须含交付物与验收标准（"继续调研/继续优化"不是合格任务）。
+- **单一事实源**：实验事实 → `research/experiments.md`；当前任务状态 → `reports/state.md`；历史周报 → `reports/weekly/`；知识结论 → `wiki/`；Vault 操作历史 → `log.md`。周报可引用但不得成为唯一归档位置。
+- **`state.md` ID 规则**：任务 `T-YYYYMMDD-NN`、Blocker `B-YYYYMMDD-NN`、风险 `R-YYYYMMDD-NN`、决策 `D-YYYYMMDD-NN`。已有 ID 永不重编号；关闭项在 Recently Closed 保留至少四周，再由用户确认是否归档。
+- **Frontmatter** 以 `templates/{daily-worklog, weekly-report, blocker-report, meeting-brief}.md` 为准（type 分别为 `worklog` / `weekly-report` / `blocker` / `meeting-brief`）。
+
+### 9.1 `report weekly [YYYY-Www]`
+
+从原始记录生成周报并更新状态闭环：
+
+1. 确定周期；未指定时使用最近一个完整周，并明确起止日期。
+2. 阅读：对应周期的 `raw/worklogs/*.md`；`reports/state.md`；上一份 confirmed 周报；本周被 worklog 明确引用的 `research/*.md`、代码、配置、日志或图表；必要时读相关 wiki 页（但 wiki 不能替代本周工作证据）。
+3. **逐条核对上一期承诺**，不允许未完成任务静默消失。
+4. 材料分类为 completed / in-progress / attempted / blocked / planned / dropped。
+5. 实验内容区分 observation / hypothesis / conclusion / decision / unknown。
+6. 先输出"证据缺口与待确认项"，再生成 draft 周报。
+7. 未经用户确认：可写 `reports/weekly/<YYYY-Www>.md` 但 `status` 必须为 `draft`；**不**更新 `state.md`；**不**修改 `research/`。
+8. 用户确认后：周报改 `confirmed`；用"下周承诺、Blocker、风险、待决策"更新 `state.md`；发现正式实验记录缺失时只列建议 patch，确认后再改 `research/experiments.md`；append `log.md`：`## [YYYY-MM-DD] report | YYYY-Www confirmed`。
+
+### 9.2 `report blocker <问题或路径>`
+
+1. 读取用户提供的日志、配置和相关 worklog。
+2. 生成 `reports/blockers/<YYYY-MM-DD>-<slug>.md` draft，明确区分已知 / 推测 / 未知。
+3. 检查是否已有足够最小复现、已尝试方案和具体求助请求。
+4. 用户确认后在 `state.md` 登记或更新对应 Blocker ID。
+5. 解决后补根因、验证方式、可沉淀资产；用户确认后标 resolved。
+6. **紧急事故**（数据误删、服务器故障、凭证泄漏风险等）必须优先建议立即通知相关负责人，不要求先完成完整报告。
+
+### 9.3 `report meeting [date] [group|1on1]`
+
+1. 阅读 `reports/state.md`、最近 confirmed 周报及相关实验记录。
+2. 只选最重要的 1–3 项进展、1–2 个问题和需要现场决定的事项。
+3. 每个结果同时写明"说明什么"和"不能说明什么"。
+4. 生成 `reports/meetings/<date>-<type>.md`；会后由用户填写或提供决定记录。
+5. 整理会后决定时，先展示对 `state.md` 和 `research/` 的拟议更新，用户确认后执行。
+
+### 9.4 `report status`
+
+只读检查，不写文件。输出：当前 P0/P1 任务；七天内到期任务；已逾期任务；活跃 Blocker 及持续时间；待导师决策事项；缺少证据或验收标准的任务；建议今天优先处理的第一件事。
+
+### 9.5 `report sync`
+
+对 `raw/worklogs/`、最近周报和 `state.md` 做一致性检查，**只输出整改清单，不直接修改**：周报提到但 state 缺失的活跃任务；state 标 completed 但无证据的任务；到期后无状态更新的任务；已解决但仍标 active 的 Blocker；正式实验结论尚未进入 `research/experiments.md` 的候选项；会议决定尚未转成任务或 decision 的事项。用户确认后才执行批量同步。
+
+## 10. 日志格式
 
 `log.md` 每条形如：
 
@@ -158,16 +220,25 @@ re-import 已 ingest 过的文献后的快速修复命令。**不是新 ingest**
 - updated: wiki/...
 ```
 
-`op` ∈ {`init`, `ingest`, `query`, `lint`, `refactor`, `thesis-update`}。
+`op` ∈ {`init`, `ingest`, `query`, `lint`, `refactor`, `thesis-update`, `report`}。
+
+`report` op 仅在以下情形写日志：confirmed 周报、已确认的 Blocker 关闭、重大 reporting schema 变更；**draft 不写**。
 
 便于 `grep "^## \[" log.md | tail -10` 快速看最近活动。
 
-## 10. 不变量（Self-check）
+## 11. 不变量（Self-check）
 
 每次写完 wiki 后自检：
 - [ ] 所有新建页都有完整 frontmatter
 - [ ] 所有新建页至少有 1 条入链或在 `index.md` 注册
 - [ ] `updated` 字段已刷新
 - [ ] `index.md` 与 `log.md` 已同步
+
+每次写完 reports 后追加自检：
+- [ ] 报告引用的文件真实存在
+- [ ] completed 项有证据与验收标准
+- [ ] confirmed 周报与 `reports/state.md` 已同步
+- [ ] 不存在未说明的上期承诺消失
+- [ ] 未经确认没有修改 `research/`
 
 不满足时回填，再向用户报告完成。

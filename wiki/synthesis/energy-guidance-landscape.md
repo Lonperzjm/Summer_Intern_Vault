@@ -18,7 +18,7 @@ sources: ["[[wiki/sources/zhaoEGSDEUnpairedImagetoImage2022]]", "[[wiki/sources/
 | 落点 | 状态 | 代表 |
 |---|---|---|
 | 点估计 $\hat x_0$ + 现成 reward（diffusion） | 🔴 重占 | [[wiki/methods/dps\|DPS]] / [[wiki/methods/freedom\|FreeDoM]] / UGD / LGD / MPGD，被 [TFG (2403.12404)](https://arxiv.org/abs/2403.12404) 统一 |
-| energy 搬到 flow | 🔴 占 | [Energy-Weighted FM (ICLR'25)](https://arxiv.org/pdf/2503.04975)、Energy-Guided FM、[TFG-Flow](https://arxiv.org/pdf/2501.14216) |
+| energy 搬到 flow（= ①轴） | 🔴 占 | **[[wiki/methods/fmps\|FMPS (2411.07625)]]——FreeDoM 的 FM 版，直占①、连"贵准/便宜糙"两实现都给了**；[Energy-Weighted FM (ICLR'25)](https://arxiv.org/pdf/2503.04975)、Energy-Guided FM、[TFG-Flow](https://arxiv.org/pdf/2501.14216) |
 | training-free flow 编辑 | 🔴 红海 | [FlowChef (ICCV'25)](https://github.com/FlowChef/flowchef)、[OC-Flow (ICLR'25)](https://arxiv.org/html/2410.18070v2)、D-Flow |
 | energy 编辑（EGSDE 后续） | 🔴 占 | [DragonDiffusion](https://arxiv.org/pdf/2307.02421)、[Contrastive Energy Prediction (Lu'23)](https://arxiv.org/pdf/2304.12824) |
 
@@ -31,9 +31,9 @@ FreeDoM 流水线 $x_t\xrightarrow{①}\hat x_0\xrightarrow{②}E(\hat x_0,c)\xr
 
 | 段 | FreeDoM 的 heuristic | 原理化方向 | 占用 |
 |---|---|---|---|
-| ① $\hat x_0$ 估计 | [[wiki/concepts/tweedie-formula\|Tweedie]] 单点 | RF 的 $\hat x_0=x_t-t\,v$ 更准、Jensen 偏差更小 | 较空、正交 |
-| ② energy 获取 | 单个现成距离 + 简单加权 | **结构化 E**：保/丢拆分（EGSDE 思路）但用现成模型拼、不重训 | 半占（核心 sliver） |
-| ③ energy→guidance | 手调 $\rho_t$ + 欧氏梯度 + 反传 | 原理化步长（接 $g(t)^2$）/ 流形投影（MPGD）/ 便宜雅可比 | MPGD/TFG 啃过，flow 上较空 |
+| ① $\hat x_0$ 估计 | [[wiki/concepts/tweedie-formula\|Tweedie]] 单点 | RF 的 $\hat x_0=x_t-t\,v$ | ☠️ 死：[[wiki/methods/fmps\|FMPS]] 占（gradient/free 两实现）；$\hat x_0$ 同为后验均值、"更准"理论存疑 |
+| ② energy 获取 | 单个现成距离 + 简单加权 | **结构化 E**：保/丢拆分但用现成模型拼、不重训 | 🔴 占：TtfDiffusion/DICE（解耦）+ GradOPS（正交） |
+| ③ energy→guidance | 手调 $\rho_t$ + 欧氏梯度 + 反传 | 原理化步长 / 流形投影 / 便宜雅可比 | 🔴 占：MPGD/TFG/manifold-CFG + FMPS 的 $g^1$ |
 
 ## 3. 结构化 E 是什么（②的核心）
 
@@ -41,10 +41,10 @@ FreeDoM 流水线 $x_t\xrightarrow{①}\hat x_0\xrightarrow{②}E(\hat x_0,c)\xr
 $$E=\underbrace{\lambda_{\text{keep}}\,\mathrm{dist}(F_{\text{keep}}(\hat x_0),F_{\text{keep}}(x_0))}_{\text{拉近：保}}-\underbrace{\lambda_{\text{drop}}\,\mathrm{dist}(F_{\text{drop}}(\hat x_0),F_{\text{drop}}(x_0))}_{\text{推开：改}}$$
 [[wiki/methods/egsde|EGSDE]] 就是样本（低通=保 / 域分类器=改），但 $F$ 要训练。例：Cat→Dog（保布局/改物种）、改颜色（保形状/拉向 CLIP）、换风格保身份（保 ArcFace/拉向 Gram）。开口 = **用现成模型拼这个结构、不重训**。
 
-## 4. 收束结论（最值钱的一句）
+## 4. 收束结论（2026-06-29 更新：已作废）
 
-三段的原理化方向**全指向同一底座 flow/RF**——① $\hat x_0$ 更准、③ 雅可比更便宜、② 结构化 E 在更准 $\hat x_0$ 上更稳。**不是三个独立改进，是"换 flow 底座"一个动作同时盘活三段。**
-**待证伪**：clean-estimate 在 flow 上凭什么赢 diffusion？= RF 的 $\hat x_0$ 直、Jensen 偏差小 → 须实验。
+~~三段原理化方向全指向 flow 底座~~——**塌了**。① 的"flow 更准"理论存疑（$\hat x_0$ 同为后验均值）且被 FMPS 占；③ flow 上也被 FMPS 占。**flow 不是金底座，三段全红。**
+**净结论**：energy-guidance 候选公开文献**无 carve**，存活仅靠**导师在研线**——下一步把这张全红地图带回师兄定 execution sliver，不再 armchair（详见 [[research/ideas]]）。
 
 ## 5. 评测锚点
 
