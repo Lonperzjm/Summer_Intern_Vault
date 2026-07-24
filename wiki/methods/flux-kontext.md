@@ -16,7 +16,7 @@ family: editing
 
 ## 一句话
 
-[[wiki/entities/flux|FLUX.1]] 潜空间 [[wiki/methods/rectified-flow|rectified flow]] DiT，把生成/编辑统一为条件分布 $p_\theta(x\mid y,c)$，靠 **[[wiki/concepts/in-context-conditioning|上下文图像 token 序列拼接]]** 注入条件——不加噪、不走旁路。
+[[wiki/entities/flux|FLUX.1]] 潜空间 [[wiki/methods/rectified-flow|rectified flow]] [[wiki/sources/peeblesScalableDiffusionModels2023\|DiT]]，把生成/编辑统一为条件分布 $p_\theta(x\mid y,c)$，靠 **[[wiki/concepts/in-context-conditioning|上下文图像 token 序列拼接]]** 注入条件——不加噪、不走旁路。
 
 ## 核心配方
 

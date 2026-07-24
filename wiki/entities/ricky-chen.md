@@ -3,9 +3,9 @@ type: entity
 title: Ricky T. Q. Chen
 aliases: [Ricky Chen, R. Chen, Ricky T. Q. Chen]
 tags: [researcher]
-status: draft
+status: stable
 created: 2026-05-24
-updated: 2026-05-24
+updated: 2026-07-24
 sources: ["[[wiki/sources/lipmanFlowMatchingGenerative2023]]"]
 kind: person
 ---

@@ -3,9 +3,9 @@ type: entity
 title: Anyi Rao
 aliases: [Rao, A. Rao, Anyi Rao, 饶安逸]
 tags: [researcher]
-status: draft
+status: stable
 created: 2026-05-28
-updated: 2026-05-28
+updated: 2026-07-24
 sources: ["[[wiki/sources/zhangAddingConditionalControl2023]]"]
 kind: person
 ---

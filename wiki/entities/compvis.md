@@ -3,9 +3,9 @@ type: entity
 title: CompVis Group
 aliases: [CompVis, CompVis Lab, Computer Vision & Learning Group]
 tags: [lab]
-status: draft
+status: stable
 created: 2026-05-27
-updated: 2026-05-27
+updated: 2026-07-24
 sources: ["[[wiki/sources/rombachHighResolutionImageSynthesis2022]]"]
 kind: lab
 ---

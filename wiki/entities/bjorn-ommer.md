@@ -3,9 +3,9 @@ type: entity
 title: Björn Ommer
 aliases: [Ommer, B. Ommer, Bjorn Ommer]
 tags: [researcher, professor]
-status: draft
+status: stable
 created: 2026-05-27
-updated: 2026-05-27
+updated: 2026-07-24
 sources: ["[[wiki/sources/rombachHighResolutionImageSynthesis2022]]"]
 kind: person
 ---

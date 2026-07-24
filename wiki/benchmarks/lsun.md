@@ -3,9 +3,9 @@ type: benchmark
 title: LSUN
 aliases: [LSUN-Bedroom, LSUN-Church, LSUN-Cat]
 tags: [benchmark, image-generation]
-status: draft
+status: stable
 created: 2026-05-10
-updated: 2026-05-20
+updated: 2026-07-24
 sources: ["[[wiki/sources/hoDenoisingDiffusionProbabilistic2020]]", "[[wiki/sources/songDenoisingDiffusionImplicit2022]]"]
 ---
 

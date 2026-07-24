@@ -3,9 +3,9 @@ type: entity
 title: Robin Rombach
 aliases: [Rombach, R. Rombach]
 tags: [researcher]
-status: draft
+status: stable
 created: 2026-05-27
-updated: 2026-06-02
+updated: 2026-07-24
 sources: ["[[wiki/sources/rombachHighResolutionImageSynthesis2022]]", "[[wiki/sources/labsFLUX1KontextFlow2025]]"]
 kind: person
 ---

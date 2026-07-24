@@ -3,9 +3,9 @@ type: entity
 title: Michael S. Albergo
 aliases: [Michael Albergo, M. S. Albergo, Albergo]
 tags: [researcher]
-status: draft
+status: stable
 created: 2026-06-01
-updated: 2026-06-01
+updated: 2026-07-24
 sources: ["[[wiki/sources/albergoStochasticInterpolants2023]]"]
 kind: person
 ---

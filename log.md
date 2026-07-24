@@ -2,6 +2,18 @@
 
 > Append-only 时间线。每条 entry 以 `## [YYYY-MM-DD] <op> | <subject>` 起始，便于 `grep "^## \[" log.md | tail`。
 
+## [2026-07-24] lint | wiki 全面检查 + 整改
+- fixed: `wiki/sources/albergoStochasticInterpolants2023.md` broken link `[[raw/articles/2303.08797v4]]` → `[[raw/articles/2303.08797v4.pdf]]`
+- updated: `wiki/overview.md` — sources 字段加入 DiT；文本中 2 处 DiT 补 wikilink；updated 刷新
+- updated: 8 页补 `[[wiki/sources/peeblesScalableDiffusionModels2023|DiT]]` 入链（flux, black-forest-labs, stable-diffusion, flux-kontext, controlnet, labsFLUX1KontextFlow2025, zhangAddingConditionalControl2023）
+- batch: 41 页 status draft → stable（37 entities/benchmarks + 4 concepts/methods，均 30+ 天无更新）
+
+## [2026-07-24] ingest | peeblesScalableDiffusionModels2023 (DiT)
+- created: `wiki/sources/peeblesScalableDiffusionModels2023.md` —— Scalable Diffusion Models with Transformers
+- 内容：用 ViT 替代 U-Net 做扩散骨干；adaLN-Zero 条件注入；scaling law（Gflops ↔ FID）；ImageNet 256 FID 2.27 SOTA
+- 关联：[[wiki/methods/ldm]]、[[wiki/concepts/classifier-free-guidance]]、[[wiki/concepts/conditional-diffusion]]
+- updated: `raw/literature-notes/peeblesScalableDiffusionModels2023.md` → ingested_to_wiki: true
+
 ## [2026-07-21] report | 科研汇报体系 schema v1 落地（per CLAUDE_CODE_REPORTING_SYSTEM_SPEC.md）
 - created: `raw/worklogs/`（用户每日原始记录，LLM 只读）、`reports/{weekly,meetings,blockers}/`
 - created: `reports/state.md` —— 唯一状态源骨架；初始化仅含「待用户确认迁移项」草案（拟 T/B/R/D 各 1–2 条，全部 needs-confirmation，未写入正式状态表）

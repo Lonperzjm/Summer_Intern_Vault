@@ -3,9 +3,9 @@ type: entity
 title: Chenlin Meng
 aliases: [Meng, C. Meng, Chenlin Meng, 孟晨林]
 tags: [researcher]
-status: draft
+status: stable
 created: 2026-05-29
-updated: 2026-05-29
+updated: 2026-07-24
 sources: ["[[wiki/sources/mengSDEditGuidedImage2022]]", "[[wiki/sources/songDenoisingDiffusionImplicit2022]]"]
 kind: person
 ---

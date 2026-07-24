@@ -3,9 +3,9 @@ type: entity
 title: Yang Song
 aliases: [Song, Y. Song, Yang Song, 宋飏]
 tags: [researcher]
-status: draft
+status: stable
 created: 2026-05-20
-updated: 2026-05-29
+updated: 2026-07-24
 sources: ["[[wiki/sources/songScoreBasedGenerativeModeling2021]]", "[[wiki/sources/mengSDEditGuidedImage2022]]"]
 kind: person
 ---

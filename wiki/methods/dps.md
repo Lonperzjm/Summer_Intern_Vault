@@ -3,9 +3,9 @@ type: method
 title: DPS（Diffusion Posterior Sampling）
 aliases: [DPS, Diffusion Posterior Sampling, "Chung et al. 2023"]
 tags: [diffusion, guidance, training-free, clean-estimate, inverse-problems]
-status: draft
+status: stable
 created: 2026-06-24
-updated: 2026-06-24
+updated: 2026-07-24
 sources: []
 ---
 

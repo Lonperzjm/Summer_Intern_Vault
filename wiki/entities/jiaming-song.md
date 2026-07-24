@@ -3,9 +3,9 @@ type: entity
 title: Jiaming Song
 aliases: [Song, J. Song, Jiaming Song]
 tags: [researcher]
-status: draft
+status: stable
 created: 2026-05-14
-updated: 2026-05-29
+updated: 2026-07-24
 sources: ["[[wiki/sources/songDenoisingDiffusionImplicit2022]]", "[[wiki/sources/mengSDEditGuidedImage2022]]"]
 kind: person
 ---

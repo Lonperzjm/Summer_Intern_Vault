@@ -3,9 +3,9 @@ type: entity
 title: Jonathan Ho
 aliases: [Ho, J. Ho]
 tags: [researcher]
-status: draft
+status: stable
 created: 2026-05-10
-updated: 2026-05-14
+updated: 2026-07-24
 sources: ["[[wiki/sources/hoDenoisingDiffusionProbabilistic2020]]"]
 kind: person
 ---

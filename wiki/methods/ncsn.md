@@ -3,9 +3,9 @@ type: method
 title: NCSN（Noise Conditional Score Network）
 aliases: [NCSN, "Song & Ermon 2019", score-based generative model, annealed-langevin model]
 tags: [diffusion, score-based, foundational]
-status: draft
+status: stable
 created: 2026-05-14
-updated: 2026-05-20
+updated: 2026-07-24
 sources: ["[[wiki/sources/songScoreBasedGenerativeModeling2021]]"]
 family: other
 ---

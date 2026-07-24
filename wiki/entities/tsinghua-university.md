@@ -3,9 +3,9 @@ type: entity
 title: Tsinghua University
 aliases: [Tsinghua, THU, TSAIL, thu-ml, 清华大学]
 tags: [institution]
-status: draft
+status: stable
 created: 2026-06-01
-updated: 2026-06-01
+updated: 2026-07-24
 sources: ["[[wiki/sources/zhengDiffusionBridgeImplicit2025]]"]
 kind: org
 ---

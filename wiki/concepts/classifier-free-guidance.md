@@ -3,9 +3,9 @@ type: concept
 title: Classifier-Free Guidance (CFG)
 aliases: [CFG, classifier-free guidance, 无分类器引导]
 tags: [diffusion, guidance, conditioning]
-status: draft
+status: stable
 created: 2026-05-14
-updated: 2026-05-27
+updated: 2026-07-24
 sources: ["[[wiki/sources/songScoreBasedGenerativeModeling2021]]"]
 ---
 

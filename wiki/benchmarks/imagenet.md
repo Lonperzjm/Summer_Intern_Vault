@@ -3,9 +3,9 @@ type: benchmark
 title: ImageNet (generation)
 aliases: [ImageNet, ImageNet-32, ImageNet-64, ImageNet-128]
 tags: [benchmark, image-generation]
-status: draft
+status: stable
 created: 2026-05-24
-updated: 2026-05-24
+updated: 2026-07-24
 sources: ["[[wiki/sources/lipmanFlowMatchingGenerative2023]]"]
 ---
 

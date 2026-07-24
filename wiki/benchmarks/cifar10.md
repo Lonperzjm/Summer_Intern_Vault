@@ -3,9 +3,9 @@ type: benchmark
 title: CIFAR-10
 aliases: [CIFAR10]
 tags: [benchmark, image-generation]
-status: draft
+status: stable
 created: 2026-05-10
-updated: 2026-05-24
+updated: 2026-07-24
 sources: ["[[wiki/sources/hoDenoisingDiffusionProbabilistic2020]]", "[[wiki/sources/songDenoisingDiffusionImplicit2022]]", "[[wiki/sources/songScoreBasedGenerativeModeling2021]]", "[[wiki/sources/lipmanFlowMatchingGenerative2023]]"]
 ---
 

@@ -19,7 +19,7 @@ arxiv: "2506.15742"
 
 ## 一句话
 
-把图像生成与编辑**统一成一个条件分布** $p_\theta(x\mid y,c)$（$y$=上下文图像、$c$=文本指令；$y=\varnothing$ 即 T2I，$y\neq\varnothing$ 即编辑/参考生成）：在 [[wiki/methods/ldm|LDM]] 潜空间上用 [[wiki/methods/rectified-flow|rectified flow]] 训练一个 DiT，**把上下文图像编码成 latent token 与目标 token 序列拼接**（[[wiki/concepts/in-context-conditioning|in-context conditioning]]，3D RoPE 区分位置），不加噪、不走旁路分支。强项：角色一致性、多轮编辑稳定、局部/文本编辑，且比 GPT-Image-1 快约一个数量级。
+把图像生成与编辑**统一成一个条件分布** $p_\theta(x\mid y,c)$（$y$=上下文图像、$c$=文本指令；$y=\varnothing$ 即 T2I，$y\neq\varnothing$ 即编辑/参考生成）：在 [[wiki/methods/ldm|LDM]] 潜空间上用 [[wiki/methods/rectified-flow|rectified flow]] 训练一个 [[wiki/sources/peeblesScalableDiffusionModels2023\|DiT]]，**把上下文图像编码成 latent token 与目标 token 序列拼接**（[[wiki/concepts/in-context-conditioning|in-context conditioning]]，3D RoPE 区分位置），不加噪、不走旁路分支。强项：角色一致性、多轮编辑稳定、局部/文本编辑，且比 GPT-Image-1 快约一个数量级。
 
 ## Motivation
 

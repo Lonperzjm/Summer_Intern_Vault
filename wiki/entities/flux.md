@@ -3,9 +3,9 @@ type: entity
 title: FLUX（具名模型族）
 aliases: [FLUX, FLUX.1, FLUX1.1, "FLUX.1 [dev]", "FLUX.1 [pro]"]
 tags: [named-model, flow-matching, rectified-flow, dit, latent]
-status: draft
+status: stable
 created: 2026-06-02
-updated: 2026-06-02
+updated: 2026-07-24
 sources: ["[[wiki/sources/labsFLUX1KontextFlow2025]]"]
 kind: model
 ---
@@ -14,7 +14,7 @@ kind: model
 
 ## 简介
 
-[[wiki/entities/black-forest-labs|Black Forest Labs]] 的 [[wiki/methods/rectified-flow|rectified flow]] 潜空间 DiT 模型族（SD3 之后的工业主力）：16-channel 潜空间、double+single stream DiT、3D RoPE。是 [[wiki/overview]] 「flow-matching-based 派系」的工业落点之一。
+[[wiki/entities/black-forest-labs|Black Forest Labs]] 的 [[wiki/methods/rectified-flow|rectified flow]] 潜空间 [[wiki/sources/peeblesScalableDiffusionModels2023\|DiT]] 模型族（SD3 之后的工业主力）：16-channel 潜空间、double+single stream DiT、3D RoPE。是 [[wiki/overview]] 「flow-matching-based 派系」的工业落点之一。
 
 ## 谱系 / 变体
 

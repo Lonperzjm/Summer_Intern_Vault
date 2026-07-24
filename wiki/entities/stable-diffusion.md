@@ -26,7 +26,7 @@ kind: model
 | **SD 1.5** | 2022.10（Runway 发布） | 同上 + 额外 595k 步精调 | **[[wiki/methods/controlnet\|ControlNet]] 原文使用的底座**；社区使用最广 |
 | **SD 2.0 / 2.1** | 2022.11 / 2022.12 | OpenCLIP ViT-H/14 文本编码器、768² 分辨率版本、新过滤的 LAION-5B 子集 | 文本编码器换 OpenCLIP；过滤更严的训练集；但社区编辑生态多停留在 1.5 |
 | **SDXL** | 2023.07 | 双文本编码器（CLIP ViT-L + OpenCLIP ViT-bigG）、更大 U-Net、refiner 模型、原生 1024² | 显著质量提升；仍属 LDM 范式 |
-| **SD3** | 2024.x（Esser et al. 2024，待 ingest） | **训练目标改为 [[wiki/methods/rectified-flow\|Rectified Flow]]**；backbone 由 U-Net 改 MM-DiT | **离开 ε-pred / U-Net**，进入 RF + DiT 时代 |
+| **SD3** | 2024.x（Esser et al. 2024，待 ingest） | **训练目标改为 [[wiki/methods/rectified-flow\|Rectified Flow]]**；backbone 由 U-Net 改 MM-[[wiki/sources/peeblesScalableDiffusionModels2023\|DiT]] | **离开 ε-pred / U-Net**，进入 RF + DiT 时代 |
 
 > 关键 ingest 缺口：**SD3** 与 **FLUX**（Black Forest Labs）—— overview「主要派系→flow-matching-based」与「可变性光谱→训练目标」两条线的当前最佳落点。
 

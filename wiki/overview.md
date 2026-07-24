@@ -4,8 +4,8 @@ title: 领域总览 · Diffusion / Flow Matching for Text-Guided Image Editing
 tags: [overview, thesis]
 status: active
 created: 2026-05-05
-updated: 2026-06-24
-sources: ["[[wiki/sources/hoDenoisingDiffusionProbabilistic2020]]", "[[wiki/sources/songDenoisingDiffusionImplicit2022]]", "[[wiki/sources/songScoreBasedGenerativeModeling2021]]", "[[wiki/sources/lipmanFlowMatchingGenerative2023]]", "[[wiki/sources/liuFlowStraightFast2022a]]", "[[wiki/sources/rombachHighResolutionImageSynthesis2022]]", "[[wiki/sources/zhangAddingConditionalControl2023]]", "[[wiki/sources/mengSDEditGuidedImage2022]]", "[[wiki/sources/zhouDenoisingDiffusionBridge2023]]", "[[wiki/sources/albergoStochasticInterpolants2023]]", "[[wiki/sources/zhaoEGSDEUnpairedImagetoImage2022]]", "[[wiki/sources/yuFreeDoMTrainingFreeEnergyGuided2023b]]"]
+updated: 2026-07-24
+sources: ["[[wiki/sources/hoDenoisingDiffusionProbabilistic2020]]", "[[wiki/sources/songDenoisingDiffusionImplicit2022]]", "[[wiki/sources/songScoreBasedGenerativeModeling2021]]", "[[wiki/sources/lipmanFlowMatchingGenerative2023]]", "[[wiki/sources/liuFlowStraightFast2022a]]", "[[wiki/sources/rombachHighResolutionImageSynthesis2022]]", "[[wiki/sources/zhangAddingConditionalControl2023]]", "[[wiki/sources/mengSDEditGuidedImage2022]]", "[[wiki/sources/zhouDenoisingDiffusionBridge2023]]", "[[wiki/sources/albergoStochasticInterpolants2023]]", "[[wiki/sources/zhaoEGSDEUnpairedImagetoImage2022]]", "[[wiki/sources/yuFreeDoMTrainingFreeEnergyGuided2023b]]", "[[wiki/sources/peeblesScalableDiffusionModels2023]]"]
 ---
 
 # Overview
@@ -30,12 +30,12 @@ sources: ["[[wiki/sources/hoDenoisingDiffusionProbabilistic2020]]", "[[wiki/sour
 >    | 可变性 | 组件 | 说明 |
 >    |---|---|---|
 >    | 近乎不变 | 上述范式本身 | 从 DDPM 到 FLUX 都成立 |
->    | 可演化，但非主战场 | 训练目标（ε → v → 速度场）、backbone（U-Net → DiT）、**压缩层**（pixel → latent，见下） | 改它性价比低、要和生态对抗；但**确实在变** |
+>    | 可演化，但非主战场 | 训练目标（ε → v → 速度场）、backbone（U-Net → [[wiki/sources/peeblesScalableDiffusionModels2023\|DiT]]）、**压缩层**（pixel → latent，见下） | 改它性价比低、要和生态对抗；但**确实在变** |
 >    | 研究杠杆 | inversion 质量、guidance 形式、条件注入通道、介入时间步 | 论文创新点集中于此 |
 >
 >    **关于"压缩层"这一档（2026-05-27 [[wiki/sources/rombachHighResolutionImageSynthesis2022|LDM]] ingest 后新增）**：与其它三档不同，压缩层是**正交于 diffusion 算法本身**的——LDM 没动训练目标、没动 backbone 类型、没动采样器，只在所有 diffusion 操作之前**外加一个一次性预处理层** $(\mathcal E,\mathcal D)$（[[wiki/concepts/perceptual-compression]]）。它给"组件维度"补了一档，但**不影响**"训练目标 / backbone / 采样器"那三档的可变性序列。对 thesis 的实际意义见推论 2 的扩展注。
 >
->    **关键修正**：原来的"基础设施层 / 编辑层"两层划分有三个硬伤——(i) 把 U-Net 当作固化组件是错的，backbone 一直在被换（DiT、SD3、FLUX）；(ii) "底层一字不改"与 Flow Matching 换训练目标自相矛盾；(iii) 最致命：两层划不开——"条件注入"这个杠杆**本身就要触及 backbone 内部**（[[wiki/concepts/cross-attention|cross-attention]] 在 U-Net 里、[[wiki/methods/controlnet|ControlNet]] 是 U-Net 旁路副本——不动 backbone 参数但克隆 backbone 结构作 sideband，详见 [[wiki/concepts/sideband-conditioning]]）。所以 backbone 不是"与编辑无关的下层"，而是**研究杠杆施力的对象之一**。
+>    **关键修正**：原来的"基础设施层 / 编辑层"两层划分有三个硬伤——(i) 把 U-Net 当作固化组件是错的，backbone 一直在被换（[[wiki/sources/peeblesScalableDiffusionModels2023\|DiT]]、SD3、FLUX）；(ii) "底层一字不改"与 Flow Matching 换训练目标自相矛盾；(iii) 最致命：两层划不开——"条件注入"这个杠杆**本身就要触及 backbone 内部**（[[wiki/concepts/cross-attention|cross-attention]] 在 U-Net 里、[[wiki/methods/controlnet|ControlNet]] 是 U-Net 旁路副本——不动 backbone 参数但克隆 backbone 结构作 sideband，详见 [[wiki/concepts/sideband-conditioning]]）。所以 backbone 不是"与编辑无关的下层"，而是**研究杠杆施力的对象之一**。
 >
 >    **对 thesis 的含义**：不要把"重新设计训练目标"当成主战场（性价比低，要和整个生态对抗）；可行的研究杠杆是 inversion 质量、guidance 形式、条件注入通道、介入时间步——但要清醒：动"条件注入"往往意味着动 backbone 架构本身。
 >

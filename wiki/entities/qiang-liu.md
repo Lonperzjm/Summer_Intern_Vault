@@ -3,9 +3,9 @@ type: entity
 title: Qiang Liu
 aliases: [Q. Liu, Qiang Liu, 刘强]
 tags: [researcher]
-status: draft
+status: stable
 created: 2026-05-26
-updated: 2026-05-26
+updated: 2026-07-24
 sources: ["[[wiki/sources/liuFlowStraightFast2022a]]"]
 kind: person
 ---

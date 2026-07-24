@@ -3,9 +3,9 @@ type: entity
 title: Jascha Sohl-Dickstein
 aliases: [Sohl-Dickstein, J. Sohl-Dickstein, Jascha]
 tags: [researcher]
-status: draft
+status: stable
 created: 2026-05-20
-updated: 2026-05-20
+updated: 2026-07-24
 sources: ["[[wiki/sources/songScoreBasedGenerativeModeling2021]]"]
 kind: person
 ---

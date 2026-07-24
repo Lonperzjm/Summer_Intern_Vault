@@ -3,9 +3,9 @@ type: entity
 title: Eric Vanden-Eijnden
 aliases: [Eric Vanden-Eijnden, Vanden-Eijnden, E. Vanden-Eijnden]
 tags: [researcher, professor]
-status: draft
+status: stable
 created: 2026-06-01
-updated: 2026-06-01
+updated: 2026-07-24
 sources: ["[[wiki/sources/albergoStochasticInterpolants2023]]"]
 kind: person
 ---

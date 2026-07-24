@@ -133,7 +133,7 @@ $$
 > 用户说明：本篇 annotation 同 LDM ingest，颜色全黄（"太麻烦了"），无 🔵/🟣 显式标注。以下问题由 my-summary + annotation + overview 接口处推断而出，按 thesis 距离排序。
 
 - [ ] **P0**：Sudden convergence phenomenon 的训练动力学解释——zero-conv 尺度 $\|W_{zc}\|$ 与控制残差 norm 的时间演化曲线是否能预测相位转换点？这是 thesis 可立的一个干净诊断实验，且与 inversion-based 编辑的稳定性诊断有共享方法论。
-- [ ] **P0**：在 SD3 / FLUX (RF backbone) 上 ControlNet 的可迁移性——SD3 改 backbone 为 DiT、训练目标为 RF/FM，sideband + zero-conv 的稳定性是否依赖 SD U-Net 的 skip 结构？BFL 的 FLUX-ControlNet 是否给出可比的现象学？（同时也是 overview 主要派系 → flow-matching-based 的下一个落点）
+- [ ] **P0**：在 SD3 / FLUX (RF backbone) 上 ControlNet 的可迁移性——SD3 改 backbone 为 [[wiki/sources/peeblesScalableDiffusionModels2023\|DiT]]、训练目标为 RF/FM，sideband + zero-conv 的稳定性是否依赖 SD U-Net 的 skip 结构？BFL 的 FLUX-ControlNet 是否给出可比的现象学？（同时也是 overview 主要派系 → flow-matching-based 的下一个落点）
 - [ ] **P1**：ControlNet vs LoRA vs Adapter 的统一对比——三者都是 "frozen backbone + trainable sideband" 的实例，差异只在 sideband 接入位置（skip / attn 内部低秩 / FFN 内部 bottleneck）。这是 [[wiki/concepts/sideband-conditioning]] 该走的方向，但 LoRA / Adapter 原文未 ingest。
 - [ ] **P1**：T2I-Adapter（Mou et al. 2023）与 ControlNet 的精确异同——T2I-Adapter 用更小的 adapter（不复制 SD encoder），但报告的控制质量略弱。这是"sideband 容量 vs 控制质量"trade-off 的另一个实验点。
 - [ ] **P2**：multi-condition 叠加时 sideband 残差的可加性是否真线性？两个 ControlNet 同时挂载时是否出现冲突（如 pose 与 depth 强约束矛盾时谁赢）？论文未做详细 ablation。

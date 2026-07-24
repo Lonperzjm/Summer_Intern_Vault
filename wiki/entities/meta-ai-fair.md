@@ -3,9 +3,9 @@ type: entity
 title: Meta AI (FAIR)
 aliases: [Meta AI, FAIR, Facebook AI Research, Meta]
 tags: [institution]
-status: draft
+status: stable
 created: 2026-05-24
-updated: 2026-05-24
+updated: 2026-07-24
 sources: ["[[wiki/sources/lipmanFlowMatchingGenerative2023]]"]
 kind: org
 ---

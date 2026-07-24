@@ -96,7 +96,7 @@ return SD.D(z_0)
 - 仍要训副本（虽然只副本一半 U-Net 也有数亿参数）—— 比 LoRA/T2I-Adapter 重
 - "Sudden convergence phenomenon"（训练相位转换）尚无理论解释——训练稳定性诊断仍靠经验
 - 条件图与目标图像的"对齐先验"假设——非完美对齐场景（如跨体型 pose 移植）的几何敏感度未充分研究
-- 在 SD3 / FLUX (RF + DiT backbone) 上的可迁移性——skip 结构变化，sideband 注入位置需重新设计
+- 在 SD3 / FLUX (RF + [[wiki/sources/peeblesScalableDiffusionModels2023\|DiT]] backbone) 上的可迁移性——skip 结构变化，sideband 注入位置需重新设计
 
 ## Failure modes
 

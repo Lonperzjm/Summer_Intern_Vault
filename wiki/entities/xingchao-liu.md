@@ -3,9 +3,9 @@ type: entity
 title: Xingchao Liu
 aliases: [X. Liu, Xingchao Liu, 刘行超]
 tags: [researcher]
-status: draft
+status: stable
 created: 2026-05-26
-updated: 2026-05-26
+updated: 2026-07-24
 sources: ["[[wiki/sources/liuFlowStraightFast2022a]]"]
 kind: person
 ---

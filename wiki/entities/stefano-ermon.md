@@ -3,9 +3,9 @@ type: entity
 title: Stefano Ermon
 aliases: [Ermon, S. Ermon]
 tags: [researcher, professor]
-status: draft
+status: stable
 created: 2026-05-14
-updated: 2026-05-29
+updated: 2026-07-24
 sources: ["[[wiki/sources/songDenoisingDiffusionImplicit2022]]", "[[wiki/sources/songScoreBasedGenerativeModeling2021]]", "[[wiki/sources/mengSDEditGuidedImage2022]]", "[[wiki/sources/zhouDenoisingDiffusionBridge2023]]"]
 kind: person
 ---

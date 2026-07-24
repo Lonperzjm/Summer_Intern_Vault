@@ -3,9 +3,9 @@ type: entity
 title: Lvmin Zhang
 aliases: [Zhang, L. Zhang, Lvmin Zhang, 张吕敏]
 tags: [researcher]
-status: draft
+status: stable
 created: 2026-05-28
-updated: 2026-05-28
+updated: 2026-07-24
 sources: ["[[wiki/sources/zhangAddingConditionalControl2023]]"]
 kind: person
 ---

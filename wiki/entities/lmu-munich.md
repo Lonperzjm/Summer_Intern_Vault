@@ -3,9 +3,9 @@ type: entity
 title: LMU Munich
 aliases: [LMU, Ludwig Maximilian University of Munich, 慕尼黑大学]
 tags: [university]
-status: draft
+status: stable
 created: 2026-05-27
-updated: 2026-05-27
+updated: 2026-07-24
 sources: ["[[wiki/sources/rombachHighResolutionImageSynthesis2022]]"]
 kind: institution
 ---

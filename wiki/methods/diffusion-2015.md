@@ -3,9 +3,9 @@ type: method
 title: Diffusion Probabilistic Models（Sohl-Dickstein 2015，原型）
 aliases: [Sohl-Dickstein 2015, "diffusion probabilistic model 原型", nonequilibrium thermodynamics diffusion]
 tags: [diffusion, foundational]
-status: draft
+status: stable
 created: 2026-05-14
-updated: 2026-05-20
+updated: 2026-07-24
 sources: []
 family: other
 ---

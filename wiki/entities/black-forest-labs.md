@@ -3,9 +3,9 @@ type: entity
 title: Black Forest Labs
 aliases: [Black Forest Labs, BFL]
 tags: [institution, lab, industry]
-status: draft
+status: stable
 created: 2026-06-02
-updated: 2026-06-02
+updated: 2026-07-24
 sources: ["[[wiki/sources/labsFLUX1KontextFlow2025]]"]
 kind: org
 ---
@@ -14,7 +14,7 @@ kind: org
 
 ## 简介
 
-由原 Stable Diffusion / [[wiki/methods/ldm|LDM]] 核心成员（[[wiki/entities/robin-rombach|Robin Rombach]]、Patrick Esser、Andreas Blattmann 等）创立的生成模型公司；FLUX 系列（rectified-flow latent DiT）的开发者。
+由原 Stable Diffusion / [[wiki/methods/ldm|LDM]] 核心成员（[[wiki/entities/robin-rombach|Robin Rombach]]、Patrick Esser、Andreas Blattmann 等）创立的生成模型公司；FLUX 系列（rectified-flow latent [[wiki/sources/peeblesScalableDiffusionModels2023\|DiT]]）的开发者。
 
 ## 关键贡献 / 关键工作
 

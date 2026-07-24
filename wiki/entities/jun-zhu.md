@@ -3,9 +3,9 @@ type: entity
 title: Jun Zhu
 aliases: [Jun Zhu, J. Zhu, 朱军]
 tags: [researcher, professor]
-status: draft
+status: stable
 created: 2026-06-01
-updated: 2026-06-21
+updated: 2026-07-24
 sources: ["[[wiki/sources/zhengDiffusionBridgeImplicit2025]]", "[[wiki/sources/zhaoEGSDEUnpairedImagetoImage2022]]"]
 kind: person
 ---

@@ -6,7 +6,7 @@ tags: [stochastic-interpolants, flow-matching, diffusion-bridge, sde, ode, gener
 status: stable
 created: 2026-06-01
 updated: 2026-06-01
-raw: "[[raw/articles/2303.08797v4]]"
+raw: "[[raw/articles/2303.08797v4.pdf]]"
 authors: [Michael S. Albergo, Nicholas M. Boffi, Eric Vanden-Eijnden]
 venue: "JMLR 26 (2025) / arXiv 2303.08797"
 year: 2023
@@ -15,7 +15,7 @@ arxiv: "2303.08797"
 
 # Stochastic Interpolants: A Unifying Framework for Flows and Diffusions
 
-> 原文 PDF：[[raw/articles/2303.08797v4]] · arXiv [2303.08797](https://arxiv.org/abs/2303.08797) · Albergo, Boffi & Vanden-Eijnden（NYU Courant，JMLR 2025）
+> 原文 PDF：[[raw/articles/2303.08797v4.pdf]] · arXiv [2303.08797](https://arxiv.org/abs/2303.08797) · Albergo, Boffi & Vanden-Eijnden（NYU Courant，JMLR 2025）
 > 概念主页：[[wiki/concepts/stochastic-interpolants]]。本页是该框架在 vault 的源摘要。
 
 ## 一句话
