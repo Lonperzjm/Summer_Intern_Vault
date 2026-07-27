@@ -5,8 +5,8 @@ aliases: [Rectified Flow, rectified flow, RF, "Liu et al. 2022"]
 tags: [flow-matching, ode, rectified-flow, sampling-acceleration]
 status: active
 created: 2026-05-24
-updated: 2026-06-02
-sources: ["[[wiki/sources/liuFlowStraightFast2022a]]", "[[wiki/sources/lipmanFlowMatchingGenerative2023]]", "[[wiki/sources/zhouDenoisingDiffusionBridge2023]]", "[[wiki/sources/labsFLUX1KontextFlow2025]]"]
+updated: 2026-07-27
+sources: ["[[wiki/sources/liuFlowStraightFast2022a]]", "[[wiki/sources/lipmanFlowMatchingGenerative2023]]", "[[wiki/sources/zhouDenoisingDiffusionBridge2023]]", "[[wiki/sources/labsFLUX1KontextFlow2025]]", "[[wiki/sources/2502.17436-towards-hierarchical-rectified-flow]]"]
 family: flow-matching
 ---
 
@@ -62,12 +62,17 @@ family: flow-matching
 - 2-rectified flow 把 **1-step / 2-step 采样 FID** 大幅下压，是 RF 区别于 FM 的最直观红利；
 - 同框架统一覆盖无条件生成、image-to-image translation、域适应。
 
+## 变体与扩展
+
+- **[[wiki/sources/2502.17436-towards-hierarchical-rectified-flow|Hierarchical Rectified Flow（HRF）]]**（Zhang et al. 2025, ICLR'25）：不学期望速度，而是在 velocity space 再跑一层 RF（学加速度），用嵌套耦合 ODE 捕捉完整的多模态速度分布。轨迹可交叉、更直，低 NFE 区间有优势；但输入维度翻倍导致参数量增大，且仅在 32×32 分辨率验证。与 reflow 正交（reflow 拉直同层 ODE，HRF 加深层级）
+
 ## 待补 / 开放
 
 - [x] ✅ overview「主要派系→flow-matching-based」首篇已由 [[wiki/methods/flux-kontext|FLUX.1 Kontext]] 填上；仍待 SD3 / FLUX 基础模型原文
 - [ ] RF-Inversion 类编辑方法 ingest（是 thesis 的直接相关线）
 - [ ] Reflow 收敛到 OT 的条件与速率
 - [ ] RF 模型上 inversion 往返闭合的稳定性
+- [ ] HRF + reflow 组合探索；HRF 在条件生成下是否缓解 mode averaging
 
 ## 出处
 

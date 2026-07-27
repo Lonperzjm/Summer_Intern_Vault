@@ -2,6 +2,11 @@
 
 > Append-only 时间线。每条 entry 以 `## [YYYY-MM-DD] <op> | <subject>` 起始，便于 `grep "^## \[" log.md | tail`。
 
+## [2026-07-27] ingest | 2502.17436 Towards Hierarchical Rectified Flow (Zhang et al. 2025, ICLR'25)
+- created: `wiki/sources/2502.17436-towards-hierarchical-rectified-flow.md` —— 在 velocity space 再跑一层 RF 学加速度，嵌套耦合 ODE 捕捉多模态速度分布；轨迹可交叉更直；低 NFE 有优势但参数量增大
+- updated: `wiki/methods/rectified-flow.md` —— 新增「变体与扩展」节引用 HRF；sources 字段补入；open questions 补 HRF 相关
+- 判断：对 text-guided editing 的平均抹消帮助有限（无条件生成验证、未做 editing 实验、仅 32×32）；不更新 working thesis
+
 ## [2026-07-24] lint | wiki 全面检查 + 整改
 - fixed: `wiki/sources/albergoStochasticInterpolants2023.md` broken link `[[raw/articles/2303.08797v4]]` → `[[raw/articles/2303.08797v4.pdf]]`
 - updated: `wiki/overview.md` — sources 字段加入 DiT；文本中 2 处 DiT 补 wikilink；updated 刷新
