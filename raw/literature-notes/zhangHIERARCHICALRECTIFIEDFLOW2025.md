@@ -83,7 +83,7 @@ wiki_page: "[[wiki/sources/2502.17436-towards-hierarchical-rectified-flow]]"
 2. Theorem 1 给出解析速度分布 $\pi_1(v;x_t,t)$；Theorem 2 证明 HRF 采样保证正确边缘分布。轨迹可交叉、更直，低 NFE 区有优势
 3. 图像实验仅 32×32（U-Net），MNIST 略优、CIFAR-10/ImageNet-32 同等 NFE 下反而不如 baseline。参数量因输入维度翻倍而增大
 4. 对条件编辑的平均抹消帮助有限——它解决的是无条件多模态 $\rho_1$ 的路径弯曲，不解耦"哪个模态该被选中"
-5. 可能的间接价值：Theorem 1 / Corollary 1 的解析表达可作为 toy experiment 验证基准
+5. **高维交叉概率极低**：$d\gg1$ 维空间内随机两条直线最小距离 $E(d_{\min})\propto\sqrt{d}$，实际 latent 维度（~20 万）下交叉几乎不发生——HRF 在低维 toy 上优势明显但高维收益甚微，近乎翻倍的输入维度代价不经济
 %% end my-summary %%
 
 ## 与已有 wiki 的关系
@@ -103,6 +103,7 @@ wiki_page: "[[wiki/sources/2502.17436-towards-hierarchical-rectified-flow]]"
 
 %% begin thesis-implication %%
 - 不更新 working thesis。HRF 解决的是无条件生成中的速度平均化，不直接帮助条件编辑场景下的模态选择问题
+- 高维交叉概率分析进一步说明 HRF 的代价不经济：$d\gg1$ 时 $E(d_{\min})\propto\sqrt{d}$，实际 latent 空间里路径交叉本身就是低概率事件
 - 间接价值：Theorem 1 的解析速度分布可作为 energy-guidance 线 toy experiment 的 ground-truth 验证基准
 %% end thesis-implication %%
 
