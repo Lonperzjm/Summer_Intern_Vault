@@ -2,6 +2,12 @@
 
 > Append-only 时间线。每条 entry 以 `## [YYYY-MM-DD] <op> | <subject>` 起始，便于 `grep "^## \[" log.md | tail`。
 
+## [2026-07-28] ingest | 2604.04646 Training-Free Refinement of Flow Matching with Divergence-based Sampling (Cha et al. 2026, ECCV'26)
+- created: `wiki/sources/chaTrainingFreeRefinementFlow2026.md` —— FDS：用 velocity divergence 做 inference-time discrepancy proxy，零阶随机扰动选 divergence 最低候选做 spatial refinement；plug-and-play 叠加任何 solver；直接超过 HRF 等 training-based 方法
+- updated: `raw/literature-notes/chaTrainingFreeRefinementFlow2026.md` —— 补全 why-read / my-summary / wiki-links / thesis-implication / open-questions
+- updated: `wiki/overview.md` —— 采样加速线加入 FDS 引用 + thesis 相关性说明；sources 补入
+- 判断：**高度相关**，与 thesis 方向一致（inference-time, training-free）；divergence + energy-guidance 组合是明确的下一步实验方向
+
 ## [2026-07-27] ingest | 2502.17436 Towards Hierarchical Rectified Flow (Zhang et al. 2025, ICLR'25)
 - created: `wiki/sources/2502.17436-towards-hierarchical-rectified-flow.md` —— 在 velocity space 再跑一层 RF 学加速度，嵌套耦合 ODE 捕捉多模态速度分布；轨迹可交叉更直；低 NFE 有优势但参数量增大
 - updated: `wiki/methods/rectified-flow.md` —— 新增「变体与扩展」节引用 HRF；sources 字段补入；open questions 补 HRF 相关

@@ -103,7 +103,7 @@ wiki_page: "[[wiki/sources/2502.17436-towards-hierarchical-rectified-flow]]"
 
 %% begin thesis-implication %%
 - 不更新 working thesis。HRF 解决的是无条件生成中的速度平均化，不直接帮助条件编辑场景下的模态选择问题
-- 高维交叉概率分析进一步说明 HRF 的代价不经济：$d\gg1$ 时 $E(d_{\min})\propto\sqrt{d}$，实际 latent 空间里路径交叉本身就是低概率事件
+- 高维交叉概率分析进一步说明 HRF 的代价不经济：$d\gg1$ 时 $E(d_{\min})\propto\sqrt{d}$，实际 latent 空间里路径交叉本身就是低概率事件（详见 [[research/notes/2026-07-27-high-dim-crossing-probability]]）
 - 间接价值：Theorem 1 的解析速度分布可作为 energy-guidance 线 toy experiment 的 ground-truth 验证基准
 %% end thesis-implication %%
 
