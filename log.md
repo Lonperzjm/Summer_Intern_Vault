@@ -2,6 +2,14 @@
 
 > Append-only 时间线。每条 entry 以 `## [YYYY-MM-DD] <op> | <subject>` 起始，便于 `grep "^## \[" log.md | tail`。
 
+## [2026-07-29] report | 组会 + 方向 pivot 落地 + solver 调研启动
+- created: `reports/meetings/2026-07-29-group.md` —— 小组会简报（展示多模态问题 idea + 问科研流程）
+- created: `reports/weekly/2026-W30.md` —— 首份周报 draft（7/21–7/28）
+- updated: `reports/state.md` —— 正式化：FM 多模态 P0，energy 降 P2，bridge 关闭；组会后新增 solver 调研任务（T-20260729-01/02），toy 实验降 P1
+- updated: `research/notes/2026-07-28-singularity-unified-framework.md` —— 修正 $l$ 定义（空间分辨率，非转向）；弱化断言为待验证假设；OOD 机制双条件
+- 组会反馈：idea 有价值但可能重复，导师建议不急实验、先想清楚问题、看 solver 论文
+- 新建待读列表：Optimal Stepsize / Instance-Aware Discretizations / SADA / Isokinetic FM / DPM-Solver 系 / SANA（师兄推荐）
+
 ## [2026-07-28] ingest | 2604.04646 Training-Free Refinement of Flow Matching with Divergence-based Sampling (Cha et al. 2026, ECCV'26)
 - created: `wiki/sources/chaTrainingFreeRefinementFlow2026.md` —— FDS：用 velocity divergence 做 inference-time discrepancy proxy，零阶随机扰动选 divergence 最低候选做 spatial refinement；plug-and-play 叠加任何 solver；直接超过 HRF 等 training-based 方法
 - updated: `raw/literature-notes/chaTrainingFreeRefinementFlow2026.md` —— 补全 why-read / my-summary / wiki-links / thesis-implication / open-questions
