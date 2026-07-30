@@ -2,6 +2,13 @@
 
 > Append-only 时间线。每条 entry 以 `## [YYYY-MM-DD] <op> | <subject>` 起始，便于 `grep "^## \[" log.md | tail`。
 
+## [2026-07-30] ingest | shaulBespokeSolversGenerative2023 Bespoke Solvers for Generative Flow Models (Shaul et al. 2023)
+- created: `wiki/sources/shaulBespokeSolversGenerative2023.md`
+- updated: `raw/literature-notes/shaulBespokeSolversGenerative2023.md`（ingested_to_wiki: true）
+- updated: `wiki/overview.md`（采样加速线加入 Bespoke Solvers）
+- updated: `wiki/sources/chaTrainingFreeRefinementFlow2026.md`（奇异点统一框架段落同步修正：$l$ 新定义 + OOD 双条件 + 弱化断言）
+- 关系：全局离线 solver 优化路线，与 FDS spatial / 我的 temporal adaptive 正交；可组合
+
 ## [2026-07-29] report | 组会 + 方向 pivot 落地 + solver 调研启动
 - created: `reports/meetings/2026-07-29-group.md` —— 小组会简报（展示多模态问题 idea + 问科研流程）
 - created: `reports/weekly/2026-W30.md` —— 首份周报 draft（7/21–7/28）
@@ -468,3 +475,11 @@
 - created: `research/{thesis,ideas,experiments,related_work,outline}.md`
 - created: `raw/{papers,articles,talks,notes,assets}/`、`wiki/{entities,concepts,methods,benchmarks,sources,comparisons,synthesis}/`
 - 方法论参考：[[Karpathy's_Wiki_Method/llm-wiki]]
+
+## [2026-07-30] ingest | shaulBespokeNonStationarySolvers2024 Bespoke Non-Stationary Solvers (Shaul et al. 2024, ICML)
+- created: `wiki/sources/shaulBespokeNonStationarySolvers2024.md`
+- updated: `raw/literature-notes/shaulBespokeNonStationarySolvers2024.md` frontmatter (ingested_to_wiki, wiki_page)
+
+## [2026-07-30] ingest | wangTamingRectifiedFlow2025 Taming Rectified Flow for Inversion and Editing (Wang et al. 2025)
+- created: `wiki/sources/wangTamingRectifiedFlow2025.md`
+- updated: `raw/literature-notes/wangTamingRectifiedFlow2025.md` frontmatter (ingested_to_wiki, wiki_page)

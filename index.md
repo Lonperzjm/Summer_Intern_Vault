@@ -140,6 +140,14 @@ SORT updated DESC
 - [[research/related_work]]
 - [[research/outline]]
 
+### Research Notes（原创分析）
+
+```dataview
+TABLE title, status, created
+FROM "research/notes"
+SORT created DESC
+```
+
 ## Reporting（汇报与项目状态）
 
 - [[reports/dashboard]] —— 汇报总览

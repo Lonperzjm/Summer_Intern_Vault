@@ -1,19 +1,23 @@
 如[[zhangHIERARCHICALRECTIFIEDFLOW2025plus]]所言，我们的分位相交线段很少。三相交应该更少才对。故只考虑双相交线段。我们称相交出为奇异点，或者多模态点。
 
-直线最小的距离为$d(t)_{min}$,离散步长为$\Delta = v\delta t$,模型的表达能力为$l$,代表模型不能良好拟合超过此尺度的转向![[chaTrainingFreeRefinementFlow2026plus-1785231261637.webp]]
+flowdpm
 
-可以估计$\Delta \approx 100l$,即模型的表达能力远远好于采样步长的分辨率。
 
-再估计$E(d_{min})$.当$d_{min} < l$时模型不能良好拟合速度场，当$d_{min} < \Delta$时采样点可能落入OOD.
+直线最小的距离为$d(t)_{min}$,离散步长为$\Delta = v\delta t$,模型的表达能力为$l$,代表模型不能良好拟合超过此尺度的分离路线：$d_{min}<l$时，v会在该尺度下被平均![[chaTrainingFreeRefinementFlow2026plus-1785231261637.webp]]
 
-![[raw/assets/chaTrainingFreeRefinementFlow2026plus-1785241803614.webp]]
 
-$l \ll \Delta \ll E(d_{min})$
+可以发现，交叉使得速度场发生剧烈的变化。这会导致一个后果：
 
-$l \approx \Delta / 100$
-$E(d_{min}) \approx 10-40 \times \Delta$
+1. 采样点落在这个剧烈的变化中心，导致ood
 
-结论：问题不在于"模型能否拟合奇异点附近的速度场"（能），而在"离散化 step 是否恰好跨过奇异点导致 OOD"。低概率但一旦命中后果严重。
+意味着$d(t)_{min}<\Delta$。
+
+我目前猜测$\Delta \gg l$ ,$d(t)_{min}$的均值约为$\Delta$的10-40倍。但是我确实不能猜出$l$的具体范围。
+
+
+ood的过程如图：![[raw/assets/chaTrainingFreeRefinementFlow2026plus-1785241803614.webp]]
+
+
 
 直观的解决方法有两个，如图所示：
 
