@@ -483,3 +483,75 @@
 ## [2026-07-30] ingest | wangTamingRectifiedFlow2025 Taming Rectified Flow for Inversion and Editing (Wang et al. 2025)
 - created: `wiki/sources/wangTamingRectifiedFlow2025.md`
 - updated: `raw/literature-notes/wangTamingRectifiedFlow2025.md` frontmatter (ingested_to_wiki, wiki_page)
+
+## [2026-07-31] ingest | bajpaiFastFlowAcceleratingGenerative2026 FastFlow: Bandit-based Adaptive Sampling (Bajpai et al. 2026, ICLR)
+- created: `wiki/sources/bajpaiFastFlowAcceleratingGenerative2026.md`
+- 结论：与我的方向表面机制相似（自适应跳步）但解决不同层面问题——FastFlow 是加速（省 NFE），我的是避 OOD（保质量）。不构成直接竞争。
+
+## [2026-07-31] ingest | 补完步骤4：solver 论文触及的 wiki 页面批量更新
+- updated: `wiki/concepts/flow-matching.md`（加 ODE solver 改进谱系段落）
+- updated: `wiki/methods/rectified-flow.md`（加 RF 上的 Solver 改进章节：RF-Solver / FastFlow / BNS）
+- updated: `wiki/concepts/probability-flow-ode.md`（加 ODE 离散化与 solver 改进段落）
+- updated: `wiki/concepts/reflow.md`（丰富"改 solver vs 改训练"对比，加 solver 正交性注释）
+- updated: `wiki/entities/yaron-lipman.md`（补 Bespoke / BNS 贡献、Neta Shaul 合作者）
+- updated: `wiki/entities/meta-ai-fair.md`（补 Bespoke / BNS 贡献）
+- updated: `wiki/entities/ricky-chen.md`（补 Bespoke / BNS 合作者）
+- created: `wiki/concepts/ode-solver-taxonomy.md`（solver 族谱系：BNS 包含链 + 分类维度 + 与奇异区问题的关系）
+
+## [2026-08-02] ingest | chenBiAnchorInterpolationSolver2026 Bi-Anchor Interpolation Solver (Chen et al. 2026, ICML)
+- created: `wiki/sources/chenBiAnchorInterpolationSolver2026.md` —— BA-solver：冻结 FM backbone + 轻量 SideNet（~6M params）做双 anchor 区间内速度插值 + Gauss–Lobatto 求积；7 NFE FID 1.96 (ImageNet-256)；属"learnt velocity interpolator"新档
+- created: `wiki/entities/hongxu-chen.md`（陈鸿绪，一作，HKUST Long Chen 组直博）
+- created: `wiki/entities/long-chen.md`（陈隆，通信作者，用户暑研导师）
+- updated: `wiki/concepts/ode-solver-taxonomy.md`（新增 learnt velocity interpolator 档 + instance-aware 归类）
+- updated: `wiki/concepts/flow-matching.md`（ODE solver 谱系加 BA-solver）
+- updated: `wiki/methods/rectified-flow.md`（RF solver 改进加 BA-solver）
+- updated: `wiki/overview.md`（采样加速线加 BA-solver；sources 补入）
+- updated: `raw/literature-notes/chenBiAnchorInterpolationSolver2026.md`（ingested_to_wiki: true）
+- 关系：BA-solver 不处理速度平均化/奇异区问题（与 FDS/thesis 正交）；但展示了"冻结 backbone + sideband 网络"在 solver 层的价值；anchor mismatch + chain-based training 与 thesis"OOD 状态下决策"场景有潜在联系
+
+## [2026-08-02] lint | BA-solver ingest 后整改
+- fixed: `wiki/sources/shaulBespokeSolversGenerative2023.md` 3 处 broken wikilink（`[[concepts/flow-matching]]` → `[[wiki/concepts/flow-matching]]`；`[[concepts/rectified-flow]]` → `[[wiki/methods/rectified-flow]]`；`[[wiki/sources/2206.00927-dpm-solver]]` → 纯文本"待 ingest"）
+- fixed: `wiki/sources/bajpaiFastFlowAcceleratingGenerative2026.md` 补缺失 `raw:` frontmatter 字段
+- fixed: `wiki/sources/chenBiAnchorInterpolationSolver2026.md` 正文补 `[[wiki/entities/hongxu-chen]]` / `[[wiki/entities/long-chen]]` wikilink，消除两个 entity 页孤岛
+- updated: `wiki/sources/peeblesScalableDiffusionModels2023.md` status draft → active（内容已完整）
+- Missing 候选（识别但本次不建）：DPM-Solver(6页) / DDIM inversion(12页) / Prompt-to-Prompt(8页) / Null-text(8页) / InstructPix2Pix(6页) / EDM(6页) / U-Net(15页) / CLIP(15页)
+- Stale 候选（不动）：score-matching / conditional-flow-matching / continuous-normalizing-flow 三页 5/24 以来未更新，内容本身仍正确、暂标 stable 即可
+
+## [2026-08-02] refactor | 校准奇异区采样想法，以原始手记恢复 Reject-and-Skip 机制
+- updated: `research/notes/2026-07-28-singularity-unified-framework.md` —— 以 `raw/literature-notes/chaTrainingFreeRefinementFlow2026plus.md` 为准，恢复“trial → detect → reject/rollback → shrink 或 skip”原始机制；删除 `Δ ≫ l`、两条件 OOD、三策略严格正交等后续过强推断；补充出口验证、corrector 与失败回退的待实现骨架
+- updated: `research/notes/2026-07-27-high-dim-crossing-probability.md` —— 将高维随机线段分析限定为简化几何 sanity check；不再由有限样本线段近交叉概率直接推断真实 FM conditional velocity multimodality 或 HRF 成本收益
+- unchanged: `raw/literature-notes/chaTrainingFreeRefinementFlow2026plus.md` 及其手绘图片保持原样，作为想法的原始事实源
+## [2026-08-03] ingest | Reject-and-Skip 实验研究方向
+- moved: raw/experiment-reports/2026-08-02-reject-and-skip-toy-report.md
+- moved: raw/experiment-reports/2026-08-03-official-1rf-solver-diagnostics.md
+- created: wiki/sources/2026-08-02-reject-and-skip-toy-report.md
+- created: wiki/sources/2026-08-03-official-1rf-solver-diagnostics.md
+- created: wiki/concepts/reject-and-skip.md
+- created: wiki/synthesis/reject-and-skip-research-direction.md
+- updated: wiki/overview.md
+- updated: wiki/concepts/flow-matching.md
+- updated: wiki/concepts/transport-coupling.md
+- updated: wiki/concepts/ode-solver-taxonomy.md
+- updated: wiki/methods/rectified-flow.md
+- updated: research/thesis.md
+- updated: research/ideas.md
+- updated: research/experiments.md
+- updated: index.md
+
+## [2026-08-03] refactor | experiment report workflow
+- updated: `CLAUDE.md`（Research canonical reports、evidence 字段、内容卫生、draft/confirmed/superseded 工作流）
+- created: `templates/experiment-report.md`
+- updated: `GUIDANCE.md`
+- updated: `index.md`
+
+## [2026-08-03] experiment | EXP-20260802-reject-and-skip-crossing-toy confirmed
+- moved: `raw/experiment-reports/2026-08-02-reject-and-skip-toy-report.md` → `research/experiments/2026-08-02-reject-and-skip-toy-report.md`
+- created: `research/assets/experiments/reject-and-skip-crossing-toy/{summary,trajectories}.png`
+- removed: `wiki/sources/2026-08-02-reject-and-skip-toy-report.md`（内部实验不再创建 source 页）
+- updated: `research/experiments.md`、相关 Wiki `evidence:`
+
+## [2026-08-03] experiment | EXP-20260803-official-1rf-solver-diagnostics confirmed
+- moved: `raw/experiment-reports/2026-08-03-official-1rf-solver-diagnostics.md` → `research/experiments/2026-08-03-official-1rf-solver-diagnostics.md`
+- created: `research/assets/experiments/official-1rf-solver-diagnostics/{trajectory-diagnostics,endpoint-truncation,terminal-vs-interior}.png`
+- removed: `wiki/sources/2026-08-03-official-1rf-solver-diagnostics.md`（内部实验不再创建 source 页）
+- updated: `research/experiments.md`、相关 Wiki `evidence:`

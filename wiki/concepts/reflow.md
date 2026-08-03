@@ -5,7 +5,7 @@ aliases: [reflow, rectification, k-rectification, 直线化, 轨迹拉直]
 tags: [flow-matching, rectified-flow, sampling-acceleration, ode]
 status: active
 created: 2026-05-26
-updated: 2026-05-26
+updated: 2026-07-31
 sources: ["[[wiki/sources/liuFlowStraightFast2022a]]"]
 ---
 
@@ -45,6 +45,8 @@ $$\mathbb E[c(Z_1^{k+1}-Z_0^{k+1})]\le \mathbb E[c(Z_1^k-Z_0^k)].$$
 | 加速 = 改采样器（DDIM 跳步、PC corrector、高阶 ODE solver） | 加速也可来自**改训练阶段轨迹本身** |
 | 路径是 SDE 设计的副产物 | 路径是可被**迭代改造**的对象 |
 | 1-step 生成要靠蒸馏 | 蒸馏 = 在已经接近直线的 reflow 终态上做"最后一脚"，代价小得多 |
+
+> 🆕 [2026-07-31] 补充：现在有一整族"改采样器"的工作可供对比（详见 [[wiki/concepts/ode-solver-taxonomy]]）——从 [[wiki/sources/shaulBespokeNonStationarySolvers2024|BNS]]（学 solver 系数）到 [[wiki/sources/wangTamingRectifiedFlow2025|RF-Solver]]（高阶展开）到 [[wiki/sources/bajpaiFastFlowAcceleratingGenerative2026|FastFlow]]（自适应跳步）。它们和 reflow 的关系是**正交的**：reflow 改 ODE 本身（轨迹变直），solver 改 ODE 的离散化（减少/优化步数）。两者可串联——先 reflow 拉直，再用 BNS/RF-Solver 进一步压低 NFE。RF 之所以是 FastFlow 等方法的理想对象，恰恰是因为 reflow 后轨迹接近直线，velocity 变化小，外推误差自然低。
 
 这把 [[wiki/overview]] 推论 3 "采样加速可来自路径/轨迹设计" 推到极限：**训练阶段直接把 ODE 改成直线**。
 

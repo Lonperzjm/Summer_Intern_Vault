@@ -3,7 +3,7 @@ type: research
 title: Idea 池
 status: active
 created: 2026-05-05
-updated: 2026-06-24
+updated: 2026-08-03
 ---
 
 # Ideas
@@ -11,6 +11,29 @@ updated: 2026-06-24
 <!-- 候选 idea 暂存。每条注明触发源（[[sources/...]]）与日期。 -->
 
 ## Active
+
+### [2026-08-03] Reject-and-Skip：推理时 Coupling 干预
+
+来源证据：[[research/experiments/2026-08-02-reject-and-skip-toy-report]]、[[research/experiments/2026-08-03-official-1rf-solver-diagnostics]]；完整综合见 [[wiki/synthesis/reject-and-skip-research-direction]]。
+
+**核心假设**：Flow Matching 的 marginal velocity 在多分支条件速度后验混合处可能对单条有限步轨迹不可信。与其缩步精确追踪该平均场，不如拒绝异常 trial、回滚并搜索坏区之后的可信出口，以结构化离散偏置选择更有利的 transport coupling。
+
+**当前状态：存活，机制迁移验证中。**
+
+- ✅ 解析 toy：oracle ambiguity 下，skip + corrector 以约 15–17 NFE 降低粗 Euler endpoint outlier；大 RK4 RMSE 与约 98%–99% branch retention 表明其作用是 coupling change，不是高精度积分。
+- ✅ 真实 backbone：官方 CIFAR-10 1-RF 已跑通 fixed solver、trajectory diagnostics、endpoint ablation、adaptive Heun 与内部大步 probe。
+- ⚠️ 主要混杂：最强数值异常是数据端 boundary layer；不能把避免 $t=1$ 求值当成方法贡献。
+- ❓ 核心未知：内部 velocity return 是否稳定存在；可部署 detector 是否对齐 conditional ambiguity / 状态可信度；完整 solver 是否在等 NFE 下改善分布指标。
+
+**下一关卡**：
+
+1. 扫描 $m\in\{1,2,3,4,6,8\}$ 的 relative velocity change / angle，寻找先升后降的 return pattern；
+2. 用独立种子校准入口与出口阈值；
+3. 实现 rollback + scan + validate + fallback，并逐样本严格记 NFE；
+4. 以 midpoint、RK4、adaptive Heun、shrink-only、无 rollback 大步为等预算基线；
+5. 先 1k 视觉与失败检查，再做 5k × 3 seeds 的 KID、近似 FID、precision/recall、feature OOD。
+
+**Kill 条件**：velocity return 几乎不存在或不可泛化；detector 主要编码时间位置/截断误差；出口验证不能降低 false skip；或完整策略在严格等 NFE、多随机种子下持续不如强基线。
 
 ### [2026-06-18 · 更新 2026-06-29] Energy-guided conditional generation —— 公开文献无 carve，存活仅靠导师在研线
 

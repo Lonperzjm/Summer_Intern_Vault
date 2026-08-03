@@ -5,8 +5,9 @@ aliases: [coupling, transport plan, coupling rewiring, marginal preserving coupl
 tags: [optimal-transport, flow-matching, rectified-flow]
 status: active
 created: 2026-05-26
-updated: 2026-05-26
+updated: 2026-08-03
 sources: ["[[wiki/sources/liuFlowStraightFast2022a]]"]
+evidence: ["[[research/experiments/2026-08-02-reject-and-skip-toy-report]]", "[[research/experiments/2026-08-03-official-1rf-solver-diagnostics]]"]
 ---
 
 # Transport Coupling
@@ -61,10 +62,17 @@ $$\mathbb E[c(Z_1-Z_0)]\le \mathbb E[c(X_1-X_0)].$$
 - 编辑要求"改 $x_T$ 一点点 → $x_0$ 也变一点点"，这是对 coupling **连续性 / 局部性**的需求。
 - RF 视角下，"DDIM inversion 失真"可重表述为"coupling rewiring 的失稳"——给出新的诊断与改进入口（待 thesis 验证）。
 
+## 推理时 Coupling 干预
+
+[[wiki/concepts/reject-and-skip]] 把 coupling 从训练阶段变量进一步扩展为**推理时离散决策变量**。它不要求重新训练 $v_\theta$，而是在检测到局部不可信速度后主动偏离 marginal ODE 的细步 coupling，跨越局部区域并在远端重新接入速度场。
+
+二维解析实验中，这种偏离表现为：相对 RK4 的轨迹误差很大，但 endpoint outlier 降低且人工 conditional branch 基本保留。这说明“保边缘、改 joint”的 coupling 语言不仅能解释 [[wiki/concepts/reflow|reflow]]，也能解释采样器施加的结构化离散偏置。不过真实 CIFAR-10 1-RF 上尚未证明这一偏置改善生成分布，当前仍是待验证机制。
+
 ## 与其他概念的关系
 
 - 框架：[[wiki/methods/rectified-flow]]、[[wiki/concepts/flow-matching]]
 - 操作：[[wiki/concepts/reflow]]（递推 rewire）
+- 推理时干预：[[wiki/concepts/reject-and-skip]]
 - 路径：[[wiki/concepts/optimal-transport-path|OT 路径]]（coupling 给定后再选路径）
 
 ## 出处

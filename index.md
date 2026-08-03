@@ -1,6 +1,6 @@
 ---
 title: Index
-updated: 2026-07-21
+updated: 2026-08-03
 ---
 
 # Index
@@ -126,6 +126,8 @@ SORT updated DESC
 
 ## Synthesis（综述 / open problems）
 
+- [[wiki/synthesis/reject-and-skip-research-direction]] —— 当前实验研究主线
+
 ```dataview
 TABLE title, status, updated
 FROM "wiki/synthesis"
@@ -139,6 +141,15 @@ SORT updated DESC
 - [[research/experiments]]
 - [[research/related_work]]
 - [[research/outline]]
+
+### Experiment Reports
+
+```dataview
+TABLE experiment_id, date, status, experiment_status, project
+FROM "research/experiments"
+WHERE type = "experiment-report"
+SORT date DESC
+```
 
 ### Research Notes（原创分析）
 

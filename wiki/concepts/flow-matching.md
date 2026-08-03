@@ -5,8 +5,9 @@ aliases: [Flow Matching, FM, 流匹配]
 tags: [flow-matching, cnf, generative-model, ode]
 status: active
 created: 2026-05-24
-updated: 2026-06-01
-sources: ["[[wiki/sources/lipmanFlowMatchingGenerative2023]]", "[[wiki/sources/liuFlowStraightFast2022a]]", "[[wiki/sources/zhouDenoisingDiffusionBridge2023]]", "[[wiki/sources/2502.17436-towards-hierarchical-rectified-flow]]", "[[wiki/sources/chaTrainingFreeRefinementFlow2026]]"]
+updated: 2026-08-03
+sources: ["[[wiki/sources/lipmanFlowMatchingGenerative2023]]", "[[wiki/sources/liuFlowStraightFast2022a]]", "[[wiki/sources/zhouDenoisingDiffusionBridge2023]]", "[[wiki/sources/2502.17436-towards-hierarchical-rectified-flow]]", "[[wiki/sources/chaTrainingFreeRefinementFlow2026]]", "[[wiki/sources/shaulBespokeSolversGenerative2023]]", "[[wiki/sources/shaulBespokeNonStationarySolvers2024]]", "[[wiki/sources/wangTamingRectifiedFlow2025]]", "[[wiki/sources/bajpaiFastFlowAcceleratingGenerative2026]]", "[[wiki/sources/chenBiAnchorInterpolationSolver2026]]"]
+evidence: ["[[research/experiments/2026-08-02-reject-and-skip-toy-report]]", "[[research/experiments/2026-08-03-official-1rf-solver-diagnostics]]"]
 ---
 
 # Flow Matching（FM）
@@ -69,3 +70,11 @@ $$\frac{\partial p_t}{\partial t}+\nabla\!\cdot(p_t v_t)=0,$$
 - **速度平均化与推理时修正**：
   - [[wiki/sources/2502.17436-towards-hierarchical-rectified-flow|HRF（Zhang et al. 2025）]]：在 velocity space 再跑一层 RF 学加速度，training-based 路线，代价大且高维收益低
   - [[wiki/sources/chaTrainingFreeRefinementFlow2026|FDS（Cha et al. 2026）]]：用 $\nabla_x \cdot u_\theta$ 做 discrepancy proxy，inference-time spatial refinement，training-free plug-and-play，直接超过 HRF
+  - [[wiki/concepts/reject-and-skip]]：研究中的 inference-time temporal coupling intervention；检测局部不可信 trial 后回滚并搜索远端可信出口。二维 oracle toy 支持机制存在性，但官方 1-RF 上尚未完成非 oracle 机制验证与等 NFE 分布评测
+- **ODE solver 改进谱系**（详见 [[wiki/concepts/ode-solver-taxonomy]]）：FM 第 3 条优点"用现成 ODE solver"后续被大量工作精炼——
+  - [[wiki/sources/shaulBespokeSolversGenerative2023|Bespoke Solver（2023）]]：scale-time 变换参数化，~80 params 离线优化
+  - [[wiki/sources/shaulBespokeNonStationarySolvers2024|BNS（2024）]]：Non-Stationary solver 族，严格超集前作，<200 params；证明经典 RK/DDIM/指数积分器都是其特例
+  - [[wiki/sources/wangTamingRectifiedFlow2025|RF-Solver（2025）]]：training-free 二阶 Taylor 展开，误差 $O(h^2) \to O(h^3)$，面向 inversion 和 editing
+  - [[wiki/sources/bajpaiFastFlowAcceleratingGenerative2026|FastFlow（2026）]]：有限差分 velocity 外推 + UCB bandit 选跳步长度，training-free 自适应省 NFE
+  - [[wiki/sources/chenBiAnchorInterpolationSolver2026|BA-solver（Chen et al. 2026）]]：冻结 backbone + 轻量 SideNet（~6M params）做区间内速度插值 + 双 anchor + Gauss–Lobatto 求积，7 NFE FID 1.96（ImageNet-256）；属"learnt velocity interpolator"新档
+  - 这些 solver 改进都不处理速度平均化问题——它们假设 $v_\theta$ 本身正确，只优化离散化方案或计算分配

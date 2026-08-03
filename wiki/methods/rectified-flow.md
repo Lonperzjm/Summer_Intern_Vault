@@ -5,8 +5,9 @@ aliases: [Rectified Flow, rectified flow, RF, "Liu et al. 2022"]
 tags: [flow-matching, ode, rectified-flow, sampling-acceleration]
 status: active
 created: 2026-05-24
-updated: 2026-07-27
-sources: ["[[wiki/sources/liuFlowStraightFast2022a]]", "[[wiki/sources/lipmanFlowMatchingGenerative2023]]", "[[wiki/sources/zhouDenoisingDiffusionBridge2023]]", "[[wiki/sources/labsFLUX1KontextFlow2025]]", "[[wiki/sources/2502.17436-towards-hierarchical-rectified-flow]]"]
+updated: 2026-08-03
+sources: ["[[wiki/sources/liuFlowStraightFast2022a]]", "[[wiki/sources/lipmanFlowMatchingGenerative2023]]", "[[wiki/sources/zhouDenoisingDiffusionBridge2023]]", "[[wiki/sources/labsFLUX1KontextFlow2025]]", "[[wiki/sources/2502.17436-towards-hierarchical-rectified-flow]]", "[[wiki/sources/wangTamingRectifiedFlow2025]]", "[[wiki/sources/bajpaiFastFlowAcceleratingGenerative2026]]", "[[wiki/sources/chenBiAnchorInterpolationSolver2026]]"]
+evidence: ["[[research/experiments/2026-08-03-official-1rf-solver-diagnostics]]"]
 family: flow-matching
 ---
 
@@ -65,6 +66,16 @@ family: flow-matching
 ## 变体与扩展
 
 - **[[wiki/sources/2502.17436-towards-hierarchical-rectified-flow|Hierarchical Rectified Flow（HRF）]]**（Zhang et al. 2025, ICLR'25）：不学期望速度，而是在 velocity space 再跑一层 RF（学加速度），用嵌套耦合 ODE 捕捉完整的多模态速度分布。轨迹可交叉、更直，低 NFE 区间有优势；但输入维度翻倍导致参数量增大，且仅在 32×32 分辨率验证。与 reflow 正交（reflow 拉直同层 ODE，HRF 加深层级）
+
+## RF 上的 Solver 改进
+
+以下方法不改 RF 模型本身，只改如何求解 RF 的 ODE（详见 [[wiki/concepts/ode-solver-taxonomy]]）：
+
+- **[[wiki/sources/wangTamingRectifiedFlow2025|RF-Solver]]**（Wang et al. 2025, ICML）：利用 RF ODE 的精确积分形式，二阶 Taylor 展开近似非线性余项，误差从 $O(h^2)$ 降到 $O(h^3)$。Training-free，每步多一次 NFE。附带 **RF-Edit**（self-attention Value sharing）做结构保持编辑。专门面向 RF 参数化，在 FLUX / OpenSora 上验证
+- **[[wiki/sources/bajpaiFastFlowAcceleratingGenerative2026|FastFlow]]**（Bajpai et al. 2026, ICLR）：利用 RF 轨迹接近直线（velocity 变化小）的特性，用有限差分外推跳过平滑区间，UCB bandit 在线选跳步长度。50-step 基线约 2.65× 加速。注意：bandit 不是 instance-aware（不感知当前 $x_t$），实质是 dataset-level skip policy
+- **[[wiki/sources/shaulBespokeSolversGenerative2023|Bespoke Solver]]** / **[[wiki/sources/shaulBespokeNonStationarySolvers2024|BNS]]**（Shaul et al. 2023/2024）：虽非 RF 专用，但适用于 RF 模型。BNS 的 Non-Stationary solver 族证明包含 RK / DDIM / 指数积分器所有经典方案，<200 params 离线优化
+- **[[wiki/sources/chenBiAnchorInterpolationSolver2026|BA-solver]]**（Chen et al. 2026, ICML）：冻结 backbone，旁加 SideNet（~6M params）做区间内速度插值 + 双 anchor + Gauss–Lobatto 求积。实验底座为 REPA+SiT（RF 变体），7 NFE FID 1.96（ImageNet-256），5 NFE 即可用。训练代价极低（250 iter），属"learnt velocity interpolator"新档
+- **[[wiki/concepts/reject-and-skip]]**（研究中）：官方 CIFAR-10 1-RF 已建立 midpoint/RK4/adaptive Heun 与 endpoint ablation 基线。其目标不是更准确地积分 RF ODE，而是在检测到局部不可信速度后主动跨区并改变 coupling；真实模型上的分布收益仍未知
 
 ## 待补 / 开放
 

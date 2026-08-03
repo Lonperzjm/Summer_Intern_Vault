@@ -5,8 +5,8 @@ aliases: [Lipman, Y. Lipman, Yaron Lipman]
 tags: [researcher]
 status: stable
 created: 2026-05-24
-updated: 2026-07-24
-sources: ["[[wiki/sources/lipmanFlowMatchingGenerative2023]]"]
+updated: 2026-07-31
+sources: ["[[wiki/sources/lipmanFlowMatchingGenerative2023]]", "[[wiki/sources/shaulBespokeSolversGenerative2023]]", "[[wiki/sources/shaulBespokeNonStationarySolvers2024]]"]
 kind: person
 ---
 
@@ -19,10 +19,12 @@ kind: person
 ## 关键贡献 / 关键工作
 
 - [[wiki/sources/lipmanFlowMatchingGenerative2023|Flow Matching for Generative Modeling]]（Lipman et al. 2023, ICLR）—— 一作；提出 [[wiki/concepts/flow-matching|FM]] / [[wiki/concepts/conditional-flow-matching|CFM]] 与 [[wiki/concepts/optimal-transport-path|OT 路径]]
+- [[wiki/sources/shaulBespokeSolversGenerative2023|Bespoke Solvers for Generative Flow Models]]（Shaul et al. 2023, ICLR 2024）—— 资深作者；scale-time 变换参数化 solver，证明搜索空间=所有 Gaussian path
+- [[wiki/sources/shaulBespokeNonStationarySolvers2024|Bespoke Non-Stationary Solvers]]（Shaul et al. 2024, ICML）—— 资深作者；Non-Stationary solver 族，<200 params 离线优化，证明包含所有经典 ODE solver
 
 ## 关系网
 
-- 合作者：[[wiki/entities/ricky-chen|Ricky T. Q. Chen]]、Heli Ben-Hamu、Maximilian Nickel、Matt Le
+- 合作者：[[wiki/entities/ricky-chen|Ricky T. Q. Chen]]、Neta Shaul、Heli Ben-Hamu、Maximilian Nickel、Matt Le
 - 机构：[[wiki/entities/meta-ai-fair]]、Weizmann Institute of Science
 
 ## 备注

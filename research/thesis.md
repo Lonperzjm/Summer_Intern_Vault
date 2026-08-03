@@ -3,14 +3,41 @@ type: research
 title: 论文 Thesis 演化
 status: draft
 created: 2026-05-05
-updated: 2026-06-18
+updated: 2026-08-03
 ---
 
 # Thesis
 
 <!-- 我的论文核心论点。在阅读中演化，由 Claude Code 协助维护，每次改动必须经过我确认。 -->
 
-## 当前版本（v0.1 草稿 · 2026-06-01 · ⚠️ 待用户精修 · 🔁 方向复审中 2026-06-18）
+## 当前版本（v0.2 草稿 · 2026-08-03 · Reject-and-Skip）
+
+> 本版本由用户确认以两份实验报告作为当前研究方向后写入。完整证据链见 [[wiki/synthesis/reject-and-skip-research-direction]]，正式实验记录见 [[research/experiments]]。
+
+**研究问题**：在 Flow Matching / Rectified Flow 的 marginal velocity 因多分支条件速度平均而局部不可信时，能否通过非 oracle detector 识别该区域，执行 `trial → reject/rollback → scan → validate/correct → fallback`，以推理时结构化离散偏置主动改变 transport coupling，并在严格相同 NFE 下改善生成分布与失败尾部？
+
+**核心论点（当前工作假设）**：
+
+1. Flow Matching 的最优边缘速度 $v(x,t)=\mathbb E[u_t\mid X_t=x]$ 在分布层面正确，不保证它对有限 NFE 的单条轨迹始终是可信的 sample-wise transport direction。
+2. 传统 ODE solver 以逼近 marginal ODE 为目标；[[wiki/concepts/reject-and-skip]] 则把局部异常视为 coupling intervention 的机会：回滚并搜索异常区之后的可信出口，而不是只缩步解析坏场。
+3. 2D oracle toy 已给出机制层存在性证据：skip 可显著偏离 RK4，同时降低粗 Euler 的 endpoint outlier 并保留人工 conditional branch。这支持“分布质量、ODE 精度、coupling 行为必须分开评价”。
+4. 官方 CIFAR-10 1-RF 已建立真实模型 backbone、数值诊断与强 baseline，但尚未证明内部困难来自 conditional ambiguity，也尚未证明 skip 改善生成分布。因此当前贡献仍处于**机制迁移验证阶段**。
+
+**预期贡献（若后续实验成立）**：
+
+- 一个低额外 NFE 的非 oracle 状态可信度 detector 与 velocity-return 出口搜索；
+- 一个包含 rollback、exit validation 和失败回退的 instance-aware inference solver；
+- 一套明确区分 ODE accuracy、endpoint distribution 与 sample-wise coupling 的评测协议；
+- 在固定 RF backbone、相同总 NFE 下，相对 midpoint/RK4/adaptive Heun/shrink-only 的稳定分布收益。
+
+**诚实边界**：
+
+- Endpoint boundary layer 不能作为主要机制证据；midpoint 已能以标准方法避免精确 $t=1$ 查询。
+- Velocity angle、Euler–Heun defect 和 step-doubling 当前只被证明能预测局部数值误差，未被证明能识别 conditional ambiguity。
+- Toy 使用 oracle 分支信息且样本量有限，不能直接外推到高维神经模型。
+- Reference RMSE 只记录 coupling change；论文级成功必须由多随机种子、严格等 NFE 的 FID/KID、precision/recall、feature OOD 与重尾失败支持。
+
+## 历史版本 v0.1（2026-06-01 · Bridge-SDE · 后于 2026-08-03 被 v0.2 取代）
 
 > 本节由 ingest [[wiki/sources/zhouDenoisingDiffusionBridge2023|DDBM]] 后、用户确定"立 bridge-SDE 为方向"（选项 B）时起草，是 thesis.md 的**首个实质版本**。措辞和押注力度请你自己校准。
 
@@ -33,3 +60,4 @@ updated: 2026-06-18
 <!-- 每次 thesis 更新前的版本归档于此，便于回看。 -->
 
 - v0（2026-05-05 → 2026-06-01）：空占位"待 ingest 后定稿"。
+- v0.1（2026-06-01 → 2026-08-03）：bridge-SDE inversion/editing；prior-art sweep 后方向复审，随后被 reject-and-skip 的实验主线取代。

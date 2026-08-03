@@ -38,7 +38,10 @@ wiki/
 research/
   thesis.md         # 论文核心 thesis 演化
   ideas.md          # 候选 idea 池
-  experiments.md    # 实验记录
+  experiments.md    # 实验索引与结论范围摘要；不复制完整指标
+  experiments/      # 每个实验一份 canonical 完整报告（YYYY-MM-DD-<slug>.md）
+  assets/
+    experiments/    # 实验报告正文实际引用的少量成稿图
   related_work.md   # related work 草稿（引用 wiki，不复制）
   outline.md        # paper outline 草稿
 
@@ -49,6 +52,15 @@ reports/            # 汇报层（§9）：LLM 可维护，状态台账与 confi
   meetings/         # 面向交流的会议简报，不是实验真相源
   blockers/         # Blocker 报告（YYYY-MM-DD-<slug>.md）
 ```
+
+### 2.1 Vault 内容卫生
+
+本仓库是知识与科研写作 Vault，不是实验代码仓库或 artifact 镜像。
+
+- **允许进入 Vault**：Markdown 笔记与报告、论文 PDF、文献笔记、周报/会议记录、必要办公文档，以及报告正文实际引用的少量成稿 PNG/PDF 图。
+- **禁止进入 Vault**：源码副本、`runs/`、checkpoint/模型权重、环境目录、缓存、日志、批量 CSV/JSON、完整实验输出目录和临时文件。
+- 实验代码、配置、逐样本指标与完整 artifact 留在外部实验仓库或服务器；Vault 报告用 `code_repo`、`code_commit`、`artifact_locations` 记录 provenance。拿不到 commit 时明确写 `unknown`，不得编造。
+- 成稿图存入 `research/assets/experiments/<slug>/`；只复制报告正文实际展示的图，不复制其生成脚本或上游数据。
 
 ## 3. 命名与写作规范
 
@@ -77,6 +89,7 @@ sources: ["[[sources/instructpix2pix]]"]   # 仅 wiki 页用，列出该页所�
 - `status` 含义：`draft` 初稿；`active` 正在阅读相关文献中持续更新；`stable` 暂时稳定；`stale` 已被新源推翻或过时
 - 链接一律用 Obsidian wikilink：`[[concepts/score-matching]]`，便于 Graph view 与反链
 - **`source` 类型页例外**：source 页本身即「源」，**不用 `sources:` 字段**；改用 `raw:` 指向原始资料（`[[raw/...]]`），并附书目字段 `authors / venue / year / arxiv`。`sources:` 仅用于 `concept / method / entity / benchmark / comparison / synthesis` 等非 source 页，列出其所依赖的 source 页
+- Wiki 页可额外使用 `evidence: ["[[research/experiments/...]]"]`，只引用 `status: confirmed` 的内部实验报告。`sources:` 继续只表示外部资料经 ingest 后形成的 `wiki/sources/` 页，不得混入内部实验报告。
 
 ## 5. Ingest 工作流（用户："ingest <path>"）
 
@@ -156,7 +169,53 @@ re-import 已 ingest 过的文献后的快速修复命令。**不是新 ingest**
 
 - LLM 可读 `research/`，写入前必须征得用户确认
 - `related_work.md` 必须用 wikilink 引用 `wiki/`，**不允许**把 wiki 内容复制粘贴进来（保持单一事实源）
-- `experiments.md` 由用户主导记录，LLM 仅协助格式化与交叉引用
+- `research/experiments/<date>-<slug>.md` 是单个实验详细事实与结论的唯一来源；`research/experiments.md` 只保留索引、状态、结论范围和 canonical 报告链接，不复制详细指标
+- 原创实验报告属于 Research，不放入 `raw/`，也不放入面向沟通的 `reports/`。外部论文/博客的实验报告仍按其资料类型进入 `raw/papers/` 或 `raw/articles/`
+- 内部实验报告不创建一对一 `wiki/sources/` 页；只有可跨实验复用的概念、方法和综合洞察进入 Wiki，并用 `evidence:` 指回 confirmed 报告
+
+### 8.1 实验报告 Frontmatter
+
+每份 `research/experiments/*.md` 使用：
+
+```yaml
+---
+type: experiment-report
+experiment_id: EXP-YYYYMMDD-<slug>
+title: 实验标题
+project: project-slug
+date: YYYY-MM-DD
+status: draft | confirmed | superseded
+experiment_status: planned | running | attempted | completed | blocked | dropped
+created: YYYY-MM-DD
+updated: YYYY-MM-DD
+tags: []
+code_repo: /external/path/or/url
+code_commit: <commit-or-unknown>
+artifact_locations: []
+supersedes:
+---
+```
+
+- `status` 描述文档生命周期；`experiment_status` 描述实验执行状态，不得混用。
+- `experiment_id` 永不复用。文件名使用 `YYYY-MM-DD-<slug>.md`；修改核心指标或结论时新建修订报告，并用 `supersedes` 指向旧报告。
+- `confirmed` 报告只能修正文案、链接和 provenance。若核心指标、设置或结论改变，旧报告标 `superseded`，不得静默改写历史。
+
+### 8.2 `report experiment <材料或 slug>`
+
+1. 用户发出该命令即授权创建或更新对应 draft；其他情形写入 Research 仍需单独确认。
+2. 阅读相关 worklog、已有研究笔记、外部报告和 artifact locator；不得把代码或运行目录复制进 Vault。
+3. 先列出证据缺口与待确认项，再按 `templates/experiment-report.md` 生成报告。
+4. 对内容统一标记 `observation / hypothesis / conclusion / decision / unknown`；失败实验保留，根因不足时明确写 unknown。
+5. 只复制正文实际展示的成稿图到 `research/assets/experiments/<slug>/`；CSV/JSON/日志/脚本仅记录外部 locator。
+6. Draft 不更新 thesis，不向 Wiki 提升结论，也不写 `log.md`。
+
+### 8.3 `confirm experiment <experiment_id>`
+
+1. 校验设置、指标来源、seed、checkpoint、代码位置、commit、artifact locator、图片链接和结论边界；缺失字段写 `unknown`，不得猜测。
+2. 用户确认后将文档状态改为 `confirmed`，并更新 `research/experiments.md` 索引。
+3. 只把可复用概念、方法或跨实验结论更新到 Wiki；相关页用 `evidence:` 引用该报告，不创建内部实验 `wiki/sources` 页。
+4. 对 `research/thesis.md` / `research/ideas.md` 的方向级改动先展示 diff，获得用户确认后执行。
+5. Append `log.md`：`## [YYYY-MM-DD] experiment | <experiment_id> confirmed`，列出报告、索引、精选图和 Wiki 更新；draft 不写日志。
 
 ## 9. Report 工作流（科研汇报体系）
 
@@ -164,11 +223,11 @@ re-import 已 ingest 过的文献后的快速修复命令。**不是新 ingest**
 
 ### 9.0 通用约束
 
-- **状态与证据分离**：`raw/worklogs/` 是用户记录的事实证据（LLM 只读）；`reports/state.md` 是任务/Blocker/风险/待决策的**唯一状态源**；`reports/weekly/` 是时间切片；`reports/meetings/` 是交流简报；正式实验结论只归 `research/experiments.md`，周报只能引用或提出待回填项。
+- **状态与证据分离**：`raw/worklogs/` 是用户记录的原始事实证据（LLM 只读）；`research/experiments/` 是完整实验报告事实源，`research/experiments.md` 是实验索引；`reports/state.md` 是任务/Blocker/风险/待决策的**唯一状态源**；`reports/weekly/` 是时间切片；`reports/meetings/` 是交流简报。周报只能引用 confirmed 实验报告或提出待回填项。
 - **工作状态**统一使用：`completed` / `in-progress` / `attempted` / `blocked` / `planned` / `dropped`，不允许混用。"阅读了""调试了""思考了"默认不是 `completed`，除非产生明确交付物。
 - **结论强度**统一标记：`observation` / `hypothesis` / `conclusion` / `decision` / `unknown`。不得把 observation 自动升级成 conclusion，也不得把 hypothesis 写成事实。
 - **事实约束**：不编造实验、指标、时间、commit、路径、导师意见或完成状态；无证据写"待补充"；不得从文件修改时间推断工作完成。"完成"必须同时满足：有交付物、有验收标准、当前证据显示标准已达到。失败实验必须保留但不强行给根因；结论必须带边界；求助项必须可回答（背景/尝试/选项/倾向/希望对方决定什么）；下周计划必须含交付物与验收标准（"继续调研/继续优化"不是合格任务）。
-- **单一事实源**：实验事实 → `research/experiments.md`；当前任务状态 → `reports/state.md`；历史周报 → `reports/weekly/`；知识结论 → `wiki/`；Vault 操作历史 → `log.md`。周报可引用但不得成为唯一归档位置。
+- **单一事实源**：单个实验事实 → `research/experiments/<date>-<slug>.md`；实验目录 → `research/experiments.md`；当前任务状态 → `reports/state.md`；历史周报 → `reports/weekly/`；知识结论 → `wiki/`；Vault 操作历史 → `log.md`。周报可引用但不得成为唯一归档位置。
 - **`state.md` ID 规则**：任务 `T-YYYYMMDD-NN`、Blocker `B-YYYYMMDD-NN`、风险 `R-YYYYMMDD-NN`、决策 `D-YYYYMMDD-NN`。已有 ID 永不重编号；关闭项在 Recently Closed 保留至少四周，再由用户确认是否归档。
 - **Frontmatter** 以 `templates/{daily-worklog, weekly-report, blocker-report, meeting-brief}.md` 为准（type 分别为 `worklog` / `weekly-report` / `blocker` / `meeting-brief`）。
 
@@ -183,7 +242,7 @@ re-import 已 ingest 过的文献后的快速修复命令。**不是新 ingest**
 5. 实验内容区分 observation / hypothesis / conclusion / decision / unknown。
 6. 先输出"证据缺口与待确认项"，再生成 draft 周报。
 7. 未经用户确认：可写 `reports/weekly/<YYYY-Www>.md` 但 `status` 必须为 `draft`；**不**更新 `state.md`；**不**修改 `research/`。
-8. 用户确认后：周报改 `confirmed`；用"下周承诺、Blocker、风险、待决策"更新 `state.md`；发现正式实验记录缺失时只列建议 patch，确认后再改 `research/experiments.md`；append `log.md`：`## [YYYY-MM-DD] report | YYYY-Www confirmed`。
+8. 用户确认后：周报改 `confirmed`；用"下周承诺、Blocker、风险、待决策"更新 `state.md`；发现正式实验报告缺失时只列建议报告/索引 patch，确认后再改 `research/experiments/` 与 `research/experiments.md`；append `log.md`：`## [YYYY-MM-DD] report | YYYY-Www confirmed`。
 
 ### 9.2 `report blocker <问题或路径>`
 
@@ -208,7 +267,7 @@ re-import 已 ingest 过的文献后的快速修复命令。**不是新 ingest**
 
 ### 9.5 `report sync`
 
-对 `raw/worklogs/`、最近周报和 `state.md` 做一致性检查，**只输出整改清单，不直接修改**：周报提到但 state 缺失的活跃任务；state 标 completed 但无证据的任务；到期后无状态更新的任务；已解决但仍标 active 的 Blocker；正式实验结论尚未进入 `research/experiments.md` 的候选项；会议决定尚未转成任务或 decision 的事项。用户确认后才执行批量同步。
+对 `raw/worklogs/`、最近周报和 `state.md` 做一致性检查，**只输出整改清单，不直接修改**：周报提到但 state 缺失的活跃任务；state 标 completed 但无证据的任务；到期后无状态更新的任务；已解决但仍标 active 的 Blocker；正式实验尚无 canonical report 或未进入 `research/experiments.md` 索引的候选项；会议决定尚未转成任务或 decision 的事项。用户确认后才执行批量同步。
 
 ## 10. 日志格式
 
@@ -220,7 +279,7 @@ re-import 已 ingest 过的文献后的快速修复命令。**不是新 ingest**
 - updated: wiki/...
 ```
 
-`op` ∈ {`init`, `ingest`, `query`, `lint`, `refactor`, `thesis-update`, `report`}。
+`op` ∈ {`init`, `ingest`, `query`, `lint`, `refactor`, `thesis-update`, `experiment`, `report`}。
 
 `report` op 仅在以下情形写日志：confirmed 周报、已确认的 Blocker 关闭、重大 reporting schema 变更；**draft 不写**。
 
@@ -240,5 +299,12 @@ re-import 已 ingest 过的文献后的快速修复命令。**不是新 ingest**
 - [ ] confirmed 周报与 `reports/state.md` 已同步
 - [ ] 不存在未说明的上期承诺消失
 - [ ] 未经确认没有修改 `research/`
+
+每次写完 experiment report 后追加自检：
+- [ ] frontmatter 完整，`experiment_id` 唯一，文档状态与实验状态未混用
+- [ ] `research/experiments.md` 只做索引，没有复制详细指标
+- [ ] `evidence:` 只指向存在且 `confirmed` 的内部实验报告
+- [ ] 本地成稿图链接有效；代码、运行数据和完整 artifact 仅使用外部 locator
+- [ ] 未引入源码、`runs/`、checkpoint、环境、缓存、日志或批量 CSV/JSON
 
 不满足时回填，再向用户报告完成。

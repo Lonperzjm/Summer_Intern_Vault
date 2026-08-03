@@ -13,6 +13,8 @@
 - `research/`：你自己的论文进展（thesis、实验、outline），LLM 协助但不擅自改
 - `reports/`：科研汇报层（状态台账 + 周报 + Blocker + 组会简报），LLM 生成 draft、你确认后定稿；入口见 [reports/dashboard.md](reports/dashboard.md)
 
+本 Vault 只保存知识与科研写作内容。代码、`runs/`、checkpoint、环境、缓存、日志和批量实验产物留在外部实验仓库；实验报告只保留正文与实际引用的少量成稿图。
+
 工作流契约写在 [CLAUDE.md](CLAUDE.md)，每次会话 Claude Code 会自动加载。
 
 ---
@@ -33,6 +35,14 @@ query: 现有 text-guided editing 方法在保真度-可控性 trade-off 上的�
 update working thesis based on 最近一周 ingest 的源
 lint wiki
 ```
+
+## 实验报告
+
+- 完整原创实验报告放在 `research/experiments/YYYY-MM-DD-<slug>.md`，使用 `templates/experiment-report.md`。
+- `research/experiments.md` 只是实验目录，不重复完整设置和指标。
+- 说 `report experiment <材料或 slug>` 生成 draft；说 `confirm experiment <experiment_id>` 完成证据检查并确认。
+- 精选成稿图放 `research/assets/experiments/<slug>/`；代码、CSV/JSON、日志和完整运行目录只记录外部 locator。
+- Wiki 只吸收可复用洞察，并通过 `evidence:` 引用 confirmed 实验报告，不为内部实验建立 `wiki/sources` 页。
 
 ---
 
@@ -94,7 +104,7 @@ report sync
 要点：
 - `reports/state.md` 是任务/Blocker/风险/待决策的**唯一状态源**；周报是时间切片，不是最新状态
 - Claude 只能写 draft；`confirmed` 周报、state 更新、`research/` 改动都需要你确认
-- 正式实验结论只归 `research/experiments.md`；周报只引用
+- 完整实验事实归 `research/experiments/<date>-<slug>.md`，`research/experiments.md` 只做索引；周报只引用 confirmed 报告
 
 ---
 
@@ -106,6 +116,8 @@ report sync
 | 批量 ingest | `ingest 全部未处理的 raw/papers/*`                                           |
 | 查询 + 归档   | `query: <问题>，答完归档为 comparison`                                         |
 | 更新 thesis | `根据 wiki/synthesis 的最新内容更新 wiki/overview.md 的 working thesis，diff 给我看` |
+| 实验报告 draft | `report experiment <材料或 slug>` |
+| 确认实验报告 | `confirm experiment <experiment_id>` |
 | 健康检查      | `lint wiki`                                                            |
 | 调整 schema | `我们以后把每个 method 页都加一个"failure modes"小节，更新 CLAUDE.md`                   |
 

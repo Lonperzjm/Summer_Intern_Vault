@@ -3,7 +3,7 @@ type: source
 title: "Scalable Diffusion Models with Transformers (DiT)"
 aliases: [DiT, "Peebles & Xie 2023", peeblesScalableDiffusionModels2023]
 tags: [diffusion, transformer, architecture, scaling, class-conditional]
-status: draft
+status: active
 created: 2026-07-24
 updated: 2026-07-24
 raw: "[[raw/literature-notes/peeblesScalableDiffusionModels2023]]"

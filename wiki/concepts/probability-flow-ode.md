@@ -5,8 +5,8 @@ aliases: [probability flow ODE, PF-ODE, 概率流 ODE, 确定性采样 ODE]
 tags: [diffusion, sde, sampling, ode, score-based]
 status: active
 created: 2026-05-20
-updated: 2026-06-01
-sources: ["[[wiki/sources/songScoreBasedGenerativeModeling2021]]", "[[wiki/sources/liuFlowStraightFast2022a]]", "[[wiki/sources/zhouDenoisingDiffusionBridge2023]]", "[[wiki/sources/zhengDiffusionBridgeImplicit2025]]"]
+updated: 2026-07-31
+sources: ["[[wiki/sources/songScoreBasedGenerativeModeling2021]]", "[[wiki/sources/liuFlowStraightFast2022a]]", "[[wiki/sources/zhouDenoisingDiffusionBridge2023]]", "[[wiki/sources/zhengDiffusionBridgeImplicit2025]]", "[[wiki/sources/shaulBespokeNonStationarySolvers2024]]"]
 ---
 
 # Probability-Flow ODE
@@ -43,6 +43,16 @@ $$\tilde f(x,t) = f(x,t) - \tfrac12 g(t)^2\nabla_x\log p_t(x).$$
 - **速度场本质**：PF-ODE 的速度场 $f-\tfrac12 g^2\nabla\log p$ 是**保守场**（VE/VP 下均可验证），而 [[wiki/concepts/flow-matching|FM]] 的速度场一般非保守——这是 PF-ODE 与 FM-ODE"同为确定性 ODE 却不等价"的根源，详见 [[wiki/comparisons/score-vs-velocity-field]]
 - **桥版 PF-ODE（[[wiki/methods/ddbm|DDBM]]）**：钉死终点 $x_T=y$ 后，桥也有自己的确定性 PF-ODE（[[wiki/sources/zhouDenoisingDiffusionBridge2023|Zhou et al. 2023]] 公式 7）$\mathrm dx_t=[f-g^2(\tfrac12 s-h)]\mathrm dt$，含 [[wiki/concepts/doob-h-transform|Doob h]] 项 $h$；但 DDBM 实测**纯 ODE 采样会糊**（确定性给"平均"路径），需注入 stochasticity——印证"桥的多样性靠 SDE 的随机性"
 - **桥的隐式 ODE（[[wiki/methods/dbim|DBIM]]）**：[[wiki/sources/zhengDiffusionBridgeImplicit2025|Zheng et al. 2025]] 用[[wiki/concepts/non-markovian-diffusion|非马尔可夫]]桥诱导一条**新形式的桥 ODE**（$\rho{=}0$），并解决了 DDBM 纯 ODE 的初始步奇异（**booting noise**）。于是确定性桥采样不再糊、反而 25× 加速，且 $\rho{=}0$ ODE 的**双向确定性**让桥也获得 encoding/reconstruction（= bridge 版 DDIM inversion）——补上了 DDBM 缺的"确定可逆"
+
+## ODE 离散化与 solver 改进
+
+PF-ODE 和 FM-ODE 的实际采样都依赖数值离散化。solver 改进谱系（详见 [[wiki/concepts/ode-solver-taxonomy]]）可分三层：
+
+1. **通用数值法**：Euler、Heun、RK4、Adams-Bashforth——不利用 ODE 的特殊结构
+2. **结构感知 solver**：DPM-Solver（利用半线性结构做指数积分）、[[wiki/sources/wangTamingRectifiedFlow2025|RF-Solver]]（利用 RF 参数化做 Taylor 展开）
+3. **模型专用可学 solver**：[[wiki/sources/shaulBespokeSolversGenerative2023|Bespoke Solver]] / [[wiki/sources/shaulBespokeNonStationarySolvers2024|BNS]]（针对特定模型离线优化 solver 系数，<200 params）
+
+这些 solver 都在"速度场正确"的假设下优化离散化精度，不处理速度场本身的多模态平均化问题。
 
 ## 在 text-guided editing 中的作用
 

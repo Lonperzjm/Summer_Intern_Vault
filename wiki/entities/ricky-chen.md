@@ -5,8 +5,8 @@ aliases: [Ricky Chen, R. Chen, Ricky T. Q. Chen]
 tags: [researcher]
 status: stable
 created: 2026-05-24
-updated: 2026-07-24
-sources: ["[[wiki/sources/lipmanFlowMatchingGenerative2023]]"]
+updated: 2026-07-31
+sources: ["[[wiki/sources/lipmanFlowMatchingGenerative2023]]", "[[wiki/sources/shaulBespokeSolversGenerative2023]]", "[[wiki/sources/shaulBespokeNonStationarySolvers2024]]"]
 kind: person
 ---
 
@@ -20,10 +20,11 @@ kind: person
 
 - Neural ODE（Chen et al. 2018）—— [[wiki/concepts/continuous-normalizing-flow|CNF]] 与 instantaneous change of variables 的提出
 - [[wiki/sources/lipmanFlowMatchingGenerative2023|Flow Matching]]（2023）—— 合作者
+- [[wiki/sources/shaulBespokeSolversGenerative2023|Bespoke Solvers]]（2023）/ [[wiki/sources/shaulBespokeNonStationarySolvers2024|BNS]]（2024）—— 合作者；FM/diffusion 模型的专用 solver 优化
 
 ## 关系网
 
-- 合作者：[[wiki/entities/yaron-lipman|Yaron Lipman]]、Heli Ben-Hamu、Maximilian Nickel、Matt Le
+- 合作者：[[wiki/entities/yaron-lipman|Yaron Lipman]]、Neta Shaul、Heli Ben-Hamu、Maximilian Nickel、Matt Le
 - 机构：[[wiki/entities/meta-ai-fair]]
 
 ## 备注

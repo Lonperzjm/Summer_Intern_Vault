@@ -66,10 +66,10 @@ $$\mathcal{L}_{\text{bes}}(\theta) = \mathbb{E}_{x_0 \sim p(x_0)} \sum_{i=1}^n M
 
 ## 关系
 
-- 与 [[concepts/flow-matching]]：直接为 FM 模型设计专用 solver
-- 与 [[wiki/sources/2206.00927-dpm-solver]]（如有）：Bespoke 统一覆盖 DPM-Solver 系的手工 schedule 设计，且自动找到更优解
+- 与 [[wiki/concepts/flow-matching]]：直接为 FM 模型设计专用 solver
+- 与 DPM-Solver（Lu et al. 2022, arXiv 2206.00927；待 ingest）：Bespoke 统一覆盖 DPM-Solver 系的手工 schedule 设计，且自动找到更优解
 - 与 [[wiki/sources/chaTrainingFreeRefinementFlow2026]]（FDS）：Bespoke 是全局离线优化，FDS 是在线 spatial shift——正交
-- 与 [[concepts/rectified-flow]]：Theorem 2.3 表明 Bespoke 搜索空间等价于搜索所有 Gaussian path
+- 与 [[wiki/methods/rectified-flow]]：Theorem 2.3 表明 Bespoke 搜索空间等价于搜索所有 Gaussian path
 
 ## 对我的 thesis 的启示
 
