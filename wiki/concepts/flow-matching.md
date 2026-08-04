@@ -5,8 +5,8 @@ aliases: [Flow Matching, FM, 流匹配]
 tags: [flow-matching, cnf, generative-model, ode]
 status: active
 created: 2026-05-24
-updated: 2026-08-03
-sources: ["[[wiki/sources/lipmanFlowMatchingGenerative2023]]", "[[wiki/sources/liuFlowStraightFast2022a]]", "[[wiki/sources/zhouDenoisingDiffusionBridge2023]]", "[[wiki/sources/2502.17436-towards-hierarchical-rectified-flow]]", "[[wiki/sources/chaTrainingFreeRefinementFlow2026]]", "[[wiki/sources/shaulBespokeSolversGenerative2023]]", "[[wiki/sources/shaulBespokeNonStationarySolvers2024]]", "[[wiki/sources/wangTamingRectifiedFlow2025]]", "[[wiki/sources/bajpaiFastFlowAcceleratingGenerative2026]]", "[[wiki/sources/chenBiAnchorInterpolationSolver2026]]"]
+updated: 2026-08-04
+sources: ["[[wiki/sources/lipmanFlowMatchingGenerative2023]]", "[[wiki/sources/liuFlowStraightFast2022a]]", "[[wiki/sources/zhouDenoisingDiffusionBridge2023]]", "[[wiki/sources/2502.17436-towards-hierarchical-rectified-flow]]", "[[wiki/sources/chaTrainingFreeRefinementFlow2026]]", "[[wiki/sources/shaulBespokeSolversGenerative2023]]", "[[wiki/sources/shaulBespokeNonStationarySolvers2024]]", "[[wiki/sources/wangTamingRectifiedFlow2025]]", "[[wiki/sources/bajpaiFastFlowAcceleratingGenerative2026]]", "[[wiki/sources/chenBiAnchorInterpolationSolver2026]]", "[[wiki/sources/flow-matching-solver-method-taxonomy]]"]
 evidence: ["[[research/experiments/2026-08-02-reject-and-skip-toy-report]]", "[[research/experiments/2026-08-03-official-1rf-solver-diagnostics]]"]
 ---
 
@@ -78,3 +78,4 @@ $$\frac{\partial p_t}{\partial t}+\nabla\!\cdot(p_t v_t)=0,$$
   - [[wiki/sources/bajpaiFastFlowAcceleratingGenerative2026|FastFlow（2026）]]：有限差分 velocity 外推 + UCB bandit 选跳步长度，training-free 自适应省 NFE
   - [[wiki/sources/chenBiAnchorInterpolationSolver2026|BA-solver（Chen et al. 2026）]]：冻结 backbone + 轻量 SideNet（~6M params）做区间内速度插值 + 双 anchor + Gauss–Lobatto 求积，7 NFE FID 1.96（ImageNet-256）；属"learnt velocity interpolator"新档
   - 这些 solver 改进都不处理速度平均化问题——它们假设 $v_\theta$ 本身正确，只优化离散化方案或计算分配
+  - **成本口径 caveat**：[[wiki/sources/flow-matching-solver-method-taxonomy|用户整理的 solver 分类]]进一步区分步数、backbone NFE、全局阶数、自适应拒步、历史缓存和隐藏计算。积分公式、时间网格、辅助网络、轨迹选择与系统并行属于不同层，不能只按名义 NFE 横比

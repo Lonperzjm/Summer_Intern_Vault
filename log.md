@@ -555,3 +555,11 @@
 - created: `research/assets/experiments/official-1rf-solver-diagnostics/{trajectory-diagnostics,endpoint-truncation,terminal-vs-interior}.png`
 - removed: `wiki/sources/2026-08-03-official-1rf-solver-diagnostics.md`（内部实验不再创建 source 页）
 - updated: `research/experiments.md`、相关 Wiki `evidence:`
+
+## [2026-08-04] ingest | Flow Matching Solver 方法分类
+- created: `wiki/sources/flow-matching-solver-method-taxonomy.md`
+- updated: `wiki/concepts/ode-solver-taxonomy.md`
+- updated: `wiki/concepts/flow-matching.md`
+- updated: `wiki/methods/rectified-flow.md`
+- updated: `wiki/overview.md`
+- updated: `index.md`

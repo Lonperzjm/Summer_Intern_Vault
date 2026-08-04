@@ -5,8 +5,8 @@ aliases: [Rectified Flow, rectified flow, RF, "Liu et al. 2022"]
 tags: [flow-matching, ode, rectified-flow, sampling-acceleration]
 status: active
 created: 2026-05-24
-updated: 2026-08-03
-sources: ["[[wiki/sources/liuFlowStraightFast2022a]]", "[[wiki/sources/lipmanFlowMatchingGenerative2023]]", "[[wiki/sources/zhouDenoisingDiffusionBridge2023]]", "[[wiki/sources/labsFLUX1KontextFlow2025]]", "[[wiki/sources/2502.17436-towards-hierarchical-rectified-flow]]", "[[wiki/sources/wangTamingRectifiedFlow2025]]", "[[wiki/sources/bajpaiFastFlowAcceleratingGenerative2026]]", "[[wiki/sources/chenBiAnchorInterpolationSolver2026]]"]
+updated: 2026-08-04
+sources: ["[[wiki/sources/liuFlowStraightFast2022a]]", "[[wiki/sources/lipmanFlowMatchingGenerative2023]]", "[[wiki/sources/zhouDenoisingDiffusionBridge2023]]", "[[wiki/sources/labsFLUX1KontextFlow2025]]", "[[wiki/sources/2502.17436-towards-hierarchical-rectified-flow]]", "[[wiki/sources/wangTamingRectifiedFlow2025]]", "[[wiki/sources/bajpaiFastFlowAcceleratingGenerative2026]]", "[[wiki/sources/chenBiAnchorInterpolationSolver2026]]", "[[wiki/sources/flow-matching-solver-method-taxonomy]]"]
 evidence: ["[[research/experiments/2026-08-03-official-1rf-solver-diagnostics]]"]
 family: flow-matching
 ---
@@ -70,6 +70,8 @@ family: flow-matching
 ## RF 上的 Solver 改进
 
 以下方法不改 RF 模型本身，只改如何求解 RF 的 ODE（详见 [[wiki/concepts/ode-solver-taxonomy]]）：
+
+传统基线仍应保留 Euler/Heun/RK4、adaptive RK45/Tsit5、Adams–Bashforth/ABM 等层级：固定步单步法用于受控对照，自适应 RK 用作 reference trajectory，多步法用于检验历史复用收益。[[wiki/sources/flow-matching-solver-method-taxonomy|solver 分类笔记]]强调，理论阶数与实际 NFE、拒步、历史缓存和墙钟成本必须分别报告；BDF/Radau 等隐式法更适合作为小模型刚性诊断，而非大型 RF backbone 的默认采样器。
 
 - **[[wiki/sources/wangTamingRectifiedFlow2025|RF-Solver]]**（Wang et al. 2025, ICML）：利用 RF ODE 的精确积分形式，二阶 Taylor 展开近似非线性余项，误差从 $O(h^2)$ 降到 $O(h^3)$。Training-free，每步多一次 NFE。附带 **RF-Edit**（self-attention Value sharing）做结构保持编辑。专门面向 RF 参数化，在 FLUX / OpenSora 上验证
 - **[[wiki/sources/bajpaiFastFlowAcceleratingGenerative2026|FastFlow]]**（Bajpai et al. 2026, ICLR）：利用 RF 轨迹接近直线（velocity 变化小）的特性，用有限差分外推跳过平滑区间，UCB bandit 在线选跳步长度。50-step 基线约 2.65× 加速。注意：bandit 不是 instance-aware（不感知当前 $x_t$），实质是 dataset-level skip policy

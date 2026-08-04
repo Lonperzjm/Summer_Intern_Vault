@@ -5,14 +5,14 @@ aliases: [ODE solver taxonomy, solver taxonomy, 求解器谱系]
 tags: [flow-matching, diffusion, solver, ode, sampling]
 status: active
 created: 2026-07-31
-updated: 2026-08-03
-sources: ["[[wiki/sources/shaulBespokeSolversGenerative2023]]", "[[wiki/sources/shaulBespokeNonStationarySolvers2024]]", "[[wiki/sources/wangTamingRectifiedFlow2025]]", "[[wiki/sources/bajpaiFastFlowAcceleratingGenerative2026]]", "[[wiki/sources/chaTrainingFreeRefinementFlow2026]]", "[[wiki/sources/chenBiAnchorInterpolationSolver2026]]"]
+updated: 2026-08-04
+sources: ["[[wiki/sources/shaulBespokeSolversGenerative2023]]", "[[wiki/sources/shaulBespokeNonStationarySolvers2024]]", "[[wiki/sources/wangTamingRectifiedFlow2025]]", "[[wiki/sources/bajpaiFastFlowAcceleratingGenerative2026]]", "[[wiki/sources/chaTrainingFreeRefinementFlow2026]]", "[[wiki/sources/chenBiAnchorInterpolationSolver2026]]", "[[wiki/sources/flow-matching-solver-method-taxonomy]]"]
 evidence: ["[[research/experiments/2026-08-02-reject-and-skip-toy-report]]", "[[research/experiments/2026-08-03-official-1rf-solver-diagnostics]]"]
 ---
 
 # ODE Solver Taxonomy（FM/Diffusion 采样求解器谱系）
 
-> 概念页。综合 [[wiki/sources/shaulBespokeNonStationarySolvers2024|BNS]] 的 solver taxonomy 定理与 vault 已 ingest 的 solver 论文，梳理 FM/diffusion 模型采样加速的求解器全景。
+> 概念页。综合 [[wiki/sources/shaulBespokeNonStationarySolvers2024|BNS]] 的 solver taxonomy 定理、vault 已 ingest 的 solver 论文与[[wiki/sources/flow-matching-solver-method-taxonomy|用户整理的 solver 分类]]，梳理 FM/diffusion 模型采样加速的求解器全景。
 
 ## 核心前提
 
@@ -21,6 +21,20 @@ FM/diffusion 模型的确定性采样归结为求解 ODE：
 $$\frac{dx_t}{dt} = v_\theta(x_t, t)$$
 
 采样质量和速度都取决于**如何离散化这个 ODE**。所有 solver 改进都在"$v_\theta$ 本身正确"的假设下工作——如果速度场在某些区域被多模态平均化（参见 [[wiki/sources/2502.17436-towards-hierarchical-rectified-flow|HRF]] / [[wiki/sources/chaTrainingFreeRefinementFlow2026|FDS]] 的分析），solver 改进无法修复这个问题。
+
+## 传统数值基线与比较口径
+
+“步数”不能代替成本口径。至少应区分：时间步数、backbone NFE、理论全局阶数、自适应接受/拒绝、历史缓存，以及辅助网络、Jacobian/VJP、通信和编译成本。
+
+| 家族 | 代表 | 主要价值 | 主要代价或边界 |
+|---|---|---|---|
+| 显式单步 | Euler、Midpoint、Heun、RK3、RK4 | 固定步、无历史；适合可控基线 | 高阶通常需要更多当步 NFE；困难区可能降阶 |
+| 嵌入式 RK | RK45、Tsit5 | 局部误差控制；参考轨迹与诊断 | 动态 NFE、拒步；批处理与固定延迟不友好 |
+| 线性多步 / 预测—校正 | Adams–Bashforth、ABM | 热启动后用历史换低新 NFE | 有热启动、历史和稳定域问题；变步长系数复杂 |
+| 隐式刚性法 | BDF、Radau | 刚性诊断与小模型参考 | 非线性迭代/Jacobian 对大型网络通常过贵 |
+| 随机积分 | Euler–Maruyama、stochastic Heun | 反向 SDE 或随机流基线 | 不能直接替代纯确定性 FM ODE solver |
+
+Euler 每步 1 NFE，局部截断误差 $O(h^2)$、全局误差 $O(h)$。但“stage 数 = 方法阶数”不是一般规律；阶数依赖 Runge–Kutta 阶条件、速度场光滑性和稳定性假设。详见 [[wiki/sources/flow-matching-solver-method-taxonomy]]。
 
 ## BNS 的包含链（Theorem）
 
@@ -64,6 +78,12 @@ Adams-Bashforth ⊂ Multistep
 
 Temporal 和 Spatial 维度正交，可组合（如 BNS + FDS）。
 
+### 按改动对象：避免把所有加速都叫 solver
+
+除传统积分公式外，还应分开记录：模型专用参数优化、轻量辅助网络、training-free 结构化积分、时间网格/预算、轨迹选择、扩散参数化适配，以及系统/并行加速。它们通常可以跨层组合，评价时应固定其余层并逐层消融。
+
+特别是 FDS 与 [[wiki/concepts/reject-and-skip]] 更接近 sampler / coupling intervention；SADA、ParaFlow 更接近系统加速。前者不以最小化原 ODE 离散误差为唯一目标，后者也不一定减少数学意义上的 NFE。
+
 ### 按是否 instance-aware
 
 | 类型 | 代表 | 说明 |
@@ -98,4 +118,5 @@ Temporal 和 Spatial 维度正交，可组合（如 BNS + FDS）。
 ## 出处
 
 - BNS solver taxonomy: [[wiki/sources/shaulBespokeNonStationarySolvers2024]]
-- 用户整理的全景表: `raw/notes/flowmatching_solver_methods_2026-07-29.xlsx`
+- 传统数值法、专用方法分层与成本口径: [[wiki/sources/flow-matching-solver-method-taxonomy]]
+- 原始全景表: `raw/notes/flowmatching_solver_methods_2026-07-29.xlsx`
