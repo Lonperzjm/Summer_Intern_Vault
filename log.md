@@ -563,3 +563,13 @@
 - updated: `wiki/methods/rectified-flow.md`
 - updated: `wiki/overview.md`
 - updated: `index.md`
+
+## [2026-08-05] report | 组会反馈 + Reject-and-Skip 机制关卡 + 下周计划
+- updated: `reports/meetings/2026-08-05-group.md` —— 补充会后记录：导师认为想法可能具有新颖性、仍可尝试，但指出两个关键风险：尖锐转折未必由分支交叉引起，跨越后也未必存在可信恢复区
+- created: `raw/worklogs/2026-08-05.md` —— 记录组会准备、导师反馈、方向修正、连续/离散 Flow Matching 区分及下周计划
+- created: `Summer_Intern/presentation/2026-08-05-group/{slides.pdf,slides.tex,scripts.md}` —— 11 页 Beamer 组会幻灯片、源码与逐页讲稿
+- 机制关卡：Reject-and-Skip 必须同时证明“尖锐转折与多分支混合有关”和“跨越后存在可信恢复区”；当前真实模型结果尚未通过任一关卡
+- 方向区分：组内用于分类、少样本和组合零样本学习的工作属于连续 Flow Matching，可利用类别标签检验分支混合假设；Discrete Flow Matching / 离散 diffusion 是导师另外提示的独立线索，不与组内连续分类工作混同
+- next P0：用高精度 RK4 原始高维状态建立内部曲率事件集；随后进行预知尖角的 Euler 大步 / midpoint / 跨步校正 / 缩步恢复实验，先回答“大步能否跨过并恢复”，暂不继续堆 detector
+- next P1：对照 FMA、FlowComposer、HFM、DP-FM，选择一个可访问连续中间特征和类别标签的组内模型，比较边缘速度与类别条件速度曲率
+- stop/go：若内部尖角后不存在跨样本、跨分辨率稳定恢复区，则暂停当前 Reject-and-Skip 构造；若预知跨步成立，再设计低额外 NFE detector 与出口验证器
