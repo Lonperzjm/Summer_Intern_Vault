@@ -573,3 +573,27 @@
 - next P0：用高精度 RK4 原始高维状态建立内部曲率事件集；随后进行预知尖角的 Euler 大步 / midpoint / 跨步校正 / 缩步恢复实验，先回答“大步能否跨过并恢复”，暂不继续堆 detector
 - next P1：对照 FMA、FlowComposer、HFM、DP-FM，选择一个可访问连续中间特征和类别标签的组内模型，比较边缘速度与类别条件速度曲率
 - stop/go：若内部尖角后不存在跨样本、跨分辨率稳定恢复区，则暂停当前 Reject-and-Skip 构造；若预知跨步成立，再设计低额外 NFE detector 与出口验证器
+
+## [2026-08-03] refactor | Vault Git 版本化与 Codex 入口契约（审计补记）
+- initialized: Summer_Intern_Vault Git 仓库；首次同步提交为 `7bd30ff`，用于保留 solver 调研、研究笔记、实验报告和 Wiki 的可追溯版本
+- created: `AGENTS.md` —— Codex 进入 Vault 的自动入口；要求修改前完整阅读 `CLAUDE.md`、`index.md` 和近期 `log.md`，并将 `CLAUDE.md` 视为唯一权威工作流契约
+- updated: `CLAUDE.md`、`GUIDANCE.md`、`index.md` —— 实验报告工作流、内容卫生和 Codex 适配规则已由同次首次同步纳入版本控制；具体 schema 变更另见已有 `2026-08-03 refactor | experiment report workflow`
+- audit note: 首次快照同时纳入当时已有的 `raw/notes/flowmatching_solver_methods_2026-07-29.xlsx`；仅记录其进入版本控制，不从文件时间或提交归因其内容作者
+
+## [2026-08-04] refactor | 原始工作记录与 solver 方法资料同步（审计补记）
+- created: `raw/worklogs/{2026-07-31,2026-08-02,2026-08-03,2026-08-04}.md` —— 按用户当时的显式请求归档每日工作；8 月 4 日文件随后补充 velocity-return、高维路径、加速度和端点边界层结果
+- created: `raw/literature-notes/{bajpaiFastFlowAcceleratingGenerative2026,chenBiAnchorInterpolationSolver2026}.md` —— 对应 Wiki ingest 已分别记录，但原始文献笔记进入 Vault 此前未单列
+- created: `raw/notes/flow-matching solver 方法分类.md` —— solver 方法分类原始资料；对应知识层 ingest 已记录于 `2026-08-04 ingest | Flow Matching Solver 方法分类`
+- updated: `raw/notes/flowmatching_solver_methods_2026-07-29.xlsx` —— 已进入 Git 历史；本审计只记录同步事实，不覆盖或归因当前未提交的后续改动
+
+## [2026-08-05] report | 组会简报与路径诊断图归档（审计补记）
+- created: `reports/meetings/2026-08-05-group.md` —— 会前简报，先后补充 solver 文献地图、真实路径机制、三个核心实验问题和逐页口头稿；会后反馈见同日后续 report 条目
+- created: `research/assets/experiments/official-1rf-path-development/euler-100-rapid-change-curves.png`
+- created: `research/assets/experiments/official-1rf-path-development/euler-20-sample5-{dimensions-01,dimensions-02,dimensions-03,dimensions-04,final}.png`
+- updated: 简报将“坐标单调”与“路径近似直线”明确区分，并把 Euler-20 同一样本 16 个维度作为主要几何证据
+
+## [2026-08-05] refactor | Codex 会话与 Vault 日志完整性审计
+- audited: 当前长会话 JSONL、8 月 1 日以来 Vault Git 提交的逐文件清单，以及 `log.md` 已有条目
+- backfilled: Git/`AGENTS.md` 入口契约、daily worklog/solver 原始资料、组会简报与路径图三类遗漏记录
+- preserved: 当前工作树中既有的 Obsidian 插件、Excel 和用户笔记改动未修改、未提交、未归因
+- contract note: `raw/worklogs/` 默认由用户写、代理只读；此前 7 月 31 日至 8 月 4 日日志均有用户显式要求。`2026-08-05.md` 源于对“Vault 的 log”一词的错误理解，现保留文件但不把它视为今后的默认写入先例
