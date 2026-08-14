@@ -5,8 +5,8 @@ aliases: [non-Markovian diffusion, 非马尔可夫扩散, "DDIM 前向族"]
 tags: [diffusion, sampling-acceleration]
 status: active
 created: 2026-05-14
-updated: 2026-06-01
-sources: ["[[wiki/sources/songDenoisingDiffusionImplicit2022]]", "[[wiki/sources/zhengDiffusionBridgeImplicit2025]]"]
+updated: 2026-08-14
+sources: ["[[wiki/sources/songDenoisingDiffusionImplicit2022]]", "[[wiki/sources/zhengDiffusionBridgeImplicit2025]]", "[[wiki/sources/chungCFGMANIFOLDCONSTRAINEDCLASSIFIER]]"]
 ---
 
 # Non-Markovian Diffusion（非马尔可夫前向过程族）
@@ -56,6 +56,7 @@ $$
 
 - 把"前向过程"从一条死链变成一个**可设计的对象**：编辑方法可以借此选择在哪条轨迹、哪些时间步上注入条件。
 - $\sigma=0$ 的确定性是 DDIM inversion 的前提——inversion-based 编辑的整条技术路线由此打开。
+- [[wiki/methods/cfg-plus-plus|CFG++]] 表明确定性本身不足以保证带 guidance 的往返闭合：外推 prediction 同时用于 denoise 与 renoise 会放大跨步误差；unconditional renoising 可显著恢复稳定性。
 
 ## 出处与引用
 

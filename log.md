@@ -597,3 +597,64 @@
 - backfilled: Git/`AGENTS.md` 入口契约、daily worklog/solver 原始资料、组会简报与路径图三类遗漏记录
 - preserved: 当前工作树中既有的 Obsidian 插件、Excel 和用户笔记改动未修改、未提交、未归因
 - contract note: `raw/worklogs/` 默认由用户写、代理只读；此前 7 月 31 日至 8 月 4 日日志均有用户显式要求。`2026-08-05.md` 源于对“Vault 的 log”一词的错误理解，现保留文件但不把它视为今后的默认写入先例
+
+## [2026-08-11] ingest | dhariwalDiffusionModelsBeat2021 Diffusion Models Beat GANs on Image Synthesis
+- created: `wiki/sources/dhariwalDiffusionModelsBeat2021.md`
+- updated: `wiki/concepts/classifier-guidance.md` —— 补全原文细节（ADM 架构、guidance scale trade-off、noise-robust classifier）、状态升 stable
+- updated: `wiki/concepts/classifier-free-guidance.md` —— 待补项勾选
+- updated: `wiki/overview.md` —— 待调研方向 guidance 旋钮条勾选、sources 列表加入本文
+- backfill: `raw/literature-notes/dhariwalDiffusionModelsBeat2021.md` frontmatter `ingested_to_wiki: true` + `wiki_page`
+
+## [2026-08-11] ingest | hoClassifierFreeDiffusionGuidance2022 Classifier-Free Diffusion Guidance
+- created: `wiki/sources/hoClassifierFreeDiffusionGuidance2022.md`
+- updated: `wiki/concepts/classifier-free-guidance.md` —— 从 stub 扩充为完整概念页（训练/采样细节、非保守场 caveat、几何直觉、实证数据）
+- updated: `wiki/entities/jonathan-ho.md` —— sources 加入 CFG，备注更新
+- updated: `wiki/sources/dhariwalDiffusionModelsBeat2021.md` —— 待后续 ingest 勾选 CFG
+- updated: `wiki/overview.md` —— sources 列表加入本文、待调研方向 guidance 旋钮条完成标记
+- backfill: `raw/literature-notes/hoClassifierFreeDiffusionGuidance2022.md` frontmatter `ingested_to_wiki: true` + `wiki_page`
+
+
+## [2026-08-11] ingest | kynkaanniemiApplyingGuidanceLimited2024 Applying Guidance in a Limited Interval
+- created: wiki/sources/kynkaanniemiApplyingGuidanceLimited2024.md
+- updated: wiki/concepts/classifier-free-guidance.md —— CFG 控制量由单一 scale 扩展为 scale × noise interval，补充计算收益与机制 caveat
+- updated: wiki/overview.md —— 为“介入时间步是研究杠杆”补 Guidance Interval 生成实证；working thesis 版本不变
+- verified: index.md —— Sources Dataview 自动收录新页，updated 已为 2026-08-11
+- backfill: raw/literature-notes/kynkaanniemiApplyingGuidanceLimited2024.md frontmatter ingested_to_wiki: true + wiki_page
+
+## [2026-08-11] worklog | SiT CFG 尺度实验与 guidance 阅读路线
+- created: `raw/worklogs/2026-08-11.md` —— 记录官方 SiT-XL/2 Euler 10–1000 步扫描、CFG=0/1/4/6 控制实验、结论边界与下一步同状态速度分解
+- reading: 串联此前已 ingest 的 Score SDE、Flow Matching，与今日 ingest 的 classifier guidance、CFG、Limited Interval Guidance；将 What Does Guidance Do?、CFG++、Learn to Guide 明确列为下一批待读材料
+- evidence: 外部实验主报告 `/home/lonper/homework/Summer_Intern/reports/2026-08-11-official-sit-euler-step-sweep.md`
+
+## [2026-08-14] ingest | chidambaramWhatDoesGuidance2024 What Does Guidance Do?
+- created: `wiki/sources/chidambaramWhatDoesGuidance2024.md`
+- updated: `wiki/concepts/classifier-free-guidance.md` —— tilted-distribution caveat、transport bias、tail score error
+- updated: `wiki/concepts/classifier-guidance.md` —— 修正终点 tilted sampling 的过强表述
+- updated: `wiki/concepts/probability-flow-ode.md` —— guided PF-ODE 改变边缘路径
+- updated: `wiki/overview.md` —— guidance 扩展为 scale × timing × visited-state distribution；working thesis 版本不变
+- updated: `index.md`
+- backfill: `raw/literature-notes/chidambaramWhatDoesGuidance2024.md` frontmatter
+
+## [2026-08-14] ingest | chungCFGMANIFOLDCONSTRAINEDCLASSIFIER CFG++
+- created: `wiki/sources/chungCFGMANIFOLDCONSTRAINEDCLASSIFIER.md`
+- created: `wiki/methods/cfg-plus-plus.md` —— guided denoising + unconditional renoising
+- updated: `wiki/concepts/classifier-free-guidance.md`
+- updated: `wiki/methods/ddim.md`、`wiki/concepts/non-markovian-diffusion.md`
+- updated: `wiki/overview.md` —— guidance 增加 update decomposition；working thesis 版本不变
+- verified: `index.md` —— Methods / Sources Dataview 自动收录，updated 已为 2026-08-14
+- backfill: `raw/literature-notes/chungCFGMANIFOLDCONSTRAINEDCLASSIFIER.md` frontmatter
+
+## [2026-08-14] ingest | galashovLearnGuideYour2025 Learn to Guide Your Diffusion Model (Galashov et al. 2025)
+- created: `wiki/sources/galashovLearnGuideYour2025.md` / `wiki/methods/learn-to-guide.md`
+- updated: CFG、Flow Matching、Guidance Interval、CFG++ 与 overview，串起固定 scale → interval → learned condition/two-time policy
+- updated: raw note 仅回填 `ingested_to_wiki` / `wiki_page`；status/priority/my-rating 未动
+- thesis：版本不变；方法不是 state-adaptive，不直接验证 Reject-and-Skip；1.05B Flow Matching 实验提供跨底座证据
+- index：Dataview 自动纳入新增页，根页日期已为 2026-08-14
+
+## [2026-08-14] ingest | jainDiffusionTreeSampling2025 Diffusion Tree Sampling (Jain et al. 2025)
+- created: `wiki/sources/jainDiffusionTreeSampling2025.md` / `wiki/methods/diffusion-tree-sampling.md`
+- updated: Training-Free Guidance、Tweedie、Reject-and-Skip 与 overview；加入 soft-value backup、高噪声 value bias 和 DTS/DTS$^\star$ 区分
+- novelty boundary：轨迹分支搜索、terminal reward backup、跨 rollout 复用均已有直接 prior art；Reject-and-Skip 收窄为 deterministic FM、严格低 NFE、单轨迹 state-triggered 局部干预
+- raw：仅回填 `ingested_to_wiki` / `wiki_page`；status/priority/my-rating 未动
+- thesis / research：working thesis 版本不变，未写 research/
+- index：Dataview 自动纳入新增 source/method，根页日期已为 2026-08-14

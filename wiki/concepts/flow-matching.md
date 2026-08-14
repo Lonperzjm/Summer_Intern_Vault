@@ -5,8 +5,8 @@ aliases: [Flow Matching, FM, 流匹配]
 tags: [flow-matching, cnf, generative-model, ode]
 status: active
 created: 2026-05-24
-updated: 2026-08-04
-sources: ["[[wiki/sources/lipmanFlowMatchingGenerative2023]]", "[[wiki/sources/liuFlowStraightFast2022a]]", "[[wiki/sources/zhouDenoisingDiffusionBridge2023]]", "[[wiki/sources/2502.17436-towards-hierarchical-rectified-flow]]", "[[wiki/sources/chaTrainingFreeRefinementFlow2026]]", "[[wiki/sources/shaulBespokeSolversGenerative2023]]", "[[wiki/sources/shaulBespokeNonStationarySolvers2024]]", "[[wiki/sources/wangTamingRectifiedFlow2025]]", "[[wiki/sources/bajpaiFastFlowAcceleratingGenerative2026]]", "[[wiki/sources/chenBiAnchorInterpolationSolver2026]]", "[[wiki/sources/flow-matching-solver-method-taxonomy]]"]
+updated: 2026-08-14
+sources: ["[[wiki/sources/lipmanFlowMatchingGenerative2023]]", "[[wiki/sources/liuFlowStraightFast2022a]]", "[[wiki/sources/zhouDenoisingDiffusionBridge2023]]", "[[wiki/sources/2502.17436-towards-hierarchical-rectified-flow]]", "[[wiki/sources/chaTrainingFreeRefinementFlow2026]]", "[[wiki/sources/shaulBespokeSolversGenerative2023]]", "[[wiki/sources/shaulBespokeNonStationarySolvers2024]]", "[[wiki/sources/wangTamingRectifiedFlow2025]]", "[[wiki/sources/bajpaiFastFlowAcceleratingGenerative2026]]", "[[wiki/sources/chenBiAnchorInterpolationSolver2026]]", "[[wiki/sources/flow-matching-solver-method-taxonomy]]", "[[wiki/sources/galashovLearnGuideYour2025]]"]
 evidence: ["[[research/experiments/2026-08-02-reject-and-skip-toy-report]]", "[[research/experiments/2026-08-03-official-1rf-solver-diagnostics]]"]
 ---
 
@@ -56,6 +56,7 @@ $$\frac{\partial p_t}{\partial t}+\nabla\!\cdot(p_t v_t)=0,$$
 - 路径实例：[[wiki/concepts/optimal-transport-path]]、diffusion 路径（[[wiki/methods/ddpm]]/[[wiki/methods/ncsn]]）
 - 采样近亲：[[wiki/concepts/probability-flow-ode]]（同为确定性 ODE，但 score 事后导出 vs FM 直接训练）
 - 自洽判据：[[wiki/concepts/fokker-planck-equation]]（无扩散退化）
+- learned guidance：[[wiki/methods/learn-to-guide|Learn to Guide]] 冻结 1.05B velocity model 学习 $\omega(c,s,t)$；它不改变 FM 训练目标或 ODE solver。
 
 ## 在 text-guided editing 中的作用
 
@@ -65,6 +66,7 @@ $$\frac{\partial p_t}{\partial t}+\nabla\!\cdot(p_t v_t)=0,$$
 ## 出处与引用
 
 - [[wiki/sources/lipmanFlowMatchingGenerative2023]]（FM 原文）
+- [[wiki/sources/galashovLearnGuideYour2025]]（冻结 1.05B FM backbone 的 learned guidance）
 - 并行工作：[[wiki/sources/liuFlowStraightFast2022a|Liu et al. 2022 (Rectified Flow)]]（已 ingest 2026-05-26；公式上 RF = FM-OT 路径取 $\sigma_{\min}=0$ + 任意 coupling 接口 + [[wiki/concepts/reflow|reflow]]）、[[wiki/concepts/stochastic-interpolants|Stochastic Interpolants]]（[[wiki/sources/albergoStochasticInterpolants2023|Albergo, Boffi & Vanden-Eijnden 2023]]，✅ 已 ingest——"自由选 interpolant + 选 diffusion 系数"统一 flow 与 diffusion，FM 是其 ODE 侧特例）
 - **bridge ODE vs bridge SDE**：FM/RF 是**确定 ODE**地连接两端分布（学速度场）；[[wiki/methods/ddbm|DDBM]] 是**随机 SDE** 版的 [[wiki/concepts/diffusion-bridge|扩散桥]]（学 score、[[wiki/concepts/doob-h-transform|Doob h]] 钉端点）。DDBM 论文称"unifies OT-FM"，但其正文表明这只是 noiseless 极限 $c\to0$ + 特定 VE schedule 的**有条件约化**（非严格特例）；两者真正的统一归宿是 [[wiki/concepts/stochastic-interpolants|stochastic interpolants]]，且 DDBM 用的是不同的 denoising bridge score-matching loss
 - **速度平均化与推理时修正**：

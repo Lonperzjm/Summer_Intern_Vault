@@ -5,8 +5,8 @@ aliases: [Tweedie, Tweedie's formula, Tweedie 公式, posterior mean, empirical 
 tags: [diffusion, score-sde, guidance, sampling]
 status: stable
 created: 2026-06-24
-updated: 2026-06-24
-sources: ["[[wiki/sources/songScoreBasedGenerativeModeling2021]]"]
+updated: 2026-08-14
+sources: ["[[wiki/sources/songScoreBasedGenerativeModeling2021]]", "[[wiki/sources/jainDiffusionTreeSampling2025]]"]
 ---
 
 # Tweedie 公式（后验均值 $\hat x_0$）
@@ -34,9 +34,11 @@ $$\nabla_{x_t}\log p_t(x_t)=-\frac{x_t-\sqrt{\bar\alpha_t}\,\mathbb E[x_0\mid x_
 
 - **clean-estimate 引导的入口**：把带噪 $x_t$ 上无从评分的能量，换成"评在 $\hat x_0$ 上"——[[wiki/methods/freedom|FreeDoM]] / DPS / [[wiki/concepts/training-free-guidance|training-free guidance]] 全靠它。
 - **偏差来源**：用 $\hat x_0$ 这一个点替期望 $\mathbb E[f(x_0)\mid x_t]$ 有 **Jensen gap**，高噪声（后验宽）下变大——这是该路线的核心弱点。
+- **直接实证**：[[wiki/sources/jainDiffusionTreeSampling2025|Diffusion Tree Sampling]] 的 2D bias–variance 分析显示，Tweedie one-step 的 value estimate 随噪声升高而恶化；用多条真实 rollout 的 terminal reward 做 tree aggregation 可降低 bias 与 variance，但计算远高于单点估计。
 
 ## 关系
 
 - 母页：[[wiki/concepts/conditional-diffusion]]（§3–§4）；底座 [[wiki/concepts/score-sde]]
 - 用它的方法：[[wiki/methods/freedom]]、[[wiki/methods/egsde]]（对照：EGSDE 刻意**不**用 $\hat x_0$，走 noisy-aligned）
 - 子族：[[wiki/concepts/training-free-guidance]]
+- 绕开单点 value approximation：[[wiki/methods/diffusion-tree-sampling|DTS]]

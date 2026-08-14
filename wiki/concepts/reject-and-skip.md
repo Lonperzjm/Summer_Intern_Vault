@@ -5,8 +5,8 @@ aliases: [reject-and-skip flow solver, rollback-and-skip, 拒绝并跨越]
 tags: [flow-matching, solver, transport-coupling, adaptive-inference]
 status: active
 created: 2026-08-03
-updated: 2026-08-03
-sources: []
+updated: 2026-08-14
+sources: ["[[wiki/sources/jainDiffusionTreeSampling2025]]"]
 evidence: ["[[research/experiments/2026-08-02-reject-and-skip-toy-report]]", "[[research/experiments/2026-08-03-official-1rf-solver-diagnostics]]"]
 ---
 
@@ -75,6 +75,20 @@ $$
 - **Real-model observation**：CIFAR-10 1-RF 存在可检测的数值困难与强 endpoint boundary layer；velocity-based 信号能预测局部截断误差。
 - **Unknown**：内部困难是否对应 conditional ambiguity；更远候选是否出现稳定 velocity return；skip 是否在严格同 NFE 下改善生成分布。
 
+## 与 Diffusion Tree Sampling 的新颖性边界
+
+[[wiki/methods/diffusion-tree-sampling|DTS]] 已占据“生成轨迹分支搜索 + terminal reward backup + 跨 rollout 复用”这一宽泛位置。两者当前仍有明确边界：
+
+| 维度 | DTS | Reject-and-Skip |
+|---|---|---|
+| 底座 | stochastic reverse Markov chain | deterministic Flow Matching ODE |
+| 范围 | 跨 rollout 的全局持久树 | 单轨迹、局部触发 |
+| 信号 | clean endpoint reward / soft value | 在线状态或 velocity 可信度 |
+| 预算 | 高 branching NFE、anytime scaling | 严格等低 NFE |
+| 动作 | selection / expansion / rollout / backup | trial / reject / rollback / skip |
+
+因此，branch search、lookahead 或 terminal feedback 本身不能作为本方向的新意；若未来引入这些组件，必须以 DTS 为直接 prior art。当前可守的研究命题是：**不依赖 terminal reward 和持久树，能否用低成本 state detector 在 deterministic flow 中完成局部 coupling intervention。**
+
 ## 成功判据
 
 1. 非 oracle detector 在独立校准种子上稳定触发，而非只编码全局时间位置。
@@ -87,6 +101,7 @@ $$
 - 理论来源：[[wiki/concepts/conditional-flow-matching]]、[[wiki/concepts/flow-matching]]
 - 解释核心：[[wiki/concepts/transport-coupling]]
 - 方法定位：[[wiki/concepts/ode-solver-taxonomy]] 中的 instance-aware temporal intervention
+- 搜索型直接 prior art：[[wiki/methods/diffusion-tree-sampling|DTS]]
 - Backbone：[[wiki/methods/rectified-flow]]
 - 研究路线：[[wiki/synthesis/reject-and-skip-research-direction]]
 

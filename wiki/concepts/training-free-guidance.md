@@ -5,8 +5,8 @@ aliases: [training-free guidance, 免训练引导, plug-and-play guidance, clean
 tags: [diffusion, guidance, conditioning, energy-guidance, training-free]
 status: active
 created: 2026-06-23
-updated: 2026-06-23
-sources: ["[[wiki/sources/yuFreeDoMTrainingFreeEnergyGuided2023b]]"]
+updated: 2026-08-14
+sources: ["[[wiki/sources/yuFreeDoMTrainingFreeEnergyGuided2023b]]", "[[wiki/sources/jainDiffusionTreeSampling2025]]"]
 ---
 
 # Training-Free Guidance（免训练引导）
@@ -48,6 +48,8 @@ sources: ["[[wiki/sources/yuFreeDoMTrainingFreeEnergyGuided2023b]]"]
 ## 偏差问题与 flow 角度
 
 点估计 $E(\hat x_0)\approx\mathbb E[E(x_0)]$ 有 Jensen 偏差，高噪声下大。修法：训练精确能量（[Contrastive Energy Prediction (Lu 2023)](https://arxiv.org/pdf/2304.12824)）或局部 MC（LGD）。
+
+[[wiki/methods/diffusion-tree-sampling|Diffusion Tree Sampling]] 给出更全局的替代：不用一次 $r(\hat x_0)$ 决策，而是保存 stochastic denoising tree，以多个真实 terminal rewards 做 soft-value backup。其 2D 实验直接显示 Tweedie one-step 在高噪声时 bias/variance 上升，而 tree aggregation 可降低两者；代价是大量串行 rollout、缓存和 branching NFE。
 - **flow 角度**：FM 无显式 score，[[wiki/methods/fmps|FMPS]] 用"速度↔score 桥"把这套接到 flow，并给 $\hat x_0=x_t-tv$（gradient，准/贵）与前向反解（free，便宜/糙）两版——**等于把"flow 上 clean-estimate 引导"做齐了**。其它 flow 版：[TFG-Flow](https://arxiv.org/pdf/2501.14216)、FlowChef、OC-Flow。⚠️ 注：$\hat x_0=x_t-tv=\mathbb E[x_0\mid x_t]$ 同为后验均值，"flow 更准"未被证（[[research/ideas]]）。
 
 ## 关系
@@ -55,4 +57,5 @@ sources: ["[[wiki/sources/yuFreeDoMTrainingFreeEnergyGuided2023b]]"]
 - 母页：[[wiki/concepts/conditional-diffusion]]、[[wiki/concepts/energy-guidance]]
 - 原型：[[wiki/concepts/classifier-guidance]]；对照：[[wiki/methods/egsde]]（noisy-aligned 反例）
 - 代表方法：[[wiki/methods/freedom]]
+- value-backup / search 路线：[[wiki/methods/diffusion-tree-sampling|DTS]]
 - 出处：[[wiki/sources/yuFreeDoMTrainingFreeEnergyGuided2023b]]

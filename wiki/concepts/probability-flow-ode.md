@@ -5,8 +5,8 @@ aliases: [probability flow ODE, PF-ODE, 概率流 ODE, 确定性采样 ODE]
 tags: [diffusion, sde, sampling, ode, score-based]
 status: active
 created: 2026-05-20
-updated: 2026-07-31
-sources: ["[[wiki/sources/songScoreBasedGenerativeModeling2021]]", "[[wiki/sources/liuFlowStraightFast2022a]]", "[[wiki/sources/zhouDenoisingDiffusionBridge2023]]", "[[wiki/sources/zhengDiffusionBridgeImplicit2025]]", "[[wiki/sources/shaulBespokeNonStationarySolvers2024]]"]
+updated: 2026-08-14
+sources: ["[[wiki/sources/songScoreBasedGenerativeModeling2021]]", "[[wiki/sources/liuFlowStraightFast2022a]]", "[[wiki/sources/zhouDenoisingDiffusionBridge2023]]", "[[wiki/sources/zhengDiffusionBridgeImplicit2025]]", "[[wiki/sources/shaulBespokeNonStationarySolvers2024]]", "[[wiki/sources/chidambaramWhatDoesGuidance2024]]"]
 ---
 
 # Probability-Flow ODE
@@ -40,6 +40,7 @@ $$\tilde f(x,t) = f(x,t) - \tfrac12 g(t)^2\nabla_x\log p_t(x).$$
 - 与 [[wiki/concepts/predictor-corrector-sampling|PC 采样]] 并列，是 [[wiki/concepts/score-sde|Score SDE]] 的两类采样器之一（确定性 vs 随机）
 - 共享边缘的依据是 [[wiki/concepts/fokker-planck-equation]]
 - score 由 [[wiki/concepts/score-matching]] 训练给出
+- **Guidance 会换掉边缘路径**：替换为逐时 guided score 后得到另一条 ODE dynamics；不能仅凭终点 tilted-score 恒等式推断最终分布。[[wiki/sources/chidambaramWhatDoesGuidance2024|Chidambaram et al. 2024]] 证明 noising 与 tilting 不交换，并刻画 guided PF-ODE 的 boundary/tail concentration 与 off-support failure。
 - **速度场本质**：PF-ODE 的速度场 $f-\tfrac12 g^2\nabla\log p$ 是**保守场**（VE/VP 下均可验证），而 [[wiki/concepts/flow-matching|FM]] 的速度场一般非保守——这是 PF-ODE 与 FM-ODE"同为确定性 ODE 却不等价"的根源，详见 [[wiki/comparisons/score-vs-velocity-field]]
 - **桥版 PF-ODE（[[wiki/methods/ddbm|DDBM]]）**：钉死终点 $x_T=y$ 后，桥也有自己的确定性 PF-ODE（[[wiki/sources/zhouDenoisingDiffusionBridge2023|Zhou et al. 2023]] 公式 7）$\mathrm dx_t=[f-g^2(\tfrac12 s-h)]\mathrm dt$，含 [[wiki/concepts/doob-h-transform|Doob h]] 项 $h$；但 DDBM 实测**纯 ODE 采样会糊**（确定性给"平均"路径），需注入 stochasticity——印证"桥的多样性靠 SDE 的随机性"
 - **桥的隐式 ODE（[[wiki/methods/dbim|DBIM]]）**：[[wiki/sources/zhengDiffusionBridgeImplicit2025|Zheng et al. 2025]] 用[[wiki/concepts/non-markovian-diffusion|非马尔可夫]]桥诱导一条**新形式的桥 ODE**（$\rho{=}0$），并解决了 DDBM 纯 ODE 的初始步奇异（**booting noise**）。于是确定性桥采样不再糊、反而 25× 加速，且 $\rho{=}0$ ODE 的**双向确定性**让桥也获得 encoding/reconstruction（= bridge 版 DDIM inversion）——补上了 DDBM 缺的"确定可逆"

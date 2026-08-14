@@ -5,8 +5,8 @@ aliases: [Ho, J. Ho]
 tags: [researcher]
 status: stable
 created: 2026-05-10
-updated: 2026-07-24
-sources: ["[[wiki/sources/hoDenoisingDiffusionProbabilistic2020]]"]
+updated: 2026-08-11
+sources: ["[[wiki/sources/hoDenoisingDiffusionProbabilistic2020]]", "[[wiki/sources/hoClassifierFreeDiffusionGuidance2022]]"]
 kind: person
 ---
 
@@ -19,7 +19,7 @@ kind: person
 ## 关键贡献 / 关键工作
 
 - DDPM（[[wiki/sources/hoDenoisingDiffusionProbabilistic2020]]） —— 把 diffusion 推上图像生成 SOTA
-- [[wiki/concepts/classifier-free-guidance|Classifier-Free Guidance]]（Ho & Salimans 2022） —— 现代 text-to-image 的事实标准
+- [[wiki/sources/hoClassifierFreeDiffusionGuidance2022|Classifier-Free Guidance]]（Ho & Salimans 2022） —— 现代 text-to-image 的事实标准
 - Cascaded Diffusion Models、Video Diffusion、Imagen 等
 
 ## 关系网
@@ -28,4 +28,4 @@ kind: person
 
 ## 备注
 
-- 待补 stub：将在后续 ingest（CFG、Imagen 等）中扩充
+- CFG 已 ingest（[[wiki/sources/hoClassifierFreeDiffusionGuidance2022]]）；待补：Imagen、Video Diffusion

@@ -5,8 +5,8 @@ aliases: [DDIM]
 tags: [diffusion, sampling-acceleration, deterministic-sampling]
 status: stable
 created: 2026-05-14
-updated: 2026-05-29
-sources: ["[[wiki/sources/songDenoisingDiffusionImplicit2022]]"]
+updated: 2026-08-14
+sources: ["[[wiki/sources/songDenoisingDiffusionImplicit2022]]", "[[wiki/sources/chungCFGMANIFOLDCONSTRAINEDCLASSIFIER]]"]
 family: other
 ---
 
@@ -50,6 +50,10 @@ return x_0
 
 把上面的 ODE $\mathrm d\bar x = \varepsilon_\theta(\cdot)\,\mathrm d\sigma$ 从 $t=0$ 反向积分，可把真实图像编码回 latent $x_T$——DDIM inversion 的雏形，下游编辑方法据此实现"先 invert 再带条件 denoise"。这条 ODE 正是 [[wiki/concepts/probability-flow-ode|probability-flow ODE]] 的离散化（VP-SDE 情形），[[wiki/sources/songScoreBasedGenerativeModeling2021|Song et al. 2021]] 给出其连续时间母体——可逆性、精确似然由此而来。一句话：**DDIM = diffusion 的训练 + flow 的采样**。
 
+### 强 guidance 为什么破坏 inversion
+
+DDIM inversion 依赖相邻步 noise prediction 近似不变。Vanilla CFG 的跨步条件误差被 $\omega$ 放大。[[wiki/methods/cfg-plus-plus|CFG++]] 用较小 $\lambda$ 形成 clean estimate，并用 unconditional prediction renoise，使对应误差从 $\omega\,\Delta\epsilon_c$ 降为 $\lambda\,\Delta\epsilon_c$。它改善 reconstruction/editing，但仍有 DDIM 离散误差。
+
 ## 适用场景与限制
 
 **适用**：任何已训 DDPM-style 模型的快速采样；确定性采样带来的 latent 语义插值、consistency；inversion-based 图像编辑的底座。
@@ -68,6 +72,6 @@ return x_0
 
 - 概念：[[wiki/concepts/non-markovian-diffusion]]、[[wiki/concepts/epsilon-parameterization]]、[[wiki/concepts/diffusion-process]]、[[wiki/concepts/score-sde]]、[[wiki/concepts/probability-flow-ode]]、[[wiki/concepts/variational-bound-elbo]]
 - 上游：[[wiki/methods/ddpm]]（共享 ε 网络与训练目标）；[[wiki/concepts/probability-flow-ode|probability-flow ODE]]（确定性采样的连续母体，[[wiki/sources/songScoreBasedGenerativeModeling2021|Song et al. 2021]]）
-- 下游：DDIM inversion → inversion-based text-guided editing；扩散蒸馏 / Consistency Models；"连训练也 flow 化"的近亲 → [[wiki/concepts/flow-matching|Flow Matching]] / [[wiki/methods/rectified-flow|Rectified Flow]]
+- 下游：DDIM inversion → inversion-based text-guided editing；[[wiki/methods/cfg-plus-plus|CFG++]]（降低 guidance-induced inversion error）；扩散蒸馏 / Consistency Models；"连训练也 flow 化"的近亲 → [[wiki/concepts/flow-matching|Flow Matching]] / [[wiki/methods/rectified-flow|Rectified Flow]]
 - 编辑应用：**SD img2img** = [[wiki/methods/sdedit|SDEdit]] 用 DDIM 采样器的确定性版——加噪到 [[wiki/concepts/noising-strength|$t_0$（`strength`）]] 后用 DDIM reverse；"确定性 SDEdit ≈ DDIM img2img"。注意区分 **DDIM inversion**（把 $x_0$ 精确反演回 $x_T$，需要带优化的编辑方法）与 **SDEdit/img2img**（直接加噪，不反演）——同属 inversion/noising-based 派系但成本两端
 - 出处：[[wiki/sources/songDenoisingDiffusionImplicit2022]]
